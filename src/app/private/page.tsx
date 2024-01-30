@@ -1,7 +1,10 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
+import { Button } from "@/components/ui/button";
+import LogoutButton from "@/components/ui/LogoutButton";
 
 export default async function PrivatePage() {
   const cookieStore = cookies();
@@ -12,5 +15,21 @@ export default async function PrivatePage() {
     redirect("/");
   }
 
-  return <p>Hello {data.user.email}</p>;
+  async function signOut() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      redirect("/error");
+    }
+
+    revalidatePath("/", "layout");
+    redirect("/");
+  }
+
+  return (
+    <div>
+      <p>Hello {data.user.email}</p>
+      <LogoutButton />
+    </div>
+  );
 }
