@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Form from "./Form";
 
-export default async function PrivatePage() {
+export default async function EditPage() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
