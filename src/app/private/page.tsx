@@ -1,34 +1,41 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
 import LogoutButton from "@/components/ui/LogoutButton";
 
 export default async function PrivatePage() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  console.log(userData);
+  if (userError || !userData?.user) {
     redirect("/");
   }
 
-  async function signOut() {
-    const { error } = await supabase.auth.signOut();
+  const { data: profileDataArray, error: profileError } = await supabase
+    .from("profiles")
+    .select()
+    .eq("id", userData.user.id);
 
-    if (error) {
-      redirect("/error");
-    }
+  const profileData = profileDataArray && profileDataArray[0];
 
-    revalidatePath("/", "layout");
-    redirect("/");
+  if (profileError) {
+    console.log(profileError);
+  }
+
+  if (userError || !userData?.user) {
+    console.log(userError);
   }
 
   return (
     <div>
-      <p>Hello {data.user.email}</p>
+      <p>Hello {userData.user.email}</p>
+      <p>First name: {profileData && profileData.first_name}</p>
+      <p>Last name: {profileData && profileData.last_name}</p>
+      <p>bio: {profileData && profileData.bio}</p>
       <LogoutButton />
     </div>
   );
