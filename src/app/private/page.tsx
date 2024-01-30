@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/components/ui/LogoutButton";
+import EditProfile from "@/components/ui/EditProfile";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function PrivatePage() {
   const cookieStore = cookies();
@@ -36,7 +39,9 @@ export default async function PrivatePage() {
       <p>First name: {profileData && profileData.first_name}</p>
       <p>Last name: {profileData && profileData.last_name}</p>
       <p>bio: {profileData && profileData.bio}</p>
-      <LogoutButton />
+      <Link href="/private/edit">
+        <Button>Edit Profile</Button>
+      </Link>
     </div>
   );
 }
