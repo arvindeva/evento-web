@@ -17,9 +17,7 @@ export default async function PrivatePage() {
 
   return (
     <div>
-      <div>{data.user.id}</div>
-      <div>{JSON.stringify(data.user.app_metadata)}</div>
-      <Form user={data} />
+      <Form user={data.user} />
     </div>
   );
 }

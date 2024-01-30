@@ -9,6 +9,121 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      artists: {
+        Row: {
+          created_at: string;
+          id: number;
+          mbid: string | null;
+          name: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          mbid?: string | null;
+          name?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          mbid?: string | null;
+          name?: string | null;
+        };
+        Relationships: [];
+      };
+      events: {
+        Row: {
+          artist_id: number | null;
+          average_rating: number | null;
+          created_at: string;
+          date: string | null;
+          id: number;
+          name: string | null;
+          promoter_id: number | null;
+          updated_at: string | null;
+          venue_id: number | null;
+        };
+        Insert: {
+          artist_id?: number | null;
+          average_rating?: number | null;
+          created_at?: string;
+          date?: string | null;
+          id?: number;
+          name?: string | null;
+          promoter_id?: number | null;
+          updated_at?: string | null;
+          venue_id?: number | null;
+        };
+        Update: {
+          artist_id?: number | null;
+          average_rating?: number | null;
+          created_at?: string;
+          date?: string | null;
+          id?: number;
+          name?: string | null;
+          promoter_id?: number | null;
+          updated_at?: string | null;
+          venue_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "events_artist_id_fkey";
+            columns: ["artist_id"];
+            isOneToOne: false;
+            referencedRelation: "artists";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "events_promoter_id_fkey";
+            columns: ["promoter_id"];
+            isOneToOne: false;
+            referencedRelation: "promoters";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "events_venue_id_fkey";
+            columns: ["venue_id"];
+            isOneToOne: false;
+            referencedRelation: "venues";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      follows: {
+        Row: {
+          created_at: string;
+          followed_user_id: string | null;
+          following_user_id: string | null;
+          id: number;
+        };
+        Insert: {
+          created_at?: string;
+          followed_user_id?: string | null;
+          following_user_id?: string | null;
+          id?: number;
+        };
+        Update: {
+          created_at?: string;
+          followed_user_id?: string | null;
+          following_user_id?: string | null;
+          id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "follows_followed_user_id_fkey";
+            columns: ["followed_user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "follows_following_user_id_fkey";
+            columns: ["following_user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       profiles: {
         Row: {
           bio: string | null;
@@ -43,6 +158,90 @@ export interface Database {
             referencedColumns: ["id"];
           }
         ];
+      };
+      promoters: {
+        Row: {
+          created_at: string;
+          id: number;
+          name: string | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          name?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          name?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
+      users_events: {
+        Row: {
+          created_at: string;
+          event_id: number | null;
+          id: number;
+          rating: number | null;
+          user_id: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          event_id?: number | null;
+          id?: number;
+          rating?: number | null;
+          user_id?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          event_id?: number | null;
+          id?: number;
+          rating?: number | null;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "users_events_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "events";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "users_events_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      venues: {
+        Row: {
+          created_at: string;
+          id: number;
+          location: string | null;
+          name: string | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          location?: string | null;
+          name?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          location?: string | null;
+          name?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
       };
     };
     Views: {
