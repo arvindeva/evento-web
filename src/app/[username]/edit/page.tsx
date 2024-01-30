@@ -14,7 +14,6 @@ export default async function PrivatePage() {
   if (error || !data?.user) {
     redirect("/");
   }
-
   return (
     <div>
       <Form user={data.user} />

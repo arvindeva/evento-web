@@ -4,12 +4,16 @@ import { Database } from "@/types/supabase";
 import { createClient } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [firstName, setFirstName] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
 
   const getProfile = useCallback(async () => {
     try {
@@ -17,7 +21,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 
       const { data, error, status } = await supabase
         .from("profiles")
-        .select(`first_name`)
+        .select(`first_name, username`)
         .eq("id", user!.id)
         .single();
 
@@ -27,6 +31,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 
       if (data) {
         setFirstName(data.first_name);
+        setUsername(data.username);
       }
     } catch (error) {
       alert("Error loading user data!");
@@ -54,7 +59,7 @@ export default function AccountForm({ user }: { user: User | null }) {
       alert("Error updating the data!");
     } finally {
       setLoading(false);
-      router.push("/private");
+      router.push(`/${username}`);
     }
   }
 
@@ -65,7 +70,7 @@ export default function AccountForm({ user }: { user: User | null }) {
         <input id="email" type="text" value={user?.email} disabled />
       </div>
       <div>
-        <label htmlFor="fullName">Full Name</label>
+        <label htmlFor="first_name">first name</label>
         <input
           id="first_name"
           type="text"
@@ -74,13 +79,18 @@ export default function AccountForm({ user }: { user: User | null }) {
         />
       </div>
       <div>
-        <button
+        <Button
           className="button primary block"
           onClick={() => updateProfile({ firstName })}
           disabled={loading}
         >
           {loading ? "Loading ..." : "Update"}
-        </button>
+        </Button>
+        <Link href="/arvindeva">
+          <Button className="button primary block" disabled={loading}>
+            Back to profile
+          </Button>
+        </Link>
       </div>
     </div>
   );
