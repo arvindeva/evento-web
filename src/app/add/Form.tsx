@@ -116,8 +116,15 @@ export default function Form(props: ProfileProps) {
           onChange={handleChange}
         />
       </div>
+
       {results.map((result) => {
-        return <div key={result.id}>{result.name}</div>;
+        return (
+          <div key={result.id}>
+            <Link href={`/add/details?event_id=${result.id}`}>
+              {result.name}
+            </Link>
+          </div>
+        );
       })}
     </div>
   );
