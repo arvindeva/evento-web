@@ -38,7 +38,7 @@ export default function Card() {
           />
         </div>
         <div className="pb-4">
-          <div className="relative mx-8 bg-zinc-100  border border-slate-500 text-zinc-900 font-semibold text-center rounded-2xl h-24">
+          <div className="transform -translate-y-6 relative mx-8 bg-zinc-100  border border-slate-500 text-zinc-900 font-semibold text-center rounded-2xl h-24">
             <div className="flex flex-row justify-between items-center h-full">
               <div className="flex items-center justify-center w-1/3 border-r border-slate-500 h-full border-dashed">
                 date

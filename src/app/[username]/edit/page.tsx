@@ -12,6 +12,7 @@ export default async function EditPage() {
 
   console.log(data);
   if (error || !data?.user) {
+    alert("Something went wrong");
     redirect("/");
   }
   return (
