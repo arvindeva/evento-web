@@ -36,12 +36,9 @@ interface EventData {
   promoterName: string | null;
 }
 
-interface IFormInput {
-  performanceRating: number;
-}
-
 const formSchema = z.object({
   performance: z.string(),
+  venue: z.string(),
 });
 
 export default function Form({
@@ -57,6 +54,7 @@ export default function Form({
     resolver: zodResolver(formSchema),
     defaultValues: {
       performance: "5",
+      venue: "5",
     },
   });
   // 2. Define a submit handler.
@@ -77,9 +75,12 @@ export default function Form({
       </div>
       <div>
         <RHForm {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className=" flex flex-col space-y-8"
+          >
             <Drawer>
-              <DrawerTrigger>Open</DrawerTrigger>
+              <DrawerTrigger>Performance</DrawerTrigger>
               <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle>Are you absolutely sure?</DrawerTitle>
@@ -126,7 +127,55 @@ export default function Form({
                 </DrawerFooter>
               </DrawerContent>
             </Drawer>
-
+            <Drawer>
+              <DrawerTrigger>Venue</DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                  <DrawerDescription>
+                    This action cannot be undone.
+                  </DrawerDescription>
+                </DrawerHeader>
+                <FormField
+                  control={form.control}
+                  name="venue"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel>Notify me about...</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          className="flex flex-col space-y-1"
+                        >
+                          {["1", "2", "3", " 4", "5"].map((num) => {
+                            return (
+                              <FormItem
+                                className="flex items-center space-x-3 space-y-0"
+                                key={num}
+                              >
+                                <FormControl>
+                                  <RadioGroupItem value={num} />
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                  {num}
+                                </FormLabel>
+                              </FormItem>
+                            );
+                          })}
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <DrawerFooter>
+                  <Button>Submit</Button>
+                  <DrawerClose>Cancel</DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+            <br />
             <Button type="submit">Submit</Button>
           </form>
         </RHForm>
