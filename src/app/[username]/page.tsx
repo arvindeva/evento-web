@@ -31,7 +31,7 @@ export default async function UserPage({
     <div>
       <Profile profile={initialData} />
       <Link href={`/${params.username}/edit`}>
-        <Button>Edit Profile</Button>
+        <Button className="hidden">Edit Profile</Button>
       </Link>
     </div>
   );
