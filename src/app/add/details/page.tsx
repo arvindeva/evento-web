@@ -34,11 +34,11 @@ export default async function DetailsPage({
 
   if (userError || !userData?.user) {
     console.log(userError);
-    alert(userError?.message);
+    console.log(userError?.message);
   }
   if (eventError) {
     console.log(eventError);
-    alert(eventError.message);
+    console.log(eventError.message);
   }
 
   const eventDataProps = {
