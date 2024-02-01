@@ -22,11 +22,22 @@ import {
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import RatingItem from "@/app/add/details/RatingItems";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Star } from "lucide-react";
+import RatingCard from "./RatingCard";
+import DrawerHeader from "@/app/add/details/DrawerHeader";
 
 interface EventData {
   eventData: {
@@ -42,23 +53,33 @@ interface EventData {
 const formSchema = z.object({
   performance: z.string(),
   venue: z.string(),
+  promoter: z.string(),
 });
 
 const ratings = ["1", "2", "3", "4", "5"];
 
 export default function Form({ eventData }: EventData) {
-  // 1. Define your form.
+  //  form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      performance: "0",
+      venue: "0",
+      promoter: "0",
+    },
   });
-  // 2. Define a submit handler.
+  // submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
   }
+
+  const performanceStarRating = form.watch("performance");
+  const venueStarRating = form.watch("venue");
+  const promoterStarRating = form.watch("promoter");
+
+  const closeDrawerText = "Remove rating & review";
   return (
-    <div className="p-4 flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4">
       <div>
         <TicketCard eventData={eventData} />
       </div>
@@ -66,94 +87,201 @@ export default function Form({ eventData }: EventData) {
         <RHForm {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className=" flex flex-col space-y-8"
+            className=" flex flex-col space-y-8 box-border"
           >
-            <Drawer>
-              <DrawerTrigger>Performance</DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                  <DrawerDescription>
-                    This action cannot be undone.
-                  </DrawerDescription>
-                </DrawerHeader>
-                <FormField
-                  control={form.control}
-                  name="performance"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3">
-                      <FormLabel>Notify me about...</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="flex flex-col space-y-1"
+            <Tabs defaultValue="rating" className="box-border">
+              <TabsList>
+                <TabsTrigger
+                  value="rating"
+                  className="data-[state=active]:border-white data-[state=active]:border-b-2 p-1.5 box-border rounded-none px-4"
+                >
+                  Rating & Review
+                </TabsTrigger>
+                <TabsTrigger
+                  value="details"
+                  className="data-[state=active]:border-white data-[state=active]:border-b-2 p-1.5 box-border rounded-none"
+                >
+                  <div>Event Details</div>
+                </TabsTrigger>
+              </TabsList>
+              <div className="bg-neutral-400 h-px" />
+              <TabsContent value="rating">
+                <div className="flex flex-col p-2.5 gap-y-4">
+                  <h1 className="font-semibold">My Rating</h1>
+                  <Drawer>
+                    <DrawerTrigger>
+                      <RatingCard
+                        currentRating={performanceStarRating}
+                        title="Performance"
+                      />
+                    </DrawerTrigger>
+                    <DrawerContent>
+                      <DrawerHeader
+                        heading="Performance"
+                        subheading={eventData!.artistName}
+                        starRating={performanceStarRating}
+                      />
+                      <div className="bg-neutral-700 h-px" />
+                      <div className="pt-7 pb-5">
+                        <FormField
+                          control={form.control}
+                          name="performance"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                  className="flex flex-row space-y-1 justify-center gap-x-3"
+                                >
+                                  {ratings.map((num) => {
+                                    return (
+                                      <RatingItem
+                                        num={num}
+                                        key={num}
+                                        active={
+                                          parseInt(performanceStarRating) >=
+                                          parseInt(num)
+                                        }
+                                      />
+                                    );
+                                  })}
+                                </RadioGroup>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <DrawerFooter>
+                        <DrawerClose
+                          onClick={() => form.setValue("performance", "0")}
+                          className="text-base font-semibold text-red-500"
                         >
-                          {ratings.map((num) => {
-                            return <RatingItem num={num} key={num} />;
-                          })}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <DrawerFooter>
-                  <Button>Submit</Button>
-                  <DrawerClose>Cancel</DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-            <Drawer>
-              <DrawerTrigger>Venue</DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                  <DrawerDescription>
-                    This action cannot be undone.
-                  </DrawerDescription>
-                </DrawerHeader>
-                <FormField
-                  control={form.control}
-                  name="venue"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3">
-                      <FormLabel>Notify me about...</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="flex flex-col space-y-1"
+                          {closeDrawerText}
+                        </DrawerClose>
+                      </DrawerFooter>
+                    </DrawerContent>
+                  </Drawer>
+                  <Drawer>
+                    <DrawerTrigger>
+                      <RatingCard
+                        currentRating={venueStarRating}
+                        title="Venue"
+                      />
+                    </DrawerTrigger>
+                    <DrawerContent>
+                      <DrawerHeader
+                        heading="Venue"
+                        subheading={eventData!.venueName}
+                        starRating={venueStarRating}
+                      />
+                      <div className="bg-neutral-700 h-px" />
+                      <div className="pt-7 pb-5">
+                        <FormField
+                          control={form.control}
+                          name="venue"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                  className="flex flex-row space-y-1 justify-center gap-x-3"
+                                >
+                                  {ratings.map((num) => {
+                                    return (
+                                      <RatingItem
+                                        num={num}
+                                        key={num}
+                                        active={
+                                          parseInt(venueStarRating) >=
+                                          parseInt(num)
+                                        }
+                                      />
+                                    );
+                                  })}
+                                </RadioGroup>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <DrawerFooter>
+                        <DrawerClose
+                          onClick={() => form.setValue("venue", "0")}
+                          className="text-base font-semibold text-red-500"
                         >
-                          {["1", "2", "3", " 4", "5"].map((num) => {
-                            return (
-                              <FormItem
-                                className="flex items-center space-x-3 space-y-0"
-                                key={num}
-                              >
-                                <FormControl>
-                                  <RadioGroupItem value={num} />
-                                </FormControl>
-                                <FormLabel className="font-normal">
-                                  {num}
-                                </FormLabel>
-                              </FormItem>
-                            );
-                          })}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <DrawerFooter>
-                  <Button>Submit</Button>
-                  <DrawerClose>Cancel</DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-            <br />
-            <Button type="submit">Submit</Button>
+                          {closeDrawerText}
+                        </DrawerClose>
+                      </DrawerFooter>
+                    </DrawerContent>
+                  </Drawer>
+                  <Drawer>
+                    <DrawerTrigger>
+                      <RatingCard
+                        currentRating={promoterStarRating}
+                        title="Promoter"
+                      />
+                    </DrawerTrigger>
+                    <DrawerContent>
+                      <DrawerHeader
+                        heading="Promoter"
+                        subheading={eventData!.promoterName}
+                        starRating={promoterStarRating}
+                      />
+                      <div className="bg-neutral-700 h-px" />
+                      <div className="pt-7 pb-5">
+                        <FormField
+                          control={form.control}
+                          name="promoter"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                  className="flex flex-row space-y-1 justify-center gap-x-3"
+                                >
+                                  {ratings.map((num) => {
+                                    return (
+                                      <RatingItem
+                                        num={num}
+                                        key={num}
+                                        active={
+                                          parseInt(promoterStarRating) >=
+                                          parseInt(num)
+                                        }
+                                      />
+                                    );
+                                  })}
+                                </RadioGroup>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <DrawerFooter>
+                        <DrawerClose
+                          onClick={() => form.setValue("promoter", "0")}
+                          className="text-base font-semibold text-red-500"
+                        >
+                          {closeDrawerText}
+                        </DrawerClose>
+                      </DrawerFooter>
+                    </DrawerContent>
+                  </Drawer>
+                </div>
+              </TabsContent>
+              <TabsContent value="details">event tab.</TabsContent>
+            </Tabs>
+            <div className="p-2.5 w-full">
+              <Button type="submit" className="w-full">
+                Save
+              </Button>
+            </div>
           </form>
         </RHForm>
       </div>

@@ -18,11 +18,13 @@ const config = {
         "2xl": "1400px",
       },
     },
+
     fontFamily: {
       sans: ["var(--font-sans)", ...fontFamily.sans],
     },
     extend: {
       colors: {
+        greybg: "#393C46",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
