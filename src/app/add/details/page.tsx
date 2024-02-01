@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import Form from "./Form";
+import NavBar from "./NavBar";
 
 export default async function DetailsPage({
   params,
@@ -50,7 +51,7 @@ export default async function DetailsPage({
   };
   return (
     <div>
-      Add event
+      <NavBar />
       <Form eventData={eventDataProps} />
     </div>
   );

@@ -93,13 +93,13 @@ export default function Form({ eventData }: EventData) {
               <TabsList>
                 <TabsTrigger
                   value="rating"
-                  className="data-[state=active]:border-white data-[state=active]:border-b-2 p-1.5 box-border rounded-none px-4"
+                  className="data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 box-border rounded-none px-4"
                 >
                   Rating & Review
                 </TabsTrigger>
                 <TabsTrigger
                   value="details"
-                  className="data-[state=active]:border-white data-[state=active]:border-b-2 p-1.5 box-border rounded-none"
+                  className="data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 box-border rounded-none"
                 >
                   <div>Event Details</div>
                 </TabsTrigger>
