@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import TicketCard from "@/components/ui/TicketCard";
 import {
   Drawer,
   DrawerClose,
@@ -26,14 +26,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import RatingItem from "@/app/add/details/RatingItems";
 
 interface EventData {
-  id: number;
-  eventName: string | null;
-  date: string | null;
-  artistName: string | null;
-  venueName: string | null;
-  promoterName: string | null;
+  eventData: {
+    id: number;
+    eventName: string | null;
+    date: string | null;
+    artistName: string | null;
+    venueName: string | null;
+    promoterName: string | null;
+  };
 }
 
 const formSchema = z.object({
@@ -41,21 +44,12 @@ const formSchema = z.object({
   venue: z.string(),
 });
 
-export default function Form({
-  id,
-  eventName,
-  date,
-  artistName,
-  venueName,
-  promoterName,
-}: EventData) {
+const ratings = ["1", "2", "3", "4", "5"];
+
+export default function Form({ eventData }: EventData) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      performance: "5",
-      venue: "5",
-    },
   });
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -64,14 +58,9 @@ export default function Form({
     console.log(values);
   }
   return (
-    <div>
+    <div className="p-4 flex flex-col gap-y-4">
       <div>
-        <div>{id}</div>
-        <div>{eventName}</div>
-        <div>{date}</div>
-        <div>{artistName}</div>
-        <div>{venueName}</div>
-        <div>{promoterName}</div>
+        <TicketCard eventData={eventData} />
       </div>
       <div>
         <RHForm {...form}>
@@ -100,20 +89,8 @@ export default function Form({
                           defaultValue={field.value}
                           className="flex flex-col space-y-1"
                         >
-                          {["1", "2", "3", " 4", "5"].map((num) => {
-                            return (
-                              <FormItem
-                                className="flex items-center space-x-3 space-y-0"
-                                key={num}
-                              >
-                                <FormControl>
-                                  <RadioGroupItem value={num} />
-                                </FormControl>
-                                <FormLabel className="font-normal">
-                                  {num}
-                                </FormLabel>
-                              </FormItem>
-                            );
+                          {ratings.map((num) => {
+                            return <RatingItem num={num} key={num} />;
                           })}
                         </RadioGroup>
                       </FormControl>

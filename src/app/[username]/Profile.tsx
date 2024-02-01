@@ -65,20 +65,20 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className="bg-zinc-700 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2">
+          <section className=" bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2">
             <div className="flex flex-col items-center w-1/5 text-center">
               <div className="text-xl font-semibold">34</div>
               <div className="text-sm whitespace-nowrap">Live events</div>
             </div>
             <div className="w-1 flex justify-center">
-              <div className="bg-zinc-500 w-px h-6" />
+              <div className="bg-zinc-400 w-px h-10" />
             </div>
             <div className="flex flex-col items-center w-1/5">
               <div className="text-xl font-semibold">12</div>
               <div className="text-sm">Venues</div>
             </div>
             <div className="w-1 flex justify-center">
-              <div className="bg-zinc-500 w-px h-6" />
+              <div className="bg-zinc-400 w-px h-10" />
             </div>
             <div className="flex flex-col items-center w-1/5">
               <div className="text-xl font-semibold">34</div>

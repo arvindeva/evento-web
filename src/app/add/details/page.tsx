@@ -33,20 +33,25 @@ export default async function DetailsPage({
 
   if (userError || !userData?.user) {
     console.log(userError);
+    alert(userError?.message);
   }
   if (eventError) {
     console.log(eventError);
+    alert(eventError.message);
   }
+
+  const eventDataProps = {
+    id: eventData!.id,
+    eventName: eventData!.name,
+    date: eventData!.date,
+    artistName: eventData!.artists!.name,
+    venueName: eventData!.venues!.name,
+    promoterName: eventData!.promoters!.name,
+  };
   return (
     <div>
-      <Form
-        id={eventData!.id}
-        eventName={eventData!.name}
-        date={eventData!.date}
-        artistName={eventData!.artists!.name}
-        venueName={eventData!.venues!.name}
-        promoterName={eventData!.promoters!.name}
-      />
+      Add event
+      <Form eventData={eventDataProps} />
     </div>
   );
 }
