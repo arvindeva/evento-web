@@ -100,14 +100,14 @@ export default function Profile(props: ProfileProps) {
   const uniqueArtists = new Set(artist_ids).size;
 
   return (
-    <div>
+    <div className="mt-20">
       {profileQuery.isLoading || eventsQuery.isLoading ? (
         <Skeleton />
       ) : (
         <div className="px-4 py-8 flex flex-col gap-y-6">
           <section className="flex flex-row justify-between items-center">
             <div className="flex flex-row items-center justify-start gap-x-4">
-              <div className="relative rounded-full w-14 h-14 bg-zinc-500 overflow-hidden">
+              <div className="rounded-full w-14 h-14 bg-zinc-500 overflow-hidden">
                 <Image
                   src="/images/tom.jpg"
                   alt="you"

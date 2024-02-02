@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 import Profile from "./Profile";
+import NavBar from "./NavBar";
 
 export default async function UserPage({
   params,
@@ -27,6 +28,7 @@ export default async function UserPage({
 
   return (
     <div>
+      <NavBar />
       <Profile profile={initialData} />
     </div>
   );
