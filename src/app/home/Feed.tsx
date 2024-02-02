@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@/app/[username]/Skeleton";
 import Card from "@/app/[username]/Card";
 import Link from "next/link";
+import Image from "next/image";
+import { formatDistance } from "date-fns";
 
 interface FeedProps {
   id: string;
@@ -54,14 +56,29 @@ export default function Feed({ id }: FeedProps) {
           {eventsList?.map((e) => {
             return (
               <div key={e.id} className="flex flex-col gap-y-3">
-                <div className="tracking-medium">
-                  <Link
-                    href={`/${e.profiles?.username}`}
-                    className="font-semibold text-purple-800 dark:text-purple-500"
-                  >
-                    {e.profiles?.first_name} {e.profiles?.last_name}
-                  </Link>{" "}
-                  went to {e.events?.name}
+                <div className="flex flex-row items-center gap-x-4">
+                  <div className="rounded-full w-14 h-14 bg-zinc-500 overflow-hidden z-5">
+                    <Image
+                      src="/images/tom.jpg"
+                      alt="you"
+                      width={200}
+                      height={200}
+                    />
+                  </div>
+                  <div className="tracking-medium flex flex-col">
+                    <Link
+                      href={`/${e.profiles?.username}`}
+                      className="font-bold"
+                    >
+                      {e.profiles?.first_name} {e.profiles?.last_name}
+                    </Link>
+                    <div className="text-sm text-zinc-300">
+                      {formatDistance(e.events!.date!, new Date())} ago
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  I went to <span className="font-bold">{e.events!.name}</span>
                 </div>
                 <Card
                   eventData={{
