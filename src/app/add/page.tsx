@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import Form from "./Form";
+import NavBar from "./NavBar";
 
 export default async function AddPage() {
   const cookieStore = cookies();
@@ -27,6 +28,7 @@ export default async function AddPage() {
 
   return (
     <div>
+      <NavBar />
       <Form profile={initialData} />
     </div>
   );

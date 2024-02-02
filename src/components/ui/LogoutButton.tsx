@@ -14,7 +14,7 @@ export default function LogoutButton() {
     if (error) {
       router.push("/");
     }
-
+    router.push("/");
     router.refresh();
   }
 

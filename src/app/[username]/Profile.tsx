@@ -9,11 +9,23 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Settings } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import Skeleton from "@/app/[username]/Skeleton";
 
 import Card from "./Card";
 import Image from "next/image";
+import LogoutButton from "@/components/ui/LogoutButton";
 
 interface ProfileProps {
   profile: {
@@ -45,7 +57,7 @@ export default function Profile(props: ProfileProps) {
     )
     .eq("user_id", props.profile!.id)
     // .eq("user_id", props.profile!.id)
-    .order("events(date)", { ascending: true });
+    .order("events(date)", { ascending: false });
 
   const getEvents = async () => {
     return await eventsSupabaseQuery;
@@ -105,7 +117,8 @@ export default function Profile(props: ProfileProps) {
               </div>
               <div>
                 <div className="text-xl font-bold tracking-tight">
-                  {profileQuery.data?.data?.first_name} Wibisono
+                  {profileQuery.data?.data?.first_name}{" "}
+                  {profileQuery.data?.data?.last_name}
                 </div>
                 <div className="text-sm font-semibold text-zinc-500">
                   @{profileQuery.data?.data?.username}
@@ -113,7 +126,25 @@ export default function Profile(props: ProfileProps) {
               </div>
             </div>
             <div>
-              <Settings width={30} height={30} />
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Settings width={30} height={30} />
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader></SheetHeader>
+                  <ul>
+                    <li>
+                      <Link href="/edit"></Link>
+                    </li>
+                  </ul>
+                  <div className="grid gap-4 py-4">Links</div>
+                  <SheetFooter>
+                    <SheetClose asChild>
+                      <LogoutButton></LogoutButton>
+                    </SheetClose>
+                  </SheetFooter>
+                </SheetContent>
+              </Sheet>
             </div>
           </section>
 

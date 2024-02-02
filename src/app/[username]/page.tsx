@@ -1,11 +1,8 @@
 import { cookies } from "next/headers";
-import { redirect, notFound } from "next/navigation";
-import { QueryClient } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
-import LogoutButton from "@/components/ui/LogoutButton";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+
 import Profile from "./Profile";
 
 export default async function UserPage({

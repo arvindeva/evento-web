@@ -40,6 +40,7 @@ import RatingCard from "./RatingCard";
 import DrawerHeader from "@/app/add/details/DrawerHeader";
 import { createBrowserClient } from "@supabase/ssr";
 import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
 
 interface EventData {
   eventData: {
@@ -63,6 +64,7 @@ const ratings = ["1", "2", "3", "4", "5"];
 export default function Form({ eventData }: EventData) {
   // supabase
   const supabase = createClient();
+  const router = useRouter();
 
   //  form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -89,7 +91,9 @@ export default function Form({ eventData }: EventData) {
     if (error) {
       console.log(error.message);
     }
-    console.log(data);
+    if (data) {
+      router.push("/home");
+    }
   }
 
   const performanceStarRating = form.watch("performance");
