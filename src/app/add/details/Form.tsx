@@ -135,7 +135,7 @@ export default function Form({ eventData }: EventData) {
               <TabsContent value="rating">
                 <div className="flex flex-col p-2.5 gap-y-4">
                   <h1 className="font-semibold">My Rating</h1>
-                  <Drawer>
+                  <Drawer preventScrollRestoration>
                     <DrawerTrigger>
                       <RatingCard
                         currentRating={performanceStarRating}
