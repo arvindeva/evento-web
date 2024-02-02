@@ -172,7 +172,7 @@ export default function Profile(props: ProfileProps) {
           <section className="flex flex-col gap-y-3">
             <div className="flex flex-row justify-between items-center pt-4">
               <div className="text-xl font-bold tracking-tight">
-                {profileQuery.data?.data?.first_name}'s events
+                {profileQuery.data?.data?.first_name}&apos;s events
               </div>
               <div className="text-sm">See all (7)</div>
             </div>
