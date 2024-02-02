@@ -77,7 +77,7 @@ export default function Feed({ id }: FeedProps) {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="text-base">
                   I went to <span className="font-bold">{e.events!.name}</span>
                 </div>
                 <Card
