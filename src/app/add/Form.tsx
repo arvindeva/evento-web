@@ -43,7 +43,6 @@ export default function Form(props: ProfileProps) {
   const { register } = useForm();
 
   const getProfile = async () => {
-    console.log("getProfile trigerred");
     return await supabase
       .from("profiles")
       .select(`first_name, username, last_name`)
@@ -81,7 +80,6 @@ export default function Form(props: ProfileProps) {
         result = result + ` | ${array[i]}:*`;
       }
     }
-    console.log(result);
     return result;
   };
 
@@ -98,7 +96,6 @@ export default function Form(props: ProfileProps) {
       if (error) {
         console.log(error);
       }
-      console.log(data);
       data && setResults(data);
     }
     setIsSearching(false);

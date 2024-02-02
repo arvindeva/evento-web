@@ -59,7 +59,22 @@ export default function Profile(props: ProfileProps) {
     console.log(eventsQuery.error.message);
   }
 
-  console.log(eventsQuery.data?.data!);
+  const eventsList = eventsQuery.data?.data;
+  let venue_ids: number[] = [];
+  let artist_ids: number[] = [];
+
+  if (eventsList) {
+    for (const event of eventsList) {
+      venue_ids.push(event!.events!.venues!.id);
+    }
+    for (const event of eventsList) {
+      artist_ids.push(event!.events!.artists!.id);
+    }
+  }
+  const uniqueEvents = eventsList?.length;
+  const uniqueVenues = new Set(venue_ids).size;
+  const uniqueArtists = new Set(artist_ids).size;
+
   return (
     <div>
       {profileQuery.isLoading ? (
@@ -83,42 +98,46 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className=" bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2">
-            <div className="flex flex-col items-center w-1/5 text-center">
-              <div className="text-xl font-semibold">34</div>
-              <div className="text-sm whitespace-nowrap">Live events</div>
+          <section className=" bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50">
+            <div className="flex flex-col items-center w-1/5 text-center ">
+              <div className="text-xl font-semibold ">{uniqueEvents}</div>
+              <div className="text-sm whitespace-nowrap ">Live events</div>
             </div>
             <div className="w-1 flex justify-center">
               <div className="bg-zinc-400 w-px h-10" />
             </div>
             <div className="flex flex-col items-center w-1/5">
-              <div className="text-xl font-semibold">12</div>
+              <div className="text-xl font-semibold">{uniqueVenues}</div>
               <div className="text-sm">Venues</div>
             </div>
             <div className="w-1 flex justify-center">
               <div className="bg-zinc-400 w-px h-10" />
             </div>
             <div className="flex flex-col items-center w-1/5">
-              <div className="text-xl font-semibold">34</div>
+              <div className="text-xl font-semibold">{uniqueArtists}</div>
               <div className="text-sm">Artists</div>
             </div>
           </section>
 
           <section className="flex flex-col gap-y-3">
             <div className="flex flex-row justify-between items-center pt-4">
-              <div className="text-xl font-semibold">2024</div>
+              <div className="text-xl font-semibold">Arvindeva's events</div>
               <div className="text-sm">See all (7)</div>
             </div>
-            <Card
-              eventData={{
-                eventName: "REACHED HERE",
-                date: "string",
-                artist: "string",
-                venue: "string",
-                location: "string",
-                promoter: "string",
-              }}
-            />
+            {eventsList?.map((e) => {
+              return (
+                <Card
+                  eventData={{
+                    eventName: e.events!.name,
+                    date: e.events!.date,
+                    artist: e.events!.artists!.name,
+                    venue: e.events!.venues!.name,
+                    eventId: e.event_id,
+                  }}
+                  key={e.id}
+                />
+              );
+            })}
           </section>
         </div>
       )}

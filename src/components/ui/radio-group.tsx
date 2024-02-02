@@ -42,7 +42,7 @@ const RadioGroupItem = React.forwardRef<
     >
       <Star
         className={`h-12 w-12 fill-current ${
-          !active ? `fill-greybg` : `fill-yellow-500`
+          !active ? `fill-gray-300` : `fill-yellow-500`
         }`}
         strokeWidth={0}
       />

@@ -6,7 +6,7 @@ const supabase = createClient();
 export const eventsSupabaseQuery = supabase
   .from("users_events")
   .select(
-    `user_id, event_id, events (name, date, artists (name), venues (name, location), promoters (name))`
+    `id, user_id, event_id, events (name, date, artists (id, name), venues (id, name, location), promoters (name))`
   )
   .order("events(date)", { ascending: true });
 

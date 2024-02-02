@@ -98,7 +98,7 @@ export default function Form({ eventData }: EventData) {
 
   const closeDrawerText = "Remove rating & review";
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 mt-3">
       <div>
         <TicketCard eventData={eventData} />
       </div>
@@ -112,18 +112,22 @@ export default function Form({ eventData }: EventData) {
               <TabsList>
                 <TabsTrigger
                   value="rating"
-                  className="data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 box-border rounded-none px-4"
+                  className={`
+                     data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 
+                      box-border rounded-none px-4 data-[state=active]:text-purple-700 data-[state=active]:font-semibold
+                  `}
                 >
                   Rating & Review
                 </TabsTrigger>
                 <TabsTrigger
                   value="details"
-                  className="data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 box-border rounded-none"
+                  className="data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 
+                  box-border rounded-none px-4 data-[state=active]:text-purple-700 data-[state=active]:font-semibold"
                 >
                   <div>Event Details</div>
                 </TabsTrigger>
               </TabsList>
-              <div className="bg-neutral-400 h-px" />
+              <div className="bg-neutral-200 dark:bg-neutral-400 h-px" />
               <TabsContent value="rating">
                 <div className="flex flex-col p-2.5 gap-y-4">
                   <h1 className="font-semibold">My Rating</h1>

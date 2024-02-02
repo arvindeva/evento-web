@@ -9,7 +9,7 @@ export default async function AddPage() {
   const supabase = createClient(cookieStore);
 
   const { data: userData, error: userError } = await supabase.auth.getUser();
-  console.log(userData);
+
   if (userError || !userData?.user) {
     redirect("/");
   }

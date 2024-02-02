@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Events } from "@/app/[username]/types/events";
 
 interface ICard {
   eventData: {
@@ -9,94 +8,61 @@ interface ICard {
     date: string | null;
     artist: string | null;
     venue: string | null;
-    location: string | null;
-    promoter: string | null;
+    eventId: number | null;
   } | null;
 }
 
 export default function Card({ eventData }: ICard) {
-  console.log(eventData?.eventName);
+  const cardDate = new Date(eventData!.date!);
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const month = monthNames[cardDate.getMonth()].slice(0, 3);
+  const day = cardDate.getDate();
+  const year = cardDate.getFullYear();
+
   return (
-    <div className="relative">
-      <div className="absolute border border-slate-500 w-full rounded-lg z-30 bg-zinc-900 overflow-hidden">
-        <div className="w-full relative ">
+    <div className="max-w-lg rounded-xl overflow-hidden shadow-lg border bg-white text-black">
+      <section className="border-dashed border-b border-zinc-300">
+        <div className="rounded-lg m-2.5 overflow-hidden mb-5 max-h-40">
           <Image
-            src="/images/coldplay.webp"
-            alt="coldplay pic"
-            width={500}
-            height={500}
+            className="w-full object-cover"
+            src="/images/concert.jpg"
+            alt="Sunset in the mountains"
+            width={400}
+            height={200}
             priority
-            className="object-cover w-full"
           />
         </div>
-        <div className="pb-4">
-          <div className="transform -translate-y-6 relative mx-8 bg-zinc-100  border border-slate-500 text-zinc-900 font-semibold text-center rounded-2xl h-24">
-            <div className="flex flex-row justify-between items-center h-full">
-              <div className="flex items-center justify-center w-1/3 border-r border-slate-500 h-full border-dashed">
-                date
-              </div>
-              <div className="w-2/3">event</div>
+      </section>
+
+      <section className="">
+        <div className="flex flex-row">
+          <div className="w-1/5 flex flex-col items-center justify-center p-4 text-neutral-800 border-r border-dashed border-zinc-300">
+            <div className="text-sm uppercase">{month}</div>
+            <div className="font-bold text-xl">{day}</div>
+            <div className="text-sm font-medium text-neutral-400">{year}</div>
+          </div>
+          <div className="w-4/5 p-2 flex flex-col justify-center ">
+            <div className="tracking-tight font-semibold text-lg flex items-center text-neutral-800 leading-6 mb-0.5">
+              {eventData?.eventName}
             </div>
-            <div className="absolute w-6 h-6 top-1/2  transform -translate-y-1/2 -left-3 rounded-full bg-zinc-900"></div>
-            <div className="absolute w-6 h-6 top-1/2  transform -translate-y-1/2 -right-3 rounded-full bg-zinc-900"></div>
-            <div className="hidden absolute w-px h-full top-1/2  transform -translate-y-1/2 left-1/3 -translate-x-1/2 rounded-full bg-red-500"></div>
+            <p className="text-sm text-zinc-500">{eventData?.venue}</p>
           </div>
         </div>
-      </div>
-      <div className="absolute border border-slate-500 w-full rounded-lg top-3 z-20 bg-zinc-900">
-        <div>
-          <div className="w-full relative ">
-            <Image
-              src="/images/coldplay.webp"
-              alt="coldplay pic"
-              width={500}
-              height={500}
-              priority
-              className="object-cover w-full"
-            />
-          </div>
-          <div className="pb-4">
-            <div className="relative mx-8 bg-zinc-900   border-slate-500 text-zinc-900 font-semibold text-center rounded-2xl h-24">
-              <div className="flex flex-row justify-between items-center h-full">
-                <div className="flex items-center justify-center w-1/3 h-full border-dashed">
-                  date
-                </div>
-                <div className="w-2/3">event</div>
-              </div>
-              <div className="absolute w-6 h-6 top-1/2  transform -translate-y-1/2 -left-3 rounded-full bg-zinc-900"></div>
-              <div className="absolute w-6 h-6 top-1/2  transform -translate-y-1/2 -right-3 rounded-full bg-zinc-900"></div>
-              <div className="hidden absolute w-px h-full top-1/2  transform -translate-y-1/2 left-1/3 -translate-x-1/2 rounded-full bg-red-500"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="absolute border border-slate-500  w-full rounded-lg top-6 z-10 bg-zinc-900">
-        <div>
-          <div className="w-full relative ">
-            <Image
-              src="/images/coldplay.webp"
-              alt="coldplay pic"
-              width={500}
-              height={500}
-              priority
-              className="object-cover w-full"
-            />
-          </div>
-          <div className="pb-4">
-            <div className="relative mx-8 bg-zinc-900   border-slate-500 text-zinc-900 font-semibold text-center rounded-2xl h-24">
-              <div className="flex flex-row justify-between items-center h-full">
-                <div className="flex items-center justify-center w-1/3 h-full border-dashed">
-                  date
-                </div>
-                <div className="w-2/3">event</div>
-              </div>
-              <div className="absolute w-6 h-6 top-1/2  transform -translate-y-1/2 -left-3 rounded-full bg-zinc-900"></div>
-              <div className="absolute w-6 h-6 top-1/2  transform -translate-y-1/2 -right-3 rounded-full bg-zinc-900"></div>
-              <div className="hidden absolute w-px h-full top-1/2  transform -translate-y-1/2 left-1/3 -translate-x-1/2 rounded-full bg-red-500"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </section>
+      <section id="tab"></section>
     </div>
   );
 }
