@@ -38,6 +38,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star } from "lucide-react";
 import RatingCard from "./RatingCard";
 import DrawerHeader from "@/app/add/details/DrawerHeader";
+import { createBrowserClient } from "@supabase/ssr";
+import { createClient } from "@/lib/supabase/client";
 
 interface EventData {
   eventData: {
@@ -59,6 +61,9 @@ const formSchema = z.object({
 const ratings = ["1", "2", "3", "4", "5"];
 
 export default function Form({ eventData }: EventData) {
+  // supabase
+  const supabase = createClient();
+
   //  form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -69,8 +74,22 @@ export default function Form({ eventData }: EventData) {
     },
   });
   // submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { data, error } = await supabase
+      .from("users_events")
+      .insert({
+        event_id: eventData.id,
+        user_id: "f43c1149-0aec-4953-8633-b08e279442a5",
+        event_rating: values.performance,
+        venue_rating: values.venue,
+        promoter_rating: values.promoter,
+      })
+      .select();
+
+    if (error) {
+      console.log(error.message);
+    }
+    console.log(data);
   }
 
   const performanceStarRating = form.watch("performance");

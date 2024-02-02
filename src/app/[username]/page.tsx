@@ -30,9 +30,6 @@ export default async function UserPage({
   return (
     <div>
       <Profile profile={initialData} />
-      <Link href={`/${params.username}/edit`}>
-        <Button className="hidden">Edit Profile</Button>
-      </Link>
     </div>
   );
 }

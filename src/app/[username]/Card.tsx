@@ -1,29 +1,21 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
-import { Database } from "@/types/supabase";
-import { createClient } from "@/lib/supabase/client";
-import { User } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { Settings } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 
-interface ProfileProps {
-  profile: {
-    bio: string | null;
-    first_name: string | null;
-    id: string;
-    last_name: string | null;
-    updated_at: string | null;
-    username: string | null;
+import Image from "next/image";
+import { Events } from "@/app/[username]/types/events";
+
+interface ICard {
+  eventData: {
+    eventName: string | null;
+    date: string | null;
+    artist: string | null;
+    venue: string | null;
+    location: string | null;
+    promoter: string | null;
   } | null;
 }
 
-export default function Card() {
+export default function Card({ eventData }: ICard) {
+  console.log(eventData?.eventName);
   return (
     <div className="relative">
       <div className="absolute border border-slate-500 w-full rounded-lg z-30 bg-zinc-900 overflow-hidden">

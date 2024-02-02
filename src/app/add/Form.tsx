@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
 
 interface ProfileProps {
   profile: {
@@ -110,7 +111,7 @@ export default function Form(props: ProfileProps) {
     <div className="form-widget">
       <div>
         <label htmlFor="search_term">search</label>
-        <input
+        <Input
           name="search_term"
           placeholder="search event"
           onChange={handleChange}

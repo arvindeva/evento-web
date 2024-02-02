@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Database } from "@/types/supabase";
 import { createClient } from "@/lib/supabase/client";
-import { User } from "@supabase/supabase-js";
+import { QueryData, User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Settings } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { eventsSupabaseQuery, Events } from "./types/events";
+
 import Card from "./Card";
 
 interface ProfileProps {
@@ -25,30 +27,42 @@ interface ProfileProps {
 
 export default function Profile(props: ProfileProps) {
   const supabase = createClient();
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
 
   const getProfile = async () => {
     console.log("getProfile trigerred");
     return await supabase
       .from("profiles")
-      .select(`first_name, username`)
+      .select(`first_name, last_name, username`)
       .eq("id", props.profile!.id)
       .single();
   };
 
-  const { data, error, isLoading } = useQuery({
+  const getEvents = async () => {
+    return await eventsSupabaseQuery;
+  };
+
+  const profileQuery = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
   });
 
-  if (error) {
-    console.log(error.message);
+  const eventsQuery = useQuery({
+    queryKey: ["events"],
+    queryFn: getEvents,
+  });
+
+  if (profileQuery.error) {
+    console.log(profileQuery.error.message);
   }
 
+  if (eventsQuery.error) {
+    console.log(eventsQuery.error.message);
+  }
+
+  console.log(eventsQuery.data?.data!);
   return (
     <div>
-      {isLoading ? (
+      {profileQuery.isLoading ? (
         <div>Loading</div>
       ) : (
         <div className="px-4 py-8 flex flex-col gap-y-6">
@@ -56,8 +70,12 @@ export default function Profile(props: ProfileProps) {
             <div className="flex flex-row items-center justify-start gap-x-4">
               <div className="rounded-full w-14 h-14 bg-zinc-500"></div>
               <div>
-                <div className="text-xl font-semibold">Arvindeva Wibisono</div>
-                <div className="text-sm">@{data?.data?.username}</div>
+                <div className="text-xl font-semibold">
+                  {profileQuery.data?.data?.first_name} Wibisono
+                </div>
+                <div className="text-sm">
+                  @{profileQuery.data?.data?.username}
+                </div>
               </div>
             </div>
             <div>
@@ -91,7 +109,16 @@ export default function Profile(props: ProfileProps) {
               <div className="text-xl font-semibold">2024</div>
               <div className="text-sm">See all (7)</div>
             </div>
-            <Card />
+            <Card
+              eventData={{
+                eventName: "REACHED HERE",
+                date: "string",
+                artist: "string",
+                venue: "string",
+                location: "string",
+                promoter: "string",
+              }}
+            />
           </section>
         </div>
       )}
