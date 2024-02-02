@@ -56,8 +56,8 @@ export default function Feed({ id }: FeedProps) {
           {eventsList?.map((e) => {
             return (
               <div key={e.id} className="flex flex-col gap-y-3">
-                <div className="flex flex-row items-center gap-x-4">
-                  <div className="rounded-full w-14 h-14 bg-zinc-500 overflow-hidden z-5">
+                <div className="flex flex-row items-center gap-x-2.5">
+                  <div className="rounded-full w-12 h-12 bg-zinc-500 overflow-hidden z-5">
                     <Image
                       src="/images/tom.jpg"
                       alt="you"
@@ -72,7 +72,7 @@ export default function Feed({ id }: FeedProps) {
                     >
                       {e.profiles?.first_name} {e.profiles?.last_name}
                     </Link>
-                    <div className="text-sm text-zinc-300">
+                    <div className="text-sm text-neutral-500 dark:text-zinc-300">
                       {formatDistance(e.events!.date!, new Date())} ago
                     </div>
                   </div>

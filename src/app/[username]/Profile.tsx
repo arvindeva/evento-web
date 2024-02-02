@@ -26,6 +26,7 @@ import Skeleton from "@/app/[username]/Skeleton";
 import Card from "./Card";
 import Image from "next/image";
 import LogoutButton from "@/components/ui/LogoutButton";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 interface ProfileProps {
   profile: {
@@ -36,6 +37,7 @@ interface ProfileProps {
     updated_at: string | null;
     username: string | null;
   } | null;
+  isOwner: boolean | null;
 }
 
 export default function Profile(props: ProfileProps) {
@@ -100,7 +102,7 @@ export default function Profile(props: ProfileProps) {
   const uniqueArtists = new Set(artist_ids).size;
 
   return (
-    <div className="mt-20">
+    <div className="">
       {profileQuery.isLoading || eventsQuery.isLoading ? (
         <Skeleton />
       ) : (
@@ -126,25 +128,28 @@ export default function Profile(props: ProfileProps) {
               </div>
             </div>
             <div>
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Settings width={30} height={30} />
-                </SheetTrigger>
-                <SheetContent>
-                  <SheetHeader></SheetHeader>
-                  <ul>
-                    <li>
-                      <Link href="/edit"></Link>
-                    </li>
-                  </ul>
-                  <div className="grid gap-4 py-4">Links</div>
-                  <SheetFooter>
-                    <SheetClose asChild>
-                      <LogoutButton></LogoutButton>
-                    </SheetClose>
-                  </SheetFooter>
-                </SheetContent>
-              </Sheet>
+              {!props.isOwner ? null : (
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Settings width={30} height={30} />
+                  </SheetTrigger>
+                  <SheetContent>
+                    <SheetHeader></SheetHeader>
+                    <ul>
+                      <li>
+                        <Link href="/edit"></Link>
+                      </li>
+                    </ul>
+                    <div className="grid gap-4 py-4">Links</div>
+
+                    <SheetFooter>
+                      <SheetClose asChild>
+                        <LogoutButton></LogoutButton>
+                      </SheetClose>
+                    </SheetFooter>
+                  </SheetContent>
+                </Sheet>
+              )}
             </div>
           </section>
 
@@ -169,27 +174,28 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-y-3">
+          <section className="flex flex-col ">
             <div className="flex flex-row justify-between items-center pt-4">
-              <div className="text-xl font-bold tracking-tight">
+              <div className="text-xl font-bold tracking-tight mb-3">
                 {profileQuery.data?.data?.first_name}&apos;s events
               </div>
-              <div className="text-sm">See all (7)</div>
             </div>
-            {eventsList?.map((e) => {
-              return (
-                <Card
-                  eventData={{
-                    eventName: e.events!.name,
-                    date: e.events!.date,
-                    artist: e.events!.artists!.name,
-                    venue: e.events!.venues!.name,
-                    eventId: e.event_id,
-                  }}
-                  key={e.id}
-                />
-              );
-            })}
+            <div className="flex flex-col gap-y-10">
+              {eventsList?.map((e) => {
+                return (
+                  <Card
+                    eventData={{
+                      eventName: e.events!.name,
+                      date: e.events!.date,
+                      artist: e.events!.artists!.name,
+                      venue: e.events!.venues!.name,
+                      eventId: e.event_id,
+                    }}
+                    key={e.id}
+                  />
+                );
+              })}
+            </div>
           </section>
         </div>
       )}

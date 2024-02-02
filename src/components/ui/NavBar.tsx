@@ -1,19 +1,27 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
+import { Plus, UserRound } from "lucide-react";
+import { useTheme } from "next-themes";
+import ThemeToggle from "./ThemeToggle";
 
 export default function NavBar() {
   return (
-    <header className="fixed top-0 w-full h-20 flex items-center justify-between px-4 md:px-6 bg-background border-b border-b-zinc-300">
-      <Link className="flex items-center" href="/">
-        <h1 className="text-2xl font-bold">
-          Evento <span className="text-lg">v0.0</span>
+    <header className="sticky top-0 z-50 w-full flex items-center justify-between px-4 border-b h-14 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <Link className="flex items-center" href="/home">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
+          Evento{" "}
+          <span className="text-lg font-light text-purple-500">v0.0</span>
         </h1>
         <span className="sr-only">Evento</span>
       </Link>
-      <Link className="flex items-center" href="/login">
-        <Button>Login</Button>
-      </Link>
+      <div className="flex flex-row items-center gap-x-4">
+        <ThemeToggle></ThemeToggle>
+        <Link className="flex items-center" href="/login">
+          <Button>Login</Button>
+        </Link>
+      </div>
     </header>
   );
 }

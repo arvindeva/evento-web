@@ -14,22 +14,29 @@ export default async function UserPage({
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  console.log(userData);
+
   const { data: profileDataArray, error: profileError } = await supabase
     .from("profiles")
     .select()
     .eq("username", params.username);
 
-  const initialData = profileDataArray && profileDataArray[0];
-  console.log(initialData);
+  const profileData = profileDataArray && profileDataArray[0];
+  console.log(profileData);
 
-  if (!initialData) {
+  const isOwner =
+    userData.user && profileData && userData.user.id === profileData.id;
+
+  if (!profileData) {
     notFound();
   }
 
   return (
     <div>
       <NavBar />
-      <Profile profile={initialData} />
+      <Profile profile={profileData} isOwner={isOwner} />
     </div>
   );
 }

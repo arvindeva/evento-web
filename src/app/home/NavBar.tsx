@@ -4,33 +4,41 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus, UserRound } from "lucide-react";
 import { useTheme } from "next-themes";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 interface INavBar {
   username: string | null;
 }
 
 export default function NavBar({ username }: INavBar) {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, forcedTheme } = useTheme();
+  console.log(theme);
 
   return (
-    <header className="fixed top-0 w-full h-20 flex items-center justify-between px-4 md:px-6 bg-white dark:bg-background border-b border-b-zinc-300">
+    // <header className="fixed top-0 w-full h-14 flex items-center justify-between px-4 md:px-6 bg-white dark:bg-background border-b border-b-zinc-300 ">
+    <header className="sticky top-0 z-50 w-full flex items-center justify-between px-4 border-b h-14 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Link className="flex items-center" href="/home">
-        <h1 className="text-2xl font-bold">
-          Evento <span className="text-lg">v0.0</span>
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
+          Evento{" "}
+          <span className="text-lg font-light text-purple-500">v0.0</span>
         </h1>
         <span className="sr-only">Evento</span>
       </Link>
       <div className="flex flex-row items-center gap-x-4">
+        <ThemeToggle></ThemeToggle>
         <Link className="flex items-center" href={`/${username}`}>
-          <UserRound
-            width={28}
-            height={28}
-            color={theme === "light" ? "black" : "white"}
-          />
+          <Button variant="outline" size="icon" className="border-none">
+            <UserRound
+              width={22}
+              height={22}
+              strokeWidth="2px"
+              className="text-purple-500"
+            />
+          </Button>
         </Link>
         <Link className="flex items-center" href="/add">
-          <Button className="rounded-full w-10 h-10 p-0">
-            <Plus width={24} height={24} color="#fafafa" />
+          <Button variant="outline" size="icon" className="border-none">
+            <Plus width={26} height={26} className="text-purple-500" />
           </Button>
         </Link>
       </div>

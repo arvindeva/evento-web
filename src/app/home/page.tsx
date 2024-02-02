@@ -27,14 +27,20 @@ export default async function Home() {
   return (
     <div>
       <NavBar username={profileData!.username} />
-      <div className="mt-24 mb-8 px-4">
-        <h2 className="text-2xl font-semibold tracking-tight">
-          Welcome back, {profileData!.username}!
+      <div className="mt-4 mb-4 px-4">
+        <h2 className="text-[32px] font-bold tracking-tight">
+          Hi,{" "}
+          <span className="bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
+            {" "}
+            {profileData!.username}
+          </span>
+          !
         </h2>
+        <p className="text-base text-zinc-600 dark:text-zinc-400">
+          Here are the latest activities of other users.
+        </p>
       </div>
-      <div className="px-4">
-        <h3 className="text-xl font-semibold tracking-tight">Feed:</h3>
-      </div>
+
       <div>
         <Feed id={profileData!.id} />
       </div>
