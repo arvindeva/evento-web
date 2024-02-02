@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import { QueryClient } from "@tanstack/react-query";
 
 import { createClient } from "@/lib/supabase/server";
@@ -22,9 +22,10 @@ export default async function UserPage({
     .eq("username", params.username);
 
   const initialData = profileDataArray && profileDataArray[0];
+  console.log(initialData);
 
-  if (profileError) {
-    console.log(profileError);
+  if (!initialData) {
+    notFound();
   }
 
   return (
