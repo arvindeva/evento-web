@@ -4,8 +4,16 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Form from "./Form";
 import MyNavBar from "@/components/ui/MyNavBar";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export default async function AddPage() {
+interface IAddPage {
+  searchParams: {
+    error?: string;
+    type?: string;
+  };
+}
+
+export default async function AddPage({ searchParams }: IAddPage) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -25,7 +33,11 @@ export default async function AddPage() {
   }
 
   const initialData = profileDataArray && profileDataArray[0];
+  console.log(searchParams);
 
+  if (searchParams.error === "true") {
+    console.log("there was an error (true)");
+  }
   return (
     <div>
       <MyNavBar
@@ -35,6 +47,14 @@ export default async function AddPage() {
         authed={true}
         username={initialData.username}
       />
+      {searchParams.error === "true" && (
+        <div className="px-4 my-2">
+          <Alert variant="destructive" className="bg-red-700 text-zinc-300">
+            <AlertTitle>Server Error!</AlertTitle>
+            <AlertDescription>You already have that event.</AlertDescription>
+          </Alert>
+        </div>
+      )}
       <div className="mx-auto max-w-lg">
         <Form profile={initialData} />
       </div>

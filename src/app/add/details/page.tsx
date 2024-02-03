@@ -66,7 +66,7 @@ export default async function DetailsPage({
 
   if (userEventData!.length > 0) {
     console.log("user event already exist, cant add");
-    redirect("/");
+    redirect(`/add?error=true&type=user_event_already_exist`);
   }
 
   const eventDataProps = {

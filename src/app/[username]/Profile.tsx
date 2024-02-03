@@ -138,14 +138,26 @@ export default function Profile(props: ProfileProps) {
                     />
                   </SheetTrigger>
                   <SheetContent>
-                    <SheetHeader></SheetHeader>
-                    <ul>
+                    <SheetHeader>
+                      <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text mb-8">
+                        Evento{" "}
+                        <span className="text-lg font-light text-purple-500">
+                          v0.0
+                        </span>
+                      </h1>
+                    </SheetHeader>
+
+                    <ul className="flex flex-col gap-y-4 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
                       <li>
-                        <Link href="/edit"></Link>
+                        <Link href="/edit">Home</Link>
+                      </li>
+                      <li>
+                        <Link href="/edit">Edit Profile</Link>
+                      </li>
+                      <li>
+                        <Link href="/edit">My Events</Link>
                       </li>
                     </ul>
-                    <div className="grid gap-4 py-4">Links</div>
-
                     <SheetFooter>
                       <SheetClose asChild>
                         <LogoutButton></LogoutButton>
