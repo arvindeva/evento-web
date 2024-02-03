@@ -131,11 +131,17 @@ export default function Profile(props: ProfileProps) {
               {!props.isOwner ? null : (
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Settings
-                      width={26}
-                      height={26}
-                      className="text-purple-500"
-                    />
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="border-none"
+                    >
+                      <Settings
+                        width={26}
+                        height={26}
+                        className="text-purple-500"
+                      />
+                    </Button>
                   </SheetTrigger>
                   <SheetContent>
                     <SheetHeader>

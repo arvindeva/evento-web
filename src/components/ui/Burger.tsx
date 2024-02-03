@@ -30,18 +30,18 @@ export default function Burger({ username }: IBurger) {
         </SheetHeader>
 
         <ul className="flex flex-col gap-y-8 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
-          <li>
+          <li className="dark:active:text-indigo-600 active:text-indigo-600">
             <SheetClose asChild>
               <Link href="/">Home</Link>
             </SheetClose>
           </li>
-          <li>
+          <li className="active:text-indigo-600 dark:active:text-indigo-600">
             <SheetClose asChild>
               <Link href="/add">Add An Event</Link>
             </SheetClose>
           </li>
 
-          <li>
+          <li className="active:text-indigo-600 dark:active:text-indigo-600">
             <SheetClose asChild>
               <Link href={`/${username}`}>My Profile</Link>
             </SheetClose>
