@@ -106,9 +106,9 @@ export default function Profile(props: ProfileProps) {
       {profileQuery.isLoading || eventsQuery.isLoading ? (
         <Skeleton />
       ) : (
-        <div className="px-4 py-8 flex flex-col gap-y-6">
+        <div className="px-4 py-8 flex flex-col gap-y-4">
           <section className="flex flex-row justify-between items-center">
-            <div className="flex flex-row items-center justify-start gap-x-4">
+            <div className="flex flex-row items-center justify-start gap-x-2">
               <div className="rounded-full w-14 h-14 bg-zinc-500 overflow-hidden">
                 <Image
                   src="/images/tom.jpg"
@@ -131,7 +131,11 @@ export default function Profile(props: ProfileProps) {
               {!props.isOwner ? null : (
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Settings width={30} height={30} />
+                    <Settings
+                      width={26}
+                      height={26}
+                      className="text-purple-500"
+                    />
                   </SheetTrigger>
                   <SheetContent>
                     <SheetHeader></SheetHeader>

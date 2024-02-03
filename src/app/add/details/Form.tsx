@@ -41,6 +41,7 @@ import DrawerHeader from "@/app/add/details/DrawerHeader";
 import { createBrowserClient } from "@supabase/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface EventData {
   eventData: {
@@ -75,6 +76,9 @@ export default function Form({ eventData }: EventData) {
       promoter: "0",
     },
   });
+
+  const { toast } = useToast();
+
   // submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { data, error } = await supabase
@@ -90,6 +94,9 @@ export default function Form({ eventData }: EventData) {
 
     if (error) {
       console.log(error.message);
+      toast({
+        description: `Error: ${error.message}`,
+      });
     }
     if (data) {
       router.push("/home");
@@ -135,7 +142,7 @@ export default function Form({ eventData }: EventData) {
               <TabsContent value="rating">
                 <div className="flex flex-col p-2.5 gap-y-4">
                   <h1 className="font-semibold">My Rating</h1>
-                  <Drawer preventScrollRestoration>
+                  <Drawer preventScrollRestoration={false}>
                     <DrawerTrigger>
                       <RatingCard
                         currentRating={performanceStarRating}

@@ -57,7 +57,7 @@ export default function Feed({ id }: FeedProps) {
             return (
               <div key={e.id} className="flex flex-col gap-y-3">
                 <div className="flex flex-row items-center gap-x-2.5">
-                  <div className="rounded-full w-12 h-12 bg-zinc-500 overflow-hidden z-5">
+                  <div className="rounded-full w-12 h-12 bg-neutral-500 overflow-hidden z-5">
                     <Image
                       src="/images/tom.jpg"
                       alt="you"
@@ -68,17 +68,17 @@ export default function Feed({ id }: FeedProps) {
                   <div className="tracking-medium flex flex-col">
                     <Link
                       href={`/${e.profiles?.username}`}
-                      className="font-bold"
+                      className="font-bold dark:text-neutral-200"
                     >
                       {e.profiles?.first_name} {e.profiles?.last_name}
                     </Link>
-                    <div className="text-sm text-neutral-500 dark:text-zinc-300">
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400">
                       {formatDistance(e.events!.date!, new Date())} ago
                     </div>
                   </div>
                 </div>
-                <div className="text-base">
-                  I went to <span className="font-bold">{e.events!.name}</span>
+                <div className="text-base dark:text-neutral-400">
+                  I was at <span className="font-bold">{e.events!.name}</span>
                 </div>
                 <Card
                   eventData={{
