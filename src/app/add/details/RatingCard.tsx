@@ -12,7 +12,7 @@ export default function RatingCard({ title, currentRating }: IRatingCard) {
   return (
     <Card className="px-4 py-5 dark:bg-greybg flex">
       <div className="flex flex-row justify-between items-center w-full">
-        <div>{title}</div>
+        <div className="text-lg">{title}</div>
         <div className="flex flex-row">
           {ratings.map((rating) => (
             <Star

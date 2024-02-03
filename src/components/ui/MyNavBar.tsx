@@ -4,13 +4,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus, UserRound } from "lucide-react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Burger from "./Burger";
 
 interface IMyNavBar {
   profile?: boolean | null;
   add?: boolean | null;
   login?: boolean | null;
   authed?: boolean | null;
-  username?: string | null;
+  username: string | null;
 }
 
 export default function MyNavBar({
@@ -29,20 +30,10 @@ export default function MyNavBar({
         </h1>
         <span className="sr-only">Evento</span>
       </Link>
+
       <div className="flex flex-row items-center gap-x-4">
         <ThemeToggle></ThemeToggle>
-        {profile && (
-          <Link className="flex items-center" href={`/${username}`}>
-            <Button variant="outline" size="icon" className="border-none">
-              <UserRound
-                width={22}
-                height={22}
-                strokeWidth="2px"
-                className="text-purple-500"
-              />
-            </Button>
-          </Link>
-        )}
+
         {add && (
           <Link className="flex items-center" href="/add">
             <Button variant="outline" size="icon" className="border-none">
@@ -50,7 +41,11 @@ export default function MyNavBar({
             </Button>
           </Link>
         )}
-        {login && (
+        {authed ? (
+          <Button variant="outline" size="icon" className="border-none">
+            <Burger username={username!} />
+          </Button>
+        ) : (
           <Link className="flex items-center" href="/login">
             <Button>Login</Button>
           </Link>

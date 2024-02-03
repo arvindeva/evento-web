@@ -121,7 +121,7 @@ export default function Form({ eventData }: EventData) {
                   value="rating"
                   className={`
                      data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 
-                      box-border rounded-none px-4 data-[state=active]:text-purple-700 data-[state=active]:font-semibold
+                      box-border rounded-none px-4 data-[state=active]:text-purple-700 data-[state=active]:font-semibold text-base
                   `}
                 >
                   Rating & Review
@@ -129,7 +129,7 @@ export default function Form({ eventData }: EventData) {
                 <TabsTrigger
                   value="details"
                   className="data-[state=active]:border-purple-500 data-[state=active]:border-b-2 p-1.5 
-                  box-border rounded-none px-4 data-[state=active]:text-purple-700 data-[state=active]:font-semibold"
+                  box-border rounded-none px-4 data-[state=active]:text-purple-700 data-[state=active]:font-semibold text-base"
                 >
                   <div>Event Details</div>
                 </TabsTrigger>
@@ -137,7 +137,7 @@ export default function Form({ eventData }: EventData) {
               <div className="bg-neutral-200 dark:bg-neutral-400 h-px" />
               <TabsContent value="rating">
                 <div className="flex flex-col p-2.5 gap-y-4">
-                  <h1 className="font-semibold">My Rating</h1>
+                  <h1 className="font-semibold text-lg">My Rating</h1>
                   <Drawer preventScrollRestoration={false}>
                     <DrawerTrigger>
                       <RatingCard

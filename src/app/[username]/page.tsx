@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 import Profile from "./Profile";
-import NavBar from "./NavBar";
+import MyNavBar from "@/components/ui/MyNavBar";
 
 export default async function UserPage({
   params,
@@ -37,7 +37,7 @@ export default async function UserPage({
 
   return (
     <div>
-      <NavBar authed={authed} />
+      <MyNavBar authed={authed} username={params.username} add />
       <div className="max-w-lg sm:mx-auto">
         <Profile profile={profileData} isOwner={isOwner} />
       </div>

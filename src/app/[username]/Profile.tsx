@@ -149,13 +149,10 @@ export default function Profile(props: ProfileProps) {
 
                     <ul className="flex flex-col gap-y-4 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
                       <li>
-                        <Link href="/edit">Home</Link>
-                      </li>
-                      <li>
                         <Link href="/edit">Edit Profile</Link>
                       </li>
                       <li>
-                        <Link href="/edit">My Events</Link>
+                        <Link href="/edit">Settings</Link>
                       </li>
                     </ul>
                     <SheetFooter>

@@ -78,7 +78,7 @@ export default async function DetailsPage({
   };
   return (
     <div>
-      <MyNavBar profile username={profileData?.username} />
+      <MyNavBar profile username={profileData.username!} authed />
       <Form eventData={eventDataProps} />
     </div>
   );
