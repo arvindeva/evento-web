@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import Form from "./Form";
-import NavBar from "./NavBar";
+import MyNavBar from "@/components/ui/MyNavBar";
 
 export default async function AddPage() {
   const cookieStore = cookies();
@@ -28,7 +28,13 @@ export default async function AddPage() {
 
   return (
     <div>
-      <NavBar />
+      <MyNavBar
+        profile
+        add={false}
+        login={false}
+        authed={true}
+        username={initialData.username}
+      />
       <Form profile={initialData} />
     </div>
   );

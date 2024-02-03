@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import NavBar from "./NavBar";
+import MyNavBar from "@/components/ui/MyNavBar";
 import Feed from "./Feed";
 import { PrefixPathnameNormalizer } from "next/dist/server/future/normalizers/request/prefix";
 
@@ -26,7 +26,13 @@ export default async function Home() {
   console.log(profileData);
   return (
     <div>
-      <NavBar username={profileData!.username} />
+      <MyNavBar
+        profile
+        add
+        login={false}
+        authed={true}
+        username={profileData!.username}
+      />
       <div className="mt-4 mb-4 px-4 max-w-lg sm:mx-auto">
         <h2 className="text-[32px] font-bold tracking-tight">
           Hi,{" "}

@@ -55,10 +55,9 @@ export default function Profile(props: ProfileProps) {
   const eventsSupabaseQuery = supabase
     .from("users_events")
     .select(
-      `id, user_id, event_id, events (name, date, artists (id, name), venues (id, name, location), promoters (name))`
+      `id, user_id, event_id, events (name, date, artists (id, name), venues (id, name, location))`
     )
     .eq("user_id", props.profile!.id)
-    // .eq("user_id", props.profile!.id)
     .order("events(date)", { ascending: false });
 
   const getEvents = async () => {
@@ -97,6 +96,7 @@ export default function Profile(props: ProfileProps) {
       artist_ids.push(event!.events!.artists!.id);
     }
   }
+
   const uniqueEvents = eventsList?.length;
   const uniqueVenues = new Set(venue_ids).size;
   const uniqueArtists = new Set(artist_ids).size;

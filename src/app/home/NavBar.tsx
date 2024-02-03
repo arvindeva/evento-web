@@ -11,9 +11,6 @@ interface INavBar {
 }
 
 export default function NavBar({ username }: INavBar) {
-  const { theme, setTheme, forcedTheme } = useTheme();
-  console.log(theme);
-
   return (
     // <header className="fixed top-0 w-full h-14 flex items-center justify-between px-4 md:px-6 bg-white dark:bg-background border-b border-b-zinc-300 ">
     <header className="sticky top-0 z-50 w-full flex items-center justify-between px-4 border-b h-14 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

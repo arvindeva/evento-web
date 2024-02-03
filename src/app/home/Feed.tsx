@@ -24,8 +24,7 @@ export default function Feed({ id }: FeedProps) {
         event_id, 
         profiles ( first_name, last_name, username ), 
         events (name, date, artists (id, name), 
-        venues (id, name, location), 
-        promoters (name))
+        venues (id, name, location))
       `
     )
     .order("events(date)", { ascending: false });

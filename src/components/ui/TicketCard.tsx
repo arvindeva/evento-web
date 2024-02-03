@@ -7,7 +7,6 @@ interface EventData {
     date: string | null;
     artistName: string | null;
     venueName: string | null;
-    promoterName: string | null;
   };
 }
 

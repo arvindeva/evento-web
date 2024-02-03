@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/components/ui/LogoutButton";
-import NavBar from "@/components/ui/NavBar";
+import MyNavBar from "@/components/ui/MyNavBar";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -16,7 +16,7 @@ export default async function Home() {
 
   return (
     <main className="">
-      <NavBar />
+      <MyNavBar profile={false} add={false} login authed={false} />
       <div className="p-4 text-center mt-24">
         <h2 className="text-2xl">
           <span className="font-bold text-5xl bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">

@@ -27,7 +27,6 @@ interface IResult {
   date: string | null;
   id: number;
   name: string | null;
-  promoter_id: number | null;
   updated_at: string | null;
   venue_id: number | null;
 }
@@ -35,12 +34,10 @@ interface IResult {
 export default function Form(props: ProfileProps) {
   const supabase = createClient();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState<IResult[]>([]);
   const [isSearching, setIsSearching] = React.useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { register } = useForm();
 
   const getProfile = async () => {
     return await supabase
@@ -104,17 +101,22 @@ export default function Form(props: ProfileProps) {
     searchEvents();
   }, [debouncedSearchTerm]);
 
+  console.log(results);
+  const count = results.length;
+
   return (
-    <div className="form-widget">
+    <div className="form-widget p-4 flex flex-col gap-y-4">
       <div>
-        <label htmlFor="search_term">search</label>
+        <label htmlFor="search_term">Search</label>
         <Input
           name="search_term"
           placeholder="search event"
           onChange={handleChange}
         />
       </div>
-
+      <div className="text-md font-normal dark:text-zinc-400">
+        {count} results
+      </div>
       {results.map((result) => {
         return (
           <div key={result.id}>

@@ -29,13 +29,15 @@ export default async function UserPage({
   const isOwner =
     userData.user && profileData && userData.user.id === profileData.id;
 
+  const authed = !!userData.user;
+
   if (!profileData) {
     notFound();
   }
 
   return (
     <div>
-      <NavBar />
+      <NavBar authed={authed} />
       <div className="max-w-lg sm:mx-auto">
         <Profile profile={profileData} isOwner={isOwner} />
       </div>

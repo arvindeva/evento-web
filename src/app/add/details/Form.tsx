@@ -50,14 +50,12 @@ interface EventData {
     date: string | null;
     artistName: string | null;
     venueName: string | null;
-    promoterName: string | null;
   };
 }
 
 const formSchema = z.object({
   performance: z.string(),
   venue: z.string(),
-  promoter: z.string(),
 });
 
 const ratings = ["1", "2", "3", "4", "5"];
@@ -73,7 +71,6 @@ export default function Form({ eventData }: EventData) {
     defaultValues: {
       performance: "0",
       venue: "0",
-      promoter: "0",
     },
   });
 
@@ -88,7 +85,6 @@ export default function Form({ eventData }: EventData) {
         user_id: "f43c1149-0aec-4953-8633-b08e279442a5",
         event_rating: values.performance,
         venue_rating: values.venue,
-        promoter_rating: values.promoter,
       })
       .select();
 
@@ -106,7 +102,6 @@ export default function Form({ eventData }: EventData) {
 
   const performanceStarRating = form.watch("performance");
   const venueStarRating = form.watch("venue");
-  const promoterStarRating = form.watch("promoter");
 
   const closeDrawerText = "Remove rating & review";
   return (
@@ -246,61 +241,6 @@ export default function Form({ eventData }: EventData) {
                       <DrawerFooter>
                         <DrawerClose
                           onClick={() => form.setValue("venue", "0")}
-                          className="text-base font-semibold text-red-500"
-                        >
-                          {closeDrawerText}
-                        </DrawerClose>
-                      </DrawerFooter>
-                    </DrawerContent>
-                  </Drawer>
-                  <Drawer>
-                    <DrawerTrigger>
-                      <RatingCard
-                        currentRating={promoterStarRating}
-                        title="Promoter"
-                      />
-                    </DrawerTrigger>
-                    <DrawerContent>
-                      <DrawerHeader
-                        heading="Promoter"
-                        subheading={eventData!.promoterName}
-                        starRating={promoterStarRating}
-                      />
-                      <div className="bg-neutral-700 h-px" />
-                      <div className="pt-7 pb-5">
-                        <FormField
-                          control={form.control}
-                          name="promoter"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
-                              <FormControl>
-                                <RadioGroup
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                  className="flex flex-row space-y-1 justify-center gap-x-3"
-                                >
-                                  {ratings.map((num) => {
-                                    return (
-                                      <RatingItem
-                                        num={num}
-                                        key={num}
-                                        active={
-                                          parseInt(promoterStarRating) >=
-                                          parseInt(num)
-                                        }
-                                      />
-                                    );
-                                  })}
-                                </RadioGroup>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <DrawerFooter>
-                        <DrawerClose
-                          onClick={() => form.setValue("promoter", "0")}
                           className="text-base font-semibold text-red-500"
                         >
                           {closeDrawerText}

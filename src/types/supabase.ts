@@ -38,7 +38,6 @@ export interface Database {
           date: string | null;
           id: number;
           name: string | null;
-          promoter_id: number | null;
           updated_at: string | null;
           venue_id: number | null;
         };
@@ -49,7 +48,6 @@ export interface Database {
           date?: string | null;
           id?: number;
           name?: string | null;
-          promoter_id?: number | null;
           updated_at?: string | null;
           venue_id?: number | null;
         };
@@ -60,7 +58,6 @@ export interface Database {
           date?: string | null;
           id?: number;
           name?: string | null;
-          promoter_id?: number | null;
           updated_at?: string | null;
           venue_id?: number | null;
         };
@@ -70,13 +67,6 @@ export interface Database {
             columns: ["artist_id"];
             isOneToOne: false;
             referencedRelation: "artists";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "events_promoter_id_fkey";
-            columns: ["promoter_id"];
-            isOneToOne: false;
-            referencedRelation: "promoters";
             referencedColumns: ["id"];
           },
           {
@@ -158,27 +148,6 @@ export interface Database {
             referencedColumns: ["id"];
           }
         ];
-      };
-      promoters: {
-        Row: {
-          created_at: string;
-          id: number;
-          name: string | null;
-          updated_at: string | null;
-        };
-        Insert: {
-          created_at?: string;
-          id?: number;
-          name?: string | null;
-          updated_at?: string | null;
-        };
-        Update: {
-          created_at?: string;
-          id?: number;
-          name?: string | null;
-          updated_at?: string | null;
-        };
-        Relationships: [];
       };
       users_events: {
         Row: {
