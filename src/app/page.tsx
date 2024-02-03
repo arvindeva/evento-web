@@ -18,7 +18,13 @@ export default async function Home() {
 
   return (
     <main className="">
-      <MyNavBar profile={false} add={false} login authed={false} />
+      <MyNavBar
+        profile={false}
+        add={false}
+        login
+        authed={false}
+        username={null}
+      />
       <div className="p-4 text-center mt-24">
         <h2 className="text-2xl ">
           <span className="font-bold text-5xl md:text-[90px] bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
