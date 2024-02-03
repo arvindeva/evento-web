@@ -67,7 +67,7 @@ export default function Feed({ id }: FeedProps) {
                   <div className="tracking-medium flex flex-col">
                     <Link
                       href={`/${e.profiles?.username}`}
-                      className="font-bold dark:text-neutral-200"
+                      className="font-bold dark:text-neutral-200 text-base"
                     >
                       {e.profiles?.first_name} {e.profiles?.last_name}
                     </Link>
