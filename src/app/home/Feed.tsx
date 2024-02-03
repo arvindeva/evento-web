@@ -71,13 +71,16 @@ export default function Feed({ id }: FeedProps) {
                     >
                       {e.profiles?.first_name} {e.profiles?.last_name}
                     </Link>
-                    <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                    <div className="text-sm text-neutral-500 dark:text-neutral-300">
                       {formatDistance(e.events!.date!, new Date())} ago
                     </div>
                   </div>
                 </div>
-                <div className="text-base dark:text-neutral-400">
-                  I was at <span className="font-bold">{e.events!.name}</span>
+                <div className="text-base dark:text-neutral-300">
+                  I was at{" "}
+                  <span className="font-bold text-secondary-foreground">
+                    {e.events!.name}
+                  </span>
                 </div>
                 <Card
                   eventData={{

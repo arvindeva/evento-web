@@ -35,7 +35,9 @@ export default async function AddPage() {
         authed={true}
         username={initialData.username}
       />
-      <Form profile={initialData} />
+      <div className="mx-auto max-w-lg">
+        <Form profile={initialData} />
+      </div>
     </div>
   );
 }

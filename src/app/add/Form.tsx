@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { ChevronRight } from "lucide-react";
 
 interface ProfileProps {
   profile: {
@@ -29,6 +31,10 @@ interface IResult {
   name: string | null;
   updated_at: string | null;
   venue_id: number | null;
+  venues: {
+    location: string | null;
+    name: string | null;
+  } | null;
 }
 
 export default function Form(props: ProfileProps) {
@@ -83,8 +89,9 @@ export default function Form(props: ProfileProps) {
   const fetchResults = async (searchTerm: string) => {
     return await supabase
       .from("events")
-      .select()
-      .textSearch("name", `${formatSearchTerm(searchTerm)}`);
+      .select(`*, venues ( name, location)`)
+      .textSearch("name", `${formatSearchTerm(searchTerm)}`)
+      .order("date", { ascending: false });
   };
   const searchEvents = async () => {
     setIsSearching(true);
@@ -104,25 +111,74 @@ export default function Form(props: ProfileProps) {
   console.log(results);
   const count = results.length;
 
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   return (
     <div className="form-widget p-4 flex flex-col gap-y-4">
-      <div>
-        <label htmlFor="search_term">Search</label>
+      <h1 className="text-2xl font-semibold">Add Event</h1>
+      <div className="flex flex-col gap-y-1">
+        <label
+          htmlFor="search_term"
+          className="text-slate-700 dark:text-slate-400"
+        >
+          Search
+        </label>
         <Input
           name="search_term"
           placeholder="search event"
           onChange={handleChange}
         />
       </div>
-      <div className="text-md font-normal dark:text-zinc-400">
-        {count} results
+      <div className="text-md font-normal text-slate-700 dark:text-slate-400">
+        <span className="font-bold">{count}</span> results
       </div>
       {results.map((result) => {
+        const cardDate = new Date(result!.date!);
+        const month = monthNames[cardDate.getMonth()].slice(0, 3);
+        const day = cardDate.getDate();
+        const year = cardDate.getFullYear();
         return (
-          <div key={result.id}>
-            <Link href={`/add/details?event_id=${result.id}`}>
-              {result.name}
-            </Link>
+          <div className="flex flex-row justify-between items-center">
+            <div key={result.id} className="flex flex-row items-center gap-x-3">
+              <div className="flex flex-col gap-y-px items-center">
+                <div className="text-sm uppercase text-slate-500 dark:text-slate-400">
+                  {month}
+                </div>
+                <div className="text-lg font-bold dark:text-slate-200">
+                  {day}
+                </div>
+                <div className="text-sm text-slate-500 dark:text-slate-400">
+                  {year}
+                </div>
+              </div>
+              <div className="bg-neutral-300 dark:bg-slate-500 w-px h-10" />
+              <Link href={`/add/details?event_id=${result.id}`}>
+                <div className="flex flex-col gap-y-1 pr-2">
+                  <div className="text-base font-semibold dark:text-slate-200">
+                    {result.name}
+                  </div>
+                  <div className="text-sm font-normal text-slate-500">
+                    {result.venues?.name}, {result.venues?.location}
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div>
+              <ChevronRight className="w-5 h-5 text-purple-500" />
+            </div>
           </div>
         );
       })}

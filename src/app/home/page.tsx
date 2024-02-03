@@ -34,7 +34,7 @@ export default async function Home() {
         username={profileData!.username}
       />
       <div className="mt-4 mb-4 px-4 max-w-lg sm:mx-auto">
-        <h2 className="text-[32px] font-bold tracking-tight">
+        <h2 className="text-[32px] font-bold tracking-tight text-secondary-foreground">
           Hi,{" "}
           <span className="bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
             {" "}
