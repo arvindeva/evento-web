@@ -29,15 +29,22 @@ export default function Burger({ username }: IBurger) {
           </h1>
         </SheetHeader>
 
-        <ul className="flex flex-col gap-y-4 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
+        <ul className="flex flex-col gap-y-8 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
           <li>
-            <Link href="/">Home</Link>
+            <SheetClose asChild>
+              <Link href="/">Home</Link>
+            </SheetClose>
           </li>
           <li>
-            <Link href="/add">Add An Event</Link>
+            <SheetClose asChild>
+              <Link href="/add">Add An Event</Link>
+            </SheetClose>
           </li>
+
           <li>
-            <Link href={`/${username}`}>My Profile</Link>
+            <SheetClose asChild>
+              <Link href={`/${username}`}>My Profile</Link>
+            </SheetClose>
           </li>
         </ul>
         <SheetFooter></SheetFooter>

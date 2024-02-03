@@ -106,7 +106,7 @@ export default function Profile(props: ProfileProps) {
       {profileQuery.isLoading || eventsQuery.isLoading ? (
         <Skeleton />
       ) : (
-        <div className="px-4 py-8 flex flex-col gap-y-4">
+        <div className="px-4 py-5 flex flex-col gap-y-4">
           <section className="flex flex-row justify-between items-center">
             <div className="flex flex-row items-center justify-start gap-x-2">
               <div className="rounded-full w-14 h-14 bg-zinc-500 overflow-hidden">
@@ -147,12 +147,16 @@ export default function Profile(props: ProfileProps) {
                       </h1>
                     </SheetHeader>
 
-                    <ul className="flex flex-col gap-y-4 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
+                    <ul className="flex flex-col gap-y-8 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
                       <li>
-                        <Link href="/edit">Edit Profile</Link>
+                        <SheetClose asChild>
+                          <Link href="/edit">Edit Profile</Link>
+                        </SheetClose>
                       </li>
                       <li>
-                        <Link href="/edit">Settings</Link>
+                        <SheetClose asChild>
+                          <Link href="/settings">Settings</Link>
+                        </SheetClose>
                       </li>
                     </ul>
                     <SheetFooter>

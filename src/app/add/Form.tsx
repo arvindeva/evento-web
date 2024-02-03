@@ -155,7 +155,7 @@ export default function Form(props: ProfileProps) {
             className="flex flex-row justify-between items-center"
           >
             <Link href={`/add/details?event_id=${result.id}`}>
-              <div className="flex flex-row items-center gap-x-3">
+              <div className="flex flex-row items-center gap-x-3 active:bg-slate-100 dark:active:bg-slate-800">
                 <div className="flex flex-col gap-y-px items-center">
                   <div className="text-sm uppercase text-slate-500 dark:text-slate-400">
                     {month}
