@@ -151,8 +151,11 @@ export default function Form(props: ProfileProps) {
         const day = cardDate.getDate();
         const year = cardDate.getFullYear();
         return (
-          <div className="flex flex-row justify-between items-center">
-            <div key={result.id} className="flex flex-row items-center gap-x-3">
+          <div
+            key={result.id}
+            className="flex flex-row justify-between items-center"
+          >
+            <div className="flex flex-row items-center gap-x-3">
               <div className="flex flex-col gap-y-px items-center">
                 <div className="text-sm uppercase text-slate-500 dark:text-slate-400">
                   {month}
