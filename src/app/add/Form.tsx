@@ -170,7 +170,7 @@ export default function Form(props: ProfileProps) {
                   <div className="text-base font-semibold dark:text-slate-200">
                     {result.name}
                   </div>
-                  <div className="text-sm font-normal text-slate-500">
+                  <div className="text-sm font-normal text-slate-500 dark:text-slate-400">
                     {result.venues?.name}, {result.venues?.location}
                   </div>
                 </div>

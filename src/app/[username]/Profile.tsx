@@ -118,11 +118,11 @@ export default function Profile(props: ProfileProps) {
                 />
               </div>
               <div>
-                <div className="text-xl font-bold tracking-tight">
+                <div className="text-xl font-bold tracking-base">
                   {profileQuery.data?.data?.first_name}{" "}
                   {profileQuery.data?.data?.last_name}
                 </div>
-                <div className="text-sm font-semibold text-zinc-500">
+                <div className="text-base font-base tracking-wide text-zinc-500 dark:text-zinc-400">
                   @{profileQuery.data?.data?.username}
                 </div>
               </div>
