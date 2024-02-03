@@ -27,7 +27,7 @@ export default async function Home() {
   return (
     <div>
       <NavBar username={profileData!.username} />
-      <div className="mt-4 mb-4 px-4">
+      <div className="mt-4 mb-4 px-4 max-w-lg sm:mx-auto">
         <h2 className="text-[32px] font-bold tracking-tight">
           Hi,{" "}
           <span className="bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
@@ -41,7 +41,7 @@ export default async function Home() {
         </p>
       </div>
 
-      <div>
+      <div className="max-w-lg sm:mx-auto">
         <Feed id={profileData!.id} />
       </div>
     </div>

@@ -96,6 +96,7 @@ export default function Form({ eventData }: EventData) {
       console.log(error.message);
       toast({
         description: `Error: ${error.message}`,
+        variant: "destructive",
       });
     }
     if (data) {

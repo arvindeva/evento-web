@@ -36,7 +36,9 @@ export default async function UserPage({
   return (
     <div>
       <NavBar />
-      <Profile profile={profileData} isOwner={isOwner} />
+      <div className="max-w-lg sm:mx-auto">
+        <Profile profile={profileData} isOwner={isOwner} />
+      </div>
     </div>
   );
 }
