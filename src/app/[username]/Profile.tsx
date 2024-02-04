@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Settings } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Plus } from "lucide-react";
 import {
   Sheet,
   SheetClose,
@@ -202,6 +203,26 @@ export default function Profile(props: ProfileProps) {
               <div className="text-xl font-bold tracking-tight mb-3">
                 {profileQuery.data?.data?.first_name}&apos;s events
               </div>
+            </div>
+            <div className="text-center dark:text-zinc-400">
+              {eventsList?.length === 0 && props.isOwner && (
+                <div className="flex flex-col gap-y-4 mt-2">
+                  <div>You have no events... try adding some!</div>
+                  <Link href="/add" className="w-full">
+                    <Button className="w-full flex flex-row items-center gap-x-2">
+                      <Plus width={18} height={18} />
+                      Add Event
+                    </Button>
+                  </Link>
+                </div>
+              )}
+              {eventsList?.length === 0 && !props.isOwner && (
+                <div className="flex flex-col gap-y-4 mt-2">
+                  <div>
+                    {profileQuery.data?.data?.username} have no events...
+                  </div>
+                </div>
+              )}
             </div>
             <div className="flex flex-col gap-y-10">
               {eventsList?.map((e) => {

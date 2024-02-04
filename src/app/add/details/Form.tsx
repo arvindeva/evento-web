@@ -46,6 +46,7 @@ import { useToast } from "@/components/ui/use-toast";
 interface EventData {
   eventData: {
     id: number;
+    userId: string | null;
     eventName: string | null;
     date: string | null;
     artistName: string | null;
@@ -82,7 +83,7 @@ export default function Form({ eventData }: EventData) {
       .from("users_events")
       .insert({
         event_id: eventData.id,
-        user_id: "f43c1149-0aec-4953-8633-b08e279442a5",
+        user_id: eventData.userId,
         event_rating: values.performance,
         venue_rating: values.venue,
       })

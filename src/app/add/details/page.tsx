@@ -75,6 +75,7 @@ export default async function DetailsPage({
     date: eventData!.date,
     artistName: eventData!.artists!.name,
     venueName: eventData!.venues!.name,
+    userId: userData.user!.id,
   };
   return (
     <div>

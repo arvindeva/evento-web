@@ -150,31 +150,30 @@ export default function Form(props: ProfileProps) {
         const day = cardDate.getDate();
         const year = cardDate.getFullYear();
         return (
-          <div
-            key={result.id}
-            className="flex flex-row justify-between items-center"
-          >
-            <Link href={`/add/details?event_id=${result.id}`}>
-              <div className="flex flex-row items-center gap-x-3 active:bg-slate-100 dark:active:bg-slate-800">
-                <div className="flex flex-col gap-y-px items-center">
-                  <div className="text-sm uppercase text-slate-500 dark:text-slate-400">
-                    {month}
-                  </div>
-                  <div className="text-lg font-bold dark:text-slate-200">
-                    {day}
-                  </div>
-                  <div className="text-sm text-slate-500 dark:text-slate-400">
-                    {year}
-                  </div>
-                </div>
-                <div className="bg-neutral-300 dark:bg-slate-500 w-px h-10" />
-                <div>
-                  <div className="flex flex-col gap-y-1 pr-2">
-                    <div className="text-base font-semibold dark:text-slate-200">
-                      {result.name}
+          <Link href={`/add/details?event_id=${result.id}`} key={result.id}>
+            <div className="flex flex-row justify-between items-center w-full active:bg-slate-100 dark:active:bg-slate-800">
+              <div className="flex flex-row items-center justify-between w-full">
+                <div className="flex flex-row items-center gap-x-3 ">
+                  <div className="flex flex-col gap-y-px items-center">
+                    <div className="text-sm uppercase text-slate-500 dark:text-slate-400">
+                      {month}
                     </div>
-                    <div className="text-sm font-normal text-slate-500 dark:text-slate-400">
-                      {result.venues?.name}, {result.venues?.location}
+                    <div className="text-lg font-bold dark:text-slate-200">
+                      {day}
+                    </div>
+                    <div className="text-sm text-slate-500 dark:text-slate-400">
+                      {year}
+                    </div>
+                  </div>
+                  <div className="bg-neutral-300 dark:bg-slate-500 w-px h-10" />
+                  <div>
+                    <div className="flex flex-col gap-y-1 pr-2">
+                      <div className="text-base font-semibold dark:text-slate-200">
+                        {result.name}
+                      </div>
+                      <div className="text-sm font-normal text-slate-500 dark:text-slate-400">
+                        {result.venues?.name}, {result.venues?.location}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -182,8 +181,8 @@ export default function Form(props: ProfileProps) {
                   <ChevronRight className="w-5 h-5 text-purple-500" />
                 </div>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         );
       })}
     </div>
