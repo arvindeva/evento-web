@@ -7,6 +7,7 @@ import Card from "@/app/[username]/Card";
 import Link from "next/link";
 import Image from "next/image";
 import { formatDistance } from "date-fns";
+import { motion } from "framer-motion";
 
 interface FeedProps {
   id: string;
@@ -51,7 +52,12 @@ export default function Feed({ id }: FeedProps) {
       {eventsQuery.isLoading ? (
         <Skeleton />
       ) : (
-        <div className="p-4 flex flex-col gap-y-10">
+        <motion.div
+          className="p-4 flex flex-col gap-y-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ ease: "easeOut", duration: 0.5 }}
+        >
           {eventsList?.map((e) => {
             return (
               <div key={e.id} className="flex flex-col gap-y-3">
@@ -94,7 +100,7 @@ export default function Feed({ id }: FeedProps) {
               </div>
             );
           })}
-        </div>
+        </motion.div>
       )}
     </div>
   );

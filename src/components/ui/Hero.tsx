@@ -10,6 +10,7 @@ export default function Hero() {
       className="p-4 text-center mt-24"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ ease: "easeOut", duration: 0.5 }}
     >
       <h2 className="text-2xl ">
         <span className="font-bold text-5xl md:text-[90px] bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
