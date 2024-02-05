@@ -79,7 +79,7 @@ export default function Form({ eventData }: FormProps) {
 
   // submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const datearray = eventData!.date!.split("/");
+    const datearray = eventData!.date!.split("-");
     var ddmmyyDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
 
     const formattedDate = new Date(ddmmyyDate);
