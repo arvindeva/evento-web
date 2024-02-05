@@ -21,10 +21,10 @@ export interface Artist {
 const POPOVER_WIDTH = "w-[250px]";
 
 interface ComboBoxProps {
-  printSelected: (selected: string) => void;
+  getEventsByMbid: (selected: string) => void;
 }
 
-export default function Combobox({ printSelected }: ComboBoxProps) {
+export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<Artist | undefined>();
 
@@ -32,7 +32,7 @@ export default function Combobox({ printSelected }: ComboBoxProps) {
     setSelected(artist);
 
     //fire parent component's function to search artist's setlists.
-    printSelected(artist.mbid);
+    getEventsByMbid(artist.mbid);
     setOpen(false);
   }, []);
 
