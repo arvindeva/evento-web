@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Search } from "@/app/search-setlistfm/Search";
+import { Search } from "@/app/add/Search";
 
 export interface Artist {
   mbid: string;

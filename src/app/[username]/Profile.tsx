@@ -53,16 +53,16 @@ export default function Profile(props: ProfileProps) {
       .single();
   };
 
-  const eventsSupabaseQuery = supabase
-    .from("users_events")
+  const eventosSupabaseQuery = supabase
+    .from("eventos")
     .select(
-      `id, user_id, event_id, events (name, date, artists (id, name), venues (id, name, location))`
+      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
     .eq("user_id", props.profile!.id)
-    .order("events(date)", { ascending: false });
+    .order("date", { ascending: false });
 
   const getEvents = async () => {
-    return await eventsSupabaseQuery;
+    return await eventosSupabaseQuery;
   };
 
   const profileQuery = useQuery({
@@ -70,8 +70,8 @@ export default function Profile(props: ProfileProps) {
     queryFn: getProfile,
   });
 
-  const eventsQuery = useQuery({
-    queryKey: ["events"],
+  const eventosQuery = useQuery({
+    queryKey: ["eventos"],
     queryFn: getEvents,
   });
 
@@ -80,21 +80,21 @@ export default function Profile(props: ProfileProps) {
     console.log(profileQuery.error.message);
   }
 
-  if (eventsQuery.error) {
+  if (eventosQuery.error) {
     console.log("events error");
-    console.log(eventsQuery.error.message);
+    console.log(eventosQuery.error.message);
   }
 
-  const eventsList = eventsQuery.data?.data;
-  let venue_ids: number[] = [];
-  let artist_ids: number[] = [];
+  const eventsList = eventosQuery.data?.data;
+  let venue_ids: string[] = [];
+  let artist_ids: string[] = [];
 
   if (eventsList) {
     for (const event of eventsList) {
-      venue_ids.push(event!.events!.venues!.id);
+      venue_ids.push(event!.venue_id!);
     }
     for (const event of eventsList) {
-      artist_ids.push(event!.events!.artists!.id);
+      artist_ids.push(event!.artist_mbid!);
     }
   }
 
@@ -104,7 +104,7 @@ export default function Profile(props: ProfileProps) {
 
   return (
     <div className="">
-      {profileQuery.isLoading || eventsQuery.isLoading ? (
+      {profileQuery.isLoading || eventosQuery.isLoading ? (
         <Skeleton />
       ) : (
         <div className="px-4 py-5 flex flex-col gap-y-4">
@@ -229,11 +229,12 @@ export default function Profile(props: ProfileProps) {
                 return (
                   <Card
                     eventData={{
-                      eventName: e.events!.name,
-                      date: e.events!.date,
-                      artist: e.events!.artists!.name,
-                      venue: e.events!.venues!.name,
-                      eventId: e.event_id,
+                      tour: e.tour,
+                      date: e.date,
+                      artist: e.artist,
+                      venue: e.venue,
+                      slfmId: e.slfm_id,
+                      city: e.city,
                     }}
                     key={e.id}
                   />

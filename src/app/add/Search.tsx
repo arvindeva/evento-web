@@ -79,7 +79,11 @@ function SearchResults({
     new Promise((resolve) => setTimeout(resolve, ms));
   const searchProductsByName = async (query: string) => {
     const data = await ky
-      .get(`http://localhost:8080/search/artists/${query.split(" ").join("-")}`)
+      .get(
+        `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/artists/${query
+          .split(" ")
+          .join("-")}`
+      )
       .json<SearchResponse>();
     console.log(data);
 

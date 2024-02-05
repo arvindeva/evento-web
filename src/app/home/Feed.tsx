@@ -16,22 +16,32 @@ interface FeedProps {
 export default function Feed({ id }: FeedProps) {
   const supabase = createClient();
 
-  const eventsSupabaseQuery = supabase
-    .from("users_events")
+  // const eventsSupabaseQuery = supabase
+  //   .from("users_events")
+  //   .select(
+  //     `
+  //       id,
+  //       user_id,
+  //       event_id,
+  //       profiles ( first_name, last_name, username ),
+  //       events (name, date, artists (id, name),
+  //       venues (id, name, location))
+  //     `
+  //   )
+  //   .order("events(date)", { ascending: false });
+
+  // const getEvents = async () => {
+  //   return await eventsSupabaseQuery;
+  // };
+  const eventosSupabaseQuery = supabase
+    .from("eventos")
     .select(
-      `
-        id, 
-        user_id, 
-        event_id, 
-        profiles ( first_name, last_name, username ), 
-        events (name, date, artists (id, name), 
-        venues (id, name, location))
-      `
+      `id, user_id, slfm_id, profiles ( first_name, last_name, username ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
-    .order("events(date)", { ascending: false });
+    .order("date", { ascending: false });
 
   const getEvents = async () => {
-    return await eventsSupabaseQuery;
+    return await eventosSupabaseQuery;
   };
 
   const eventsQuery = useQuery({
@@ -78,23 +88,26 @@ export default function Feed({ id }: FeedProps) {
                       {e.profiles?.username}
                     </Link>
                     <div className="text-sm text-neutral-500 dark:text-neutral-300">
-                      {formatDistance(e.events!.date!, new Date())} ago
+                      {formatDistance(e.date!, new Date())} ago
                     </div>
                   </div>
                 </div>
                 <div className="text-base dark:text-neutral-300">
                   Attended{" "}
                   <span className="font-semibold text-secondary-foreground">
-                    {e.events!.name}
+                    {e.tour
+                      ? `${e.artist} ${e.tour}`
+                      : `an event by ${e.artist}`}
                   </span>
                 </div>
                 <Card
                   eventData={{
-                    eventName: e.events!.name,
-                    date: e.events!.date,
-                    artist: e.events!.artists!.name,
-                    venue: e.events!.venues!.name,
-                    eventId: e.event_id,
+                    tour: e.tour,
+                    date: e.date,
+                    artist: e.artist,
+                    venue: e.venue,
+                    city: e.city,
+                    slfmId: e.slfm_id,
                   }}
                 />
               </div>
