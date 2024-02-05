@@ -3,12 +3,33 @@ import { cookies } from "next/headers";
 import Form from "./Form";
 import MyNavBar from "@/components/ui/MyNavBar";
 import { redirect } from "next/navigation";
+import ky from "ky";
+
+interface Setlist {
+  id: string;
+  eventDate: string;
+  artist: {
+    mbid: string;
+    name: string;
+  };
+  venue: {
+    name: string;
+    city: {
+      name: string;
+      country: {
+        name: string;
+      };
+    };
+    id: string;
+  };
+  tour: {
+    name: string;
+  };
+}
 
 export default async function DetailsPage({
-  params,
   searchParams,
 }: {
-  params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const cookieStore = cookies();
@@ -32,36 +53,23 @@ export default async function DetailsPage({
     redirect("/");
   }
 
-  const { data: eventData, error: eventError } = await supabase
-    .from("events")
-    .select(
-      `
-      id,
-      name,
-      date,
-      artists ( name ),
-      venues (name)
-    `
+  const data = await ky
+    .get(
+      `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/event/${searchParams.event_id}`
     )
-    .eq("id", searchParams.event_id!)
-    .single();
-  if (eventError) {
-    console.log(eventError);
-    console.log(eventError.message);
-    redirect("/");
-  }
+    .json<Setlist>();
 
   const { data: userEventData, error: userEventError } = await supabase
-    .from("users_events")
+    .from("eventos")
     .select("*")
     .eq("user_id", userData.user!.id)
-    .eq("event_id", eventData!.id);
+    .eq("slfm_id", data!.id);
 
   console.log(userEventData);
 
   if (userEventError) {
     console.log("something went wrong");
-    redirect("/");
+    // redirect("/");
   }
 
   if (userEventData!.length > 0) {
@@ -69,18 +77,22 @@ export default async function DetailsPage({
     redirect(`/add?error=true&type=user_event_already_exist`);
   }
 
-  const eventDataProps = {
-    id: eventData!.id,
-    eventName: eventData!.name,
-    date: eventData!.date,
-    artistName: eventData!.artists!.name,
-    venueName: eventData!.venues!.name,
+  const eventData = {
+    id: data.id,
+    tour: data.tour?.name,
+    date: data.eventDate,
+    artist: data.artist?.name,
+    venue: data.venue?.name,
     userId: userData.user!.id,
+    artistMbid: data.artist.mbid,
+    venueId: data.venue.id,
+    city: data.venue.city.name,
+    country: data.venue.city.country.name,
   };
   return (
     <div>
       <MyNavBar profile username={profileData.username!} authed />
-      <Form eventData={eventDataProps} />
+      <Form eventData={{ ...eventData }} />
     </div>
   );
 }

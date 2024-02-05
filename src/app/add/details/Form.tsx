@@ -26,14 +26,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import RatingItem from "@/app/add/details/RatingItems";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star } from "lucide-react";
 import RatingCard from "./RatingCard";
@@ -42,16 +35,23 @@ import { createBrowserClient } from "@supabase/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import MyCard from "@/app/add/details/Card";
 
-interface EventData {
-  eventData: {
-    id: number;
-    userId: string | null;
-    eventName: string | null;
-    date: string | null;
-    artistName: string | null;
-    venueName: string | null;
-  };
+export interface FormProps {
+  eventData: Setlist;
+}
+
+export interface Setlist {
+  id: string;
+  tour: string;
+  date: string;
+  artist: string;
+  venue: string;
+  userId: string;
+  artistMbid: string;
+  venueId: string;
+  city: string;
+  country: string;
 }
 
 const formSchema = z.object({
@@ -61,7 +61,7 @@ const formSchema = z.object({
 
 const ratings = ["1", "2", "3", "4", "5"];
 
-export default function Form({ eventData }: EventData) {
+export default function Form({ eventData }: FormProps) {
   // supabase
   const supabase = createClient();
   const router = useRouter();
@@ -79,14 +79,28 @@ export default function Form({ eventData }: EventData) {
 
   // submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const datearray = eventData!.date!.split("-");
+    var ddmmyyDate = datearray[1] + "-" + datearray[0] + "-" + datearray[2];
+
+    const formattedDate = new Date(ddmmyyDate);
+
+    const payload = {
+      slfm_id: eventData.id,
+      user_id: eventData.userId,
+      artist_mbid: eventData.artistMbid,
+      venue_id: eventData.venueId,
+      date: ddmmyyDate,
+      artist: eventData.artist,
+      venue: eventData.venue,
+      city: eventData.city,
+      country: eventData.country,
+      tour: eventData.tour,
+      performance_rating: parseInt(values.performance),
+      venue_rating: parseInt(values.venue),
+    };
     const { data, error } = await supabase
-      .from("users_events")
-      .insert({
-        event_id: eventData.id,
-        user_id: eventData.userId,
-        event_rating: values.performance,
-        venue_rating: values.venue,
-      })
+      .from("eventos")
+      .insert(payload)
       .select();
 
     if (error) {
@@ -99,6 +113,7 @@ export default function Form({ eventData }: EventData) {
     if (data) {
       router.push("/home");
     }
+    console.log(payload);
   }
 
   const performanceStarRating = form.watch("performance");
@@ -108,7 +123,7 @@ export default function Form({ eventData }: EventData) {
   return (
     <div className="flex flex-col gap-y-4 mt-3">
       <div>
-        <TicketCard eventData={eventData} />
+        <MyCard eventData={eventData} />
       </div>
       <div>
         <RHForm {...form}>
@@ -149,7 +164,7 @@ export default function Form({ eventData }: EventData) {
                     <DrawerContent>
                       <DrawerHeader
                         heading="Performance"
-                        subheading={eventData!.artistName}
+                        subheading={eventData!.artist}
                         starRating={performanceStarRating}
                       />
                       <div className="bg-neutral-700 h-px" />
@@ -204,7 +219,7 @@ export default function Form({ eventData }: EventData) {
                     <DrawerContent>
                       <DrawerHeader
                         heading="Venue"
-                        subheading={eventData!.venueName}
+                        subheading={eventData!.venue}
                         starRating={venueStarRating}
                       />
                       <div className="bg-neutral-700 h-px" />
