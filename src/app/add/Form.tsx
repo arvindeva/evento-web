@@ -145,7 +145,7 @@ export default function Form(props: ProfileProps) {
           </Button>
         </div>
         <SelectContent>
-          {Array.from({ length: 50 }, (_, i) => (
+          {Array.from({ length: 30 }, (_, i) => (
             <SelectItem key={i} value={`${new Date().getFullYear() - i}`}>
               {new Date().getFullYear() - i}
             </SelectItem>

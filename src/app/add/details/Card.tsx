@@ -2,9 +2,9 @@ import Image from "next/image";
 import type { FormProps } from "./Form";
 
 export default function Card(props: FormProps) {
-  const datearray = props.eventData!.date!.split("-");
+  const datearray = props.eventData!.date!.split("/");
 
-  var formattedDate = datearray[1] + "-" + datearray[0] + "-" + datearray[2];
+  var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
 
   const cardDate = new Date(formattedDate);
 
