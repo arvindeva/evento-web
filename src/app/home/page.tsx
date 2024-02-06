@@ -23,7 +23,6 @@ export default async function Home() {
 
   const profileData = profileDataArray && profileDataArray[0];
 
-  console.log(profileData);
   return (
     <div>
       <MyNavBar

@@ -45,7 +45,6 @@ export default function Profile(props: ProfileProps) {
   const supabase = createClient();
 
   const getProfile = async () => {
-    console.log("getProfile trigerred");
     return await supabase
       .from("profiles")
       .select(`first_name, last_name, username`)
@@ -76,13 +75,11 @@ export default function Profile(props: ProfileProps) {
   });
 
   if (profileQuery.error) {
-    console.log("profile error");
-    console.log(profileQuery.error.message);
+    console.error(profileQuery.error.message);
   }
 
   if (eventosQuery.error) {
-    console.log("events error");
-    console.log(eventosQuery.error.message);
+    console.error(eventosQuery.error.message);
   }
 
   const eventsList = eventosQuery.data?.data;

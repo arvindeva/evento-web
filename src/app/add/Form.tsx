@@ -81,23 +81,6 @@ export default function Form(props: ProfileProps) {
   const [eventResults, setEventResults] = useState<EventsResponse | null>(null);
   const [value, setValue] = React.useState("");
 
-  // const getProfile = async () => {
-  //   return await supabase
-  //     .from("profiles")
-  //     .select(`first_name, username, last_name`)
-  //     .eq("id", props.profile!.id)
-  //     .single();
-  // };
-
-  // const { data, error, isLoading } = useQuery({
-  //   queryKey: ["profile"],
-  //   queryFn: getProfile,
-  // });
-
-  // if (error) {
-  //   console.log(error.message);
-  // }
-
   async function getEventsByMbid(selected: string) {
     setSelectedMbid(selected);
     const data = await ky
@@ -105,7 +88,6 @@ export default function Form(props: ProfileProps) {
         `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selected}`
       )
       .json<EventsResponse>();
-    console.log(data);
     setEventResults(data);
   }
 
@@ -118,16 +100,13 @@ export default function Form(props: ProfileProps) {
           `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}`
         )
         .json<EventsResponse>();
-      console.log(data);
       setEventResults(data);
     } else {
-      console.log("new value is ", newValue);
       const data = await ky
         .get(
           `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events?artistMbid=${selectedMbid}&year=${newValue}&p=1`
         )
         .json<EventsResponse>();
-      console.log(data);
       setEventResults(data);
     }
   }
@@ -153,7 +132,6 @@ export default function Form(props: ProfileProps) {
         </SelectContent>
       </Select>
       {eventResults?.setlist?.map((evento: Setlist) => {
-        console.log(evento);
         return (
           <div
             key={evento.id}

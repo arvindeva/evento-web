@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import Form from "./Form";
 import MyNavBar from "@/components/ui/MyNavBar";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { profile } from "console";
 
 interface IAddPage {
   searchParams: {
@@ -28,16 +29,12 @@ export default async function AddPage({ searchParams }: IAddPage) {
     .select()
     .eq("id", userData.user.id);
   if (profileError) {
-    console.log(profileError);
+    console.error(profileError.message);
     redirect("/");
   }
 
   const initialData = profileDataArray && profileDataArray[0];
-  console.log(searchParams);
 
-  if (searchParams.error === "true") {
-    console.log("there was an error (true)");
-  }
   return (
     <div>
       <MyNavBar

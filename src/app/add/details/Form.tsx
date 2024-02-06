@@ -80,16 +80,14 @@ export default function Form({ eventData }: FormProps) {
   // submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const datearray = eventData!.date!.split("-");
-    var ddmmyyDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-
-    const formattedDate = new Date(ddmmyyDate);
+    var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
 
     const payload = {
       slfm_id: eventData.id,
       user_id: eventData.userId,
       artist_mbid: eventData.artistMbid,
       venue_id: eventData.venueId,
-      date: ddmmyyDate,
+      date: formattedDate,
       artist: eventData.artist,
       venue: eventData.venue,
       city: eventData.city,
@@ -104,7 +102,6 @@ export default function Form({ eventData }: FormProps) {
       .select();
 
     if (error) {
-      console.log(error.message);
       toast({
         description: `Error: ${error.message}`,
         variant: "destructive",
@@ -113,7 +110,6 @@ export default function Form({ eventData }: FormProps) {
     if (data) {
       router.push("/home");
     }
-    console.log(payload);
   }
 
   const performanceStarRating = form.watch("performance");
