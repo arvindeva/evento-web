@@ -6,9 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import MyNavBar from "@/components/ui/MyNavBar";
-import { Ban } from "lucide-react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface ILoginPage {
   searchParams: {
@@ -22,7 +21,7 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
   const supabase = createClient(cookieStore);
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
-  if (userData?.user) {
+  if (userError || userData?.user) {
     redirect("/");
   }
   return (
