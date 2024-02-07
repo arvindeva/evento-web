@@ -34,7 +34,7 @@ export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
     //fire parent component's function to search artist's setlists.
     getEventsByMbid(artist.mbid);
     setOpen(false);
-  }, []);
+  }, [getEventsByMbid]);
 
   const displayName = selected ? selected.name : "Select artist";
 
