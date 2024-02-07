@@ -145,6 +145,7 @@ export default function Form() {
     }
   }
 
+
   return (
     <div className="form-widget p-4 flex flex-col gap-y-4">
       <Combobox getEventsByMbid={getEventsByMbid} />
@@ -172,28 +173,57 @@ export default function Form() {
         loader={<h4>Loading...</h4>}
         endMessage={
           <p style={{ textAlign: 'center' }}>
-            <b>Yay! You have seen it all</b>
+            <b>You&apos;ve reached the end...</b>
           </p>
         }
       >
-        {eventList.map((evento: Setlist) => {
-          return (
-            <div
-              key={evento.id}
-              className="text-base flex flex-row justify-between"
-            >
-              <div>
-                {evento.artist.name}
-                {evento.tour?.name && <span> {evento.tour?.name}</span>},{" "}
-                {evento.venue.name}, {evento.venue.city.name}
-                <p>{evento.eventDate}</p>
+        <div className="flex flex-col gap-y-4">
+          {eventList.map((evento: Setlist) => {
+            const datearray = evento.eventDate.split("-");
+            var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+            const cardDate = new Date(formattedDate);
+            const monthNames = [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December",
+            ];
+
+            const month = monthNames[cardDate.getMonth()].slice(0, 3);
+            const day = cardDate.getDate();
+            const year = cardDate.getFullYear();
+            return (
+              <div
+                key={evento.id}
+                className="text-base flex items-center flex-row justify-between"
+              >
+                <div className="flex flex-row gap-x-4 items-center">
+                  <div className="flex flex-col items-center justify-center">
+                    <div>{month}</div>
+                    <div className="text-2xl font-semibold">{day}</div>
+                    <div>{year}</div>
+                  </div>
+                  <div>
+                    {evento.artist.name}
+                    {evento.tour?.name && <span> {evento.tour?.name}</span>},{" "}
+                    {evento.venue.name}, {evento.venue.city.name}
+                  </div>
+                </div>
+                <Link href={`/add/details?event_id=${evento.id}`}>
+                  <Button>Add</Button>
+                </Link>
               </div>
-              <Link href={`/add/details?event_id=${evento.id}`}>
-                <Button>Add</Button>
-              </Link>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </InfiniteScroll>}
 
     </div>
