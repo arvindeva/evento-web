@@ -21,7 +21,7 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
   const supabase = createClient(cookieStore);
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
-  if (userError || userData?.user) {
+  if (userData?.user) {
     redirect("/");
   }
   return (
