@@ -37,8 +37,7 @@ export default async function DetailsPage({
 
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData?.user) {
-    console.log(userError);
-    console.log(userError?.message);
+    console.error(userError?.message || "Fetching user failed.");
     redirect("/");
   }
   const { data: profileDataArray, error: profileError } = await supabase
@@ -48,8 +47,7 @@ export default async function DetailsPage({
 
   const profileData = profileDataArray && profileDataArray[0];
   if (profileError || !profileData) {
-    console.log(profileError);
-    console.log(profileError?.message);
+    console.error(profileError?.message || "Error fetching user");
     redirect("/");
   }
 
@@ -65,15 +63,12 @@ export default async function DetailsPage({
     .eq("user_id", userData.user!.id)
     .eq("slfm_id", data!.id);
 
-  console.log(userEventData);
-
   if (userEventError) {
-    console.log("something went wrong");
-    // redirect("/");
+    console.error("fetching eventos failed.");
+    redirect("/");
   }
 
   if (userEventData!.length > 0) {
-    console.log("user event already exist, cant add");
     redirect(`/add?error=true&type=user_event_already_exist`);
   }
 

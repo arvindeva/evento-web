@@ -85,7 +85,6 @@ function SearchResults({
           .join("-")}`
       )
       .json<SearchResponse>();
-    console.log(data);
 
     return data;
   };

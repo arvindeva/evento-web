@@ -50,13 +50,10 @@ export default function Feed({ id }: FeedProps) {
   });
 
   if (eventsQuery.error) {
-    console.log("events error");
-    console.log(eventsQuery.error.message);
+    console.error(eventsQuery.error.message);
   }
 
-  console.log(eventsQuery.data);
   const eventsList = eventsQuery.data?.data;
-  console.log(eventsList);
   return (
     <div>
       {eventsQuery.isLoading ? (

@@ -1,37 +1,28 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { Label } from "@/components/ui/label";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { RadioGroup } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import {
   Form as RHForm,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import TicketCard from "@/components/ui/TicketCard";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import RatingItem from "@/app/add/details/RatingItems";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Star } from "lucide-react";
 import RatingCard from "./RatingCard";
 import DrawerHeader from "@/app/add/details/DrawerHeader";
-import { createBrowserClient } from "@supabase/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
@@ -79,17 +70,15 @@ export default function Form({ eventData }: FormProps) {
 
   // submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const datearray = eventData!.date!.split("/");
-    var ddmmyyDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-
-    const formattedDate = new Date(ddmmyyDate);
+    const datearray = eventData!.date!.split("-");
+    var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
 
     const payload = {
       slfm_id: eventData.id,
       user_id: eventData.userId,
       artist_mbid: eventData.artistMbid,
       venue_id: eventData.venueId,
-      date: ddmmyyDate,
+      date: formattedDate,
       artist: eventData.artist,
       venue: eventData.venue,
       city: eventData.city,
@@ -104,7 +93,6 @@ export default function Form({ eventData }: FormProps) {
       .select();
 
     if (error) {
-      console.log(error.message);
       toast({
         description: `Error: ${error.message}`,
         variant: "destructive",
@@ -113,7 +101,6 @@ export default function Form({ eventData }: FormProps) {
     if (data) {
       router.push("/home");
     }
-    console.log(payload);
   }
 
   const performanceStarRating = form.watch("performance");

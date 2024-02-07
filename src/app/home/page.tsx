@@ -1,10 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import MyNavBar from "@/components/ui/MyNavBar";
 import Feed from "./Feed";
-import { PrefixPathnameNormalizer } from "next/dist/server/future/normalizers/request/prefix";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -23,7 +21,6 @@ export default async function Home() {
 
   const profileData = profileDataArray && profileDataArray[0];
 
-  console.log(profileData);
   return (
     <div>
       <MyNavBar
