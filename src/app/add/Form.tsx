@@ -89,7 +89,7 @@ export default function Form() {
     if (newYear === "") {
       const data = await ky
         .get(
-          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}`
+          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}/`
         )
         .json<EventsResponse>();
       setEventResults(data);
