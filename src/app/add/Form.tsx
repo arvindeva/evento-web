@@ -70,7 +70,7 @@ interface Setlist {
 interface NotFoundResponse {
   code: string;
   status: string;
-  messag: string;
+  message: string;
   timestamp: string;
 }
 
