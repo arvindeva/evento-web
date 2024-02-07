@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import MyNavBar from "@/components/ui/MyNavBar";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import SubmitButton from "./SubmitButton";
 
 interface ILoginPage {
   searchParams: {
@@ -38,7 +39,7 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
           </div>
         )}
         <div>
-          <form className="p-4 flex flex-col gap-y-4 mt-4">
+          <form className="p-4 flex flex-col gap-y-4 mt-4" action={login}>
             <h1 className="text-2xl font-extrabold">Login</h1>
             <p className="mb-4 text-base text-zinc-500">
               Welcome back! Please enter your account information.
@@ -63,9 +64,7 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
                 className="dark:border-gray-700"
               />
             </div>
-            <Button formAction={login} className="h-11 mt-6">
-              Log in
-            </Button>
+            <SubmitButton />
           </form>
         </div>
       </div>
