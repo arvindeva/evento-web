@@ -25,7 +25,7 @@ export default function MyNavBar({
     <header className="sticky top-0 z-50 w-full flex items-center justify-between px-4 border-b h-14 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Link className="flex items-center" href="/home">
         <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
-          Evento{" "}
+          Evento
           <span className="text-lg font-light text-purple-500">v0.0</span>
         </h1>
         <span className="sr-only">Evento</span>

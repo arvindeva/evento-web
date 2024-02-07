@@ -19,7 +19,7 @@ export default function Burger({ username }: IBurger) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Menu width={26} height={26} className="text-purple-600" />
+        <Menu width={26} height={26} className="text-purple-500" />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
