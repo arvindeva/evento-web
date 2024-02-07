@@ -62,6 +62,7 @@ export default function Form() {
 
   async function getEventsByMbid(selected: string) {
     setSelectedMbid(selected);
+    setYear("");
     const data = await ky
       .get(
         `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selected}?p=1`
@@ -75,7 +76,7 @@ export default function Form() {
     const difference = data.total - data.page * data.itemsPerPage
     console.log(data)
     console.log(difference)
-    if (difference < 0) {
+    if (difference <= 0) {
       setHasMore(false)
     } else {
       setHasMore(true);
@@ -94,10 +95,10 @@ export default function Form() {
       setEventResults(data);
       setEventList(data.setlist);
       const difference = data.total - data.page * data.itemsPerPage
-      if (difference < 0) {
-        setHasMore(true)
+      if (difference <= 0) {
+        setHasMore(false)
       } else {
-        setHasMore(false);
+        setHasMore(true);
       }
       setCurrentPage(1);
     } else {
@@ -112,7 +113,7 @@ export default function Form() {
       const difference = data.total - data.page * data.itemsPerPage
 
       console.log(difference)
-      if (difference < 0) {
+      if (difference <= 0) {
         setHasMore(false)
       } else {
         setHasMore(true);
@@ -134,7 +135,7 @@ export default function Form() {
       setEventList([...eventList, ...data.setlist]);
       const difference = data.total - data.page * data.itemsPerPage
       console.log(difference)
-      if (difference < 0) {
+      if (difference <= 0) {
         setHasMore(false)
       } else {
         setHasMore(true);

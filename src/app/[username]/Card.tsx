@@ -48,7 +48,6 @@ export default function Card({ eventData }: ICard) {
           />
         </div>
       </section>
-
       <section className="">
         <div className="flex flex-row">
           <div className="w-1/5 flex flex-col items-center justify-center p-4 text-neutral-800 border-r border-dashed border-zinc-300">

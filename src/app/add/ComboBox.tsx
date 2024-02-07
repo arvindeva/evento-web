@@ -18,7 +18,7 @@ export interface Artist {
   name: string;
 }
 
-const POPOVER_WIDTH = "w-[250px]";
+const POPOVER_WIDTH = "w-[252px]";
 
 interface ComboBoxProps {
   getEventsByMbid: (selected: string) => void;

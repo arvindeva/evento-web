@@ -5,7 +5,6 @@ import { createClient } from "@/lib/supabase/server";
 import Form from "./Form";
 import MyNavBar from "@/components/ui/MyNavBar";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { profile } from "console";
 
 interface IAddPage {
   searchParams: {
@@ -17,7 +16,6 @@ interface IAddPage {
 export default async function AddPage({ searchParams }: IAddPage) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
   if (userError || !userData?.user) {
