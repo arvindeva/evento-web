@@ -4,21 +4,9 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { useDebounce } from "@uidotdev/usehooks";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { ChevronRight, FilterX } from "lucide-react";
-import AsyncSelect from "react-select/async";
+import { FilterX } from "lucide-react";
 import Combobox from "./ComboBox";
 import ky from "ky";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
