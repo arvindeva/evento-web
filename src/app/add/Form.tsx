@@ -148,110 +148,118 @@ export default function Form() {
 
 
   return (
-    <div className="form-widget p-4 flex flex-col gap-y-4">
-      <Combobox getEventsByMbid={getEventsByMbid} />
-      <Select value={year} onValueChange={handleValueChange}>
-        <div className="flex flex-row items-center gap-x-5">
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Year">{year}</SelectValue>
-          </SelectTrigger>
-          <Button variant="outline" onClick={() => handleValueChange("")}>
-            <FilterX />
-          </Button>
-        </div>
-        <SelectContent
-          ref={(ref) => {
-            if (!ref) return;
-            ref.ontouchstart = (e) => {
-              e.preventDefault();
-            }
-          }}>
-          {Array.from({ length: 30 }, (_, i) => (
-            <SelectItem key={i} value={`${new Date().getFullYear() - i}`}>
-              {new Date().getFullYear() - i}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <div >
+      <div className="form-widget p-4 flex flex-col gap-y-4">
+        <Combobox getEventsByMbid={getEventsByMbid} />
+        <Select value={year} onValueChange={handleValueChange}>
+          <div className="flex flex-row items-center gap-x-5">
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Year">{year}</SelectValue>
+            </SelectTrigger>
+            <Button variant="outline" onClick={() => handleValueChange("")}>
+              <FilterX />
+            </Button>
+          </div>
+          <SelectContent
+            ref={(ref) => {
+              if (!ref) return;
+              ref.ontouchstart = (e) => {
+                e.preventDefault();
+              }
+            }}>
+            {Array.from({ length: 30 }, (_, i) => (
+              <SelectItem key={i} value={`${new Date().getFullYear() - i}`}>
+                {new Date().getFullYear() - i}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-      {eventResults?.total! > 0 ? (
-        <div className="text-slate-500 dark:text-slate-300 mb-4">
-          <span className="font-semibold">{eventResults!.total!}</span> {" "}results found
-        </div>
-      ) : "No results"}
+        {eventResults?.total! > 0 ? (
+          <div className="text-slate-500 text-base dark:text-slate-300 mb-2 mt-4">
+            <span className="font-semibold">{eventResults!.total!}</span> {" "}results found
+          </div>
+        ) : (
+          <div className="text-slate-500 text-base dark:text-slate-300 mb-2 mt-4">
+            No Results Found
+          </div>
+        )}
 
-      {eventList?.length > 0 && <InfiniteScroll
-        dataLength={eventList.length} //This is important field to render the next data
-        next={fetchMoreEvents}
-        hasMore={hasMore}
-        loader={<p className="text-center mt-10 mb-10">
-          <b>Loading...</b>
-        </p>
-        }
-        endMessage={
-          <p className="text-center mt-10 mb-10">
-            <b>You&apos;ve reached the end... :(</b>
+      </div>
+      <div className="px-4 py-0">
+
+        {eventList?.length > 0 && <InfiniteScroll
+          dataLength={eventList.length} //This is important field to render the next data
+          next={fetchMoreEvents}
+          hasMore={hasMore}
+          loader={<p className="text-center mt-10 mb-10">
+            <b>Loading...</b>
           </p>
-        }
-      >
-        <div className="flex flex-col gap-y-4">
-          {eventList.map((evento: Setlist) => {
-            const datearray = evento.eventDate.split("-");
-            var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-            const cardDate = new Date(formattedDate);
-            const monthNames = [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ];
+          }
+          endMessage={
+            <p className="text-center mt-10 mb-10">
+              <b>You&apos;ve reached the end... :(</b>
+            </p>
+          }
+        >
+          <div className="flex flex-col gap-y-4">
+            {eventList.map((evento: Setlist) => {
+              const datearray = evento.eventDate.split("-");
+              var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+              const cardDate = new Date(formattedDate);
+              const monthNames = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+              ];
 
-            const month = monthNames[cardDate.getMonth()].slice(0, 3);
-            const day = cardDate.getDate();
-            const year = cardDate.getFullYear();
-            return (
-              <div key={evento.id} className="flex flex-col gap-y-4">
+              const month = monthNames[cardDate.getMonth()].slice(0, 3);
+              const day = cardDate.getDate();
+              const year = cardDate.getFullYear();
+              return (
+                <div key={evento.id} className="flex flex-col gap-y-4">
 
-                <Link href={`/add/details?event_id=${evento.id}`}>
-                  <div
-                    className="text-base flex items-center flex-row justify-between border-b border-b-purple-500 pb-4"
-                  >
-                    <div className="flex flex-row gap-x-4 items-center">
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="uppercase text-slate-500 dark:text-slate-300">{month}</div>
-                        <div className="text-xl font-semibold">{day}</div>
-                        <div className="text-slate-500 dark:text-slate-300">{year}</div>
-                      </div>
-                      <div className="flex flex-col gap-y-1">
-                        <div className="font-semibold text-lg leading-normal">
-                          {evento.artist.name}
-                          {evento.tour?.name && <span>: {evento.tour?.name}</span>}
+                  <Link href={`/add/details?event_id=${evento.id}`}>
+                    <div
+                      className="text-base flex items-center flex-row justify-between border-b border-b-purple-500 pb-4"
+                    >
+                      <div className="flex flex-row gap-x-4 items-center">
+                        <div className="flex flex-col items-center justify-center">
+                          <div className="text-sm uppercase text-slate-500 dark:text-slate-300">{month}</div>
+                          <div className="text-lg font-semibold">{day}</div>
+                          <div className="text-sm text-slate-500 dark:text-slate-300">{year}</div>
                         </div>
-                        <div className="text-base text-slate-500 dark:text-slate-300">
-                          {evento.venue.name}, {evento.venue.city.name}
+                        <div className="flex flex-col gap-y-1">
+                          <div className="font-semibold text-base leading-normal">
+                            {evento.artist.name}
+                            {evento.tour?.name && <span>: {evento.tour?.name}</span>}
+                          </div>
+                          <div className="text-sm text-slate-500 dark:text-slate-300">
+                            {evento.venue.name}, {evento.venue.city.name}
+                          </div>
                         </div>
                       </div>
+                      <Button variant="outline" className="rounded-full border-none">
+                        <ChevronRight width={18} height={18} className="text-purple-500" />
+                      </Button>
                     </div>
-                    <Button variant="outline" className="rounded-full border-none">
-                      <ChevronRight width={18} height={18} className="text-purple-500" />
-                    </Button>
-                  </div>
 
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      </InfiniteScroll>}
-
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </InfiniteScroll>}
+      </div>
     </div>
   );
 }

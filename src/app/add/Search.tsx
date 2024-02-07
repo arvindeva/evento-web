@@ -109,7 +109,7 @@ function SearchResults({
       {/* TODO: these should have proper loading aria */}
       {isLoading && <div className="p-4 text-sm">Searching...</div>}
       {!isError && !isLoading && !data?.artist && (
-        <div className="p-4 text-sm">No products found</div>
+        <div className="p-4 text-sm">No artists found</div>
       )}
       {isError && <div className="p-4 text-sm">Something went wrong</div>}
 
