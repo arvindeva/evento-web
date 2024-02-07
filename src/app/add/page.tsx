@@ -53,7 +53,7 @@ export default async function AddPage({ searchParams }: IAddPage) {
         </div>
       )}
       <div className="mx-auto max-w-lg">
-        <Form profile={initialData} />
+        <Form />
       </div>
     </div>
   );
