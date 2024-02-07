@@ -43,7 +43,7 @@ export function Search({ selectedResult, onSelectResult }: SearchProps) {
   return (
     <Command
       shouldFilter={false}
-      className="h-auto rounded-lg border border-b-0 shadow-md"
+      className="h-auto rounded-lg border border-b-0 shadow-md w-full"
     >
       <CommandInput
         value={searchQuery}

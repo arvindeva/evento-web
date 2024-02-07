@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { FilterX } from "lucide-react";
+import { FilterX, ChevronRight } from "lucide-react";
 import Combobox from "./ComboBox";
 import ky from "ky";
 import {
@@ -73,6 +73,7 @@ export default function Form() {
 
     // check if theres more data to fetch
     const difference = data.total - data.page * data.itemsPerPage
+    console.log(data)
     console.log(difference)
     if (difference < 0) {
       setHasMore(false)
@@ -158,7 +159,13 @@ export default function Form() {
             <FilterX />
           </Button>
         </div>
-        <SelectContent>
+        <SelectContent
+          ref={(ref) => {
+            if (!ref) return;
+            ref.ontouchstart = (e) => {
+              e.preventDefault();
+            }
+          }}>
           {Array.from({ length: 30 }, (_, i) => (
             <SelectItem key={i} value={`${new Date().getFullYear() - i}`}>
               {new Date().getFullYear() - i}
@@ -166,14 +173,24 @@ export default function Form() {
           ))}
         </SelectContent>
       </Select>
+
+      {eventResults?.total! > 0 ? (
+        <div className="text-slate-500 dark:text-slate-300 mb-4">
+          <span className="font-semibold">{eventResults!.total!}</span> {" "}results found
+        </div>
+      ) : "No results"}
+
       {eventList?.length > 0 && <InfiniteScroll
         dataLength={eventList.length} //This is important field to render the next data
         next={fetchMoreEvents}
         hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
+        loader={<p className="text-center mt-10 mb-10">
+          <b>Loading...</b>
+        </p>
+        }
         endMessage={
-          <p style={{ textAlign: 'center' }}>
-            <b>You&apos;ve reached the end...</b>
+          <p className="text-center mt-10 mb-10">
+            <b>You&apos;ve reached the end... :(</b>
           </p>
         }
       >
@@ -201,24 +218,33 @@ export default function Form() {
             const day = cardDate.getDate();
             const year = cardDate.getFullYear();
             return (
-              <div
-                key={evento.id}
-                className="text-base flex items-center flex-row justify-between"
-              >
-                <div className="flex flex-row gap-x-4 items-center">
-                  <div className="flex flex-col items-center justify-center">
-                    <div>{month}</div>
-                    <div className="text-2xl font-semibold">{day}</div>
-                    <div>{year}</div>
-                  </div>
-                  <div>
-                    {evento.artist.name}
-                    {evento.tour?.name && <span> {evento.tour?.name}</span>},{" "}
-                    {evento.venue.name}, {evento.venue.city.name}
-                  </div>
-                </div>
+              <div key={evento.id} className="flex flex-col gap-y-4">
+
                 <Link href={`/add/details?event_id=${evento.id}`}>
-                  <Button>Add</Button>
+                  <div
+                    className="text-base flex items-center flex-row justify-between border-b border-b-purple-500 pb-4"
+                  >
+                    <div className="flex flex-row gap-x-4 items-center">
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="uppercase text-slate-500 dark:text-slate-300">{month}</div>
+                        <div className="text-xl font-semibold">{day}</div>
+                        <div className="text-slate-500 dark:text-slate-300">{year}</div>
+                      </div>
+                      <div className="flex flex-col gap-y-1">
+                        <div className="font-semibold text-lg leading-normal">
+                          {evento.artist.name}
+                          {evento.tour?.name && <span>: {evento.tour?.name}</span>}
+                        </div>
+                        <div className="text-base text-slate-500 dark:text-slate-300">
+                          {evento.venue.name}, {evento.venue.city.name}
+                        </div>
+                      </div>
+                    </div>
+                    <Button variant="outline" className="rounded-full border-none">
+                      <ChevronRight width={18} height={18} className="text-purple-500" />
+                    </Button>
+                  </div>
+
                 </Link>
               </div>
             );

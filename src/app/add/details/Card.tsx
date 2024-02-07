@@ -50,15 +50,17 @@ export default function Card(props: FormProps) {
             <div className="text-sm font-medium text-neutral-400">{year}</div>
           </div>
           <div className="w-4/5 p-2 flex flex-col justify-center ">
-            <div className="tracking-tight font-semibold text-lg flex items-center text-neutral-800 leading-6 mb-0.5">
-              {props.eventData.artist}&nbsp;
+            <div className="tracking-tight font-semibold text-lg text-neutral-800 leading-6 mb-0.5">
+              <span>{props.eventData.artist}&nbsp;</span>
               <span>
                 {props.eventData?.tour && <span>{props.eventData.tour}</span>}
               </span>
+
             </div>
             <span className="text-sm text-zinc-500">
               {props.eventData.venue}, {props.eventData.city}
             </span>
+
           </div>
         </div>
       </section>
