@@ -1,9 +1,3 @@
-import UnderConstruction from '@/components/ui/UnderConstruction'
-
-export default function EditProfilePage() {
-  return (
-    <>
-      <UnderConstruction />
-    </>
-  )
+export default function EditPage() {
+  return <div>Under Construction</div>
 }

@@ -47,7 +47,7 @@ export default function Profile(props: ProfileProps) {
   const getProfile = async () => {
     return await supabase
       .from('profiles')
-      .select(`first_name, last_name, username`)
+      .select(`first_name, last_name, username, avatar_url`)
       .eq('id', props.profile!.id)
       .single()
   }
@@ -106,14 +106,23 @@ export default function Profile(props: ProfileProps) {
       ) : (
         <div className="px-4 py-5 flex flex-col gap-y-4">
           <section className="flex flex-row justify-between items-center">
-            <div className="flex flex-row items-center justify-start gap-x-2">
+            <div className="flex flex-row items-center justify-start gap-x-3">
               <div className="rounded-full w-14 h-14 bg-zinc-500 overflow-hidden">
-                <Image
-                  src="/images/tom.jpg"
-                  alt="you"
-                  width={200}
-                  height={200}
-                />
+                {profileQuery.data?.data?.avatar_url ? (
+                  <Image
+                    src={profileQuery.data?.data?.avatar_url!}
+                    alt="you"
+                    width={100}
+                    height={100}
+                  />
+                ) : (
+                  <Image
+                    src="/images/tom.jpg"
+                    alt="you"
+                    width={200}
+                    height={200}
+                  />
+                )}
               </div>
               <div>
                 <div className="text-xl font-bold tracking-base">

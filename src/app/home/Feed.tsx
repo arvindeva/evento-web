@@ -18,7 +18,7 @@ export default function Feed({ id }: FeedProps) {
   const eventosSupabaseQuery = supabase
     .from('eventos')
     .select(
-      `id, user_id, slfm_id, profiles ( first_name, last_name, username ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
+      `id, user_id, slfm_id, profiles ( first_name, last_name, username, avatar_url ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
     .order('date', { ascending: false })
 
@@ -72,12 +72,21 @@ export default function Feed({ id }: FeedProps) {
               <div key={e.id} className="flex flex-col gap-y-3">
                 <div className="flex flex-row items-center gap-x-2.5">
                   <div className="rounded-full w-10 h-10 bg-neutral-500 overflow-hidden z-5">
-                    <Image
-                      src="/images/tom.jpg"
-                      alt="you"
-                      width={200}
-                      height={200}
-                    />
+                    {e.profiles!.avatar_url ? (
+                      <Image
+                        src={e.profiles?.avatar_url!}
+                        alt="you"
+                        width={100}
+                        height={100}
+                      />
+                    ) : (
+                      <Image
+                        src="/images/tom.jpg"
+                        alt="you"
+                        width={200}
+                        height={200}
+                      />
+                    )}
                   </div>
                   <div className="tracking-medium flex flex-col">
                     <Link
