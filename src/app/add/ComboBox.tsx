@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, Search as SearchIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -28,13 +28,16 @@ export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<Artist | undefined>();
 
-  const handleSetActive = React.useCallback((artist: Artist) => {
-    setSelected(artist);
+  const handleSetActive = React.useCallback(
+    (artist: Artist) => {
+      setSelected(artist);
 
-    //fire parent component's function to search artist's setlists.
-    getEventsByMbid(artist.mbid);
-    setOpen(false);
-  }, [getEventsByMbid]);
+      //fire parent component's function to search artist's setlists.
+      getEventsByMbid(artist.mbid);
+      setOpen(false);
+    },
+    [getEventsByMbid],
+  );
 
   const displayName = selected ? selected.name : "Select artist";
 
@@ -48,7 +51,7 @@ export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
         >
           {displayName}
 
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <SearchIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
 

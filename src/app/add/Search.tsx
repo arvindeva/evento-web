@@ -83,7 +83,7 @@ function SearchResults({
       .get(
         `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/artists/${query
           .split(" ")
-          .join("-")}`
+          .join("-")}`,
       )
       .json<SearchResponse>();
 
@@ -125,7 +125,7 @@ function SearchResults({
             <Check
               className={cn(
                 "mr-2 h-4 w-4",
-                selectedResult?.mbid === mbid ? "opacity-100" : "opacity-0"
+                selectedResult?.mbid === mbid ? "opacity-100" : "opacity-0",
               )}
             />
             {name}

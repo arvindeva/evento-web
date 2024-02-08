@@ -36,7 +36,7 @@ export default function Feed({ id }: FeedProps) {
   const eventosSupabaseQuery = supabase
     .from("eventos")
     .select(
-      `id, user_id, slfm_id, profiles ( first_name, last_name, username ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
+      `id, user_id, slfm_id, profiles ( first_name, last_name, username ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`,
     )
     .order("date", { ascending: false });
 

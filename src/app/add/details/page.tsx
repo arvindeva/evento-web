@@ -53,7 +53,7 @@ export default async function DetailsPage({
 
   const data = await ky
     .get(
-      `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/event/${searchParams.event_id}`
+      `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/event/${searchParams.event_id}`,
     )
     .json<Setlist>();
 

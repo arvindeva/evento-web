@@ -55,12 +55,10 @@ export default function Card(props: FormProps) {
               <span>
                 {props.eventData?.tour && <span>{props.eventData.tour}</span>}
               </span>
-
             </div>
             <span className="text-sm text-zinc-500">
               {props.eventData.venue}, {props.eventData.city}
             </span>
-
           </div>
         </div>
       </section>

@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import Loader from "@/components/ui/loader";
 interface EventsResponse {
   itemsPerPage: number;
   page: number;
@@ -50,6 +50,16 @@ interface Setlist {
 //   timestamp: string;
 // }
 
+enum Status {
+  PENDING = "pending",
+  INACTIVE = "inactive",
+}
+
+enum FirstLoadingStatus {
+  PENDING = "pending",
+  INACTIVE = "inactive",
+}
+
 export default function Form() {
   const [selectedMbid, setSelectedMbid] = useState<string>("");
   const [eventResults, setEventResults] = useState<EventsResponse | null>(null);
@@ -57,13 +67,15 @@ export default function Form() {
   const [year, setYear] = React.useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>("inactive");
 
   async function getEventsByMbid(selected: string) {
     setSelectedMbid(selected);
     setYear("");
+    setStatus("loading");
     const data = await ky
       .get(
-        `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selected}?p=1`
+        `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selected}?p=1`,
       )
       .json<EventsResponse>();
     setCurrentPage(1);
@@ -87,7 +99,7 @@ export default function Form() {
     if (newYear === "") {
       const data = await ky
         .get(
-          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}`
+          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}`,
         )
         .json<EventsResponse>();
       setEventResults(data);
@@ -102,7 +114,7 @@ export default function Form() {
     } else {
       const data = await ky
         .get(
-          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
+          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`,
         )
         .json<EventsResponse>();
       console.log(data);
@@ -152,7 +164,7 @@ export default function Form() {
 
   return (
     <div className="relative">
-     <div className="sticky top-0 z-40 w-full bg-background form-widget p-4 flex flex-col gap-y-4">
+      <div className="sticky top-0 z-40 w-full bg-background form-widget p-4 flex flex-col gap-y-4">
         <h1 className="text-3xl font-semibold">Add event</h1>
         <Combobox getEventsByMbid={getEventsByMbid} />
         <Select value={year} onValueChange={handleValueChange}>
@@ -166,8 +178,12 @@ export default function Form() {
           </div>
           <SelectContent>
             {Array.from({ length: 30 }, (_, i) => (
-              <SelectItem key={i} value={`${new Date().getFullYear() - i}`} className="text-lg">
-               {new Date().getFullYear() - i}
+              <SelectItem
+                key={i}
+                value={`${new Date().getFullYear() - i}`}
+                className="text-lg"
+              >
+                {new Date().getFullYear() - i}
               </SelectItem>
             ))}
           </SelectContent>

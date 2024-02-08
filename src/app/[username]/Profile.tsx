@@ -55,7 +55,7 @@ export default function Profile(props: ProfileProps) {
   const eventosSupabaseQuery = supabase
     .from("eventos")
     .select(
-      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
+      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`,
     )
     .eq("user_id", props.profile!.id)
     .order("date", { ascending: false });

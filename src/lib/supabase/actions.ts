@@ -18,6 +18,6 @@ export function createClient(cookieStore: ReturnType<typeof cookies>) {
           cookieStore.set({ name, value: "", ...options });
         },
       },
-    }
+    },
   );
 }

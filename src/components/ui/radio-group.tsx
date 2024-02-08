@@ -36,7 +36,7 @@ const RadioGroupItem = React.forwardRef<
         `aspect-square h-12 w-12 rounded-full text-primary 
         ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring 
         focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`,
-        className
+        className,
       )}
       {...props}
     >
