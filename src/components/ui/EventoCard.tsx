@@ -21,7 +21,7 @@ interface IEventoCard {
 export default function EventoCard({ eventData }: IEventoCard) {
 
   return (
-    <div className="relative overflow-hidden h-[160px] min-w-[350px]   justify-between rounded-2xl">
+    <div className="relative overflow-hidden h-[160px] justify-between rounded-2xl">
       <div className="flex flex-row h-full">
         <div className="absolute inline-block -z-10 inset-0 bg-slate-900">
           <Image
@@ -47,8 +47,8 @@ export default function EventoCard({ eventData }: IEventoCard) {
               )}>{eventData?.artist}</h1>
             <h2 className="font-light">{eventData?.tour}</h2>
           </div>
-          <div className="flex flex-col items-end">
-            <div className="text-sm">{eventData?.venue}</div>
+          <div className="flex flex-col items-end text-right">
+            <div className="text-sm text-right">{eventData?.venue}</div>
             <div className="font-semibold text-xl">{eventData?.city}</div>
           </div>
         </div>
