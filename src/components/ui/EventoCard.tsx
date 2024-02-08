@@ -56,7 +56,7 @@ export default function EventoCard({ eventData }: IEventoCard) {
             >
               {eventData?.artist}
             </h1>
-            <h2 className="font-light">{eventData?.tour}</h2>
+            <h2 className="font-light text-sm">{eventData?.tour}</h2>
           </div>
           <div className="flex flex-col items-end text-right">
             <div className="text-sm text-right">{eventData?.venue}</div>
