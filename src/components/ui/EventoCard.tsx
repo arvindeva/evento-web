@@ -1,4 +1,4 @@
-import { source_serif_4 } from '@/app/fonts'
+import { source_serif_4, jetbrains_mono } from '@/app/fonts'
 import { cn } from '@/lib/utils';
 import concertImage from '../../../public/images/concert.jpg'
 import Image from 'next/image';
@@ -29,20 +29,21 @@ export default function EventoCard({ eventData }: IEventoCard) {
             alt="hi"
             fill
             style={{ objectFit: 'cover' }}
-            className="static opacity-25"
+            className="static opacity-20"
+            priority
           />
         </div>
-        <div className="flex flex-col p-3 justify-center items-center  backdrop-grayscale text-zinc-50  bg-gradient-to-b from-violet-500 to-fuchsia-500 bg-opacity-50">
+        <div className={cn("flex flex-col p-3 px-5 justify-center items-center  backdrop-grayscale text-zinc-50  bg-gradient-to-b from-violet-500 to-fuchsia-500 bg-opacity-50", jetbrains_mono.className)}>
           <h1 className="text-lg leading-none">{eventData?.date?.day}</h1>
           <h1 className="text-2xl font-semibold uppercase">{eventData?.date?.month}</h1>
           <h1 className="text-lg leading-none">{eventData?.date?.year}</h1>
         </div>
-        <div className="p-3 flex flex-col items-end w-full justify-between text-slate-50">
-          <div className="flex flex-col items-end">
+        <div className="py-3 px-5 flex flex-col items-end w-full justify-between text-slate-50">
+          <div className="flex flex-col items-end text-right">
             <h1
               className={cn(
-                "text-[24px] font-bold font-serif tracking-wide",
-                source_serif_4.className
+                "font-bold font-serif tracking-wide text-wrap leading-snug",
+                source_serif_4.className, eventData!.artist!.length < 17 ? "text-3xl" : "text-xl", "leading-tight"
               )}>{eventData?.artist}</h1>
             <h2 className="font-light">{eventData?.tour}</h2>
           </div>
@@ -53,7 +54,7 @@ export default function EventoCard({ eventData }: IEventoCard) {
         </div>
 
       </div>
-    
+
     </div>
   );
 }
