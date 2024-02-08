@@ -28,7 +28,7 @@ import Card from "./Card";
 import Image from "next/image";
 import LogoutButton from "@/components/ui/LogoutButton";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-
+import EventoCard from "@/components/ui/EventoCard";
 interface ProfileProps {
   profile: {
     bio: string | null;
@@ -55,7 +55,7 @@ export default function Profile(props: ProfileProps) {
   const eventosSupabaseQuery = supabase
     .from("eventos")
     .select(
-      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`,
+      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
     .eq("user_id", props.profile!.id)
     .order("date", { ascending: false });
@@ -198,7 +198,7 @@ export default function Profile(props: ProfileProps) {
           <section className="flex flex-col ">
             <div className="flex flex-row justify-between items-center pt-4">
               <div className="text-xl font-bold tracking-tight mb-3">
-                {profileQuery.data?.data?.first_name}&apos;s events
+                {profileQuery.data?.data?.first_name}&apos;s events 
               </div>
             </div>
             <div className="text-center dark:text-zinc-400">
@@ -221,13 +221,37 @@ export default function Profile(props: ProfileProps) {
                 </div>
               )}
             </div>
-            <div className="flex flex-col gap-y-10">
+            <div className="flex flex-col gap-y-6">
               {eventsList?.map((e) => {
+                const cardDate = new Date(e!.date!);
+
+                const monthNames = [
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ];
+
+                const month = monthNames[cardDate.getMonth()].slice(0, 3);
+                const day = cardDate.getDate().toString();
+                const year = cardDate.getFullYear().toString();
                 return (
-                  <Card
+
+
+                  <EventoCard
                     eventData={{
                       tour: e.tour,
-                      date: e.date,
+                      date: {
+                        day, month, year
+                      },
                       artist: e.artist,
                       venue: e.venue,
                       slfmId: e.slfm_id,
@@ -235,6 +259,7 @@ export default function Profile(props: ProfileProps) {
                     }}
                     key={e.id}
                   />
+
                 );
               })}
             </div>
