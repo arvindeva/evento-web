@@ -15,24 +15,6 @@ interface FeedProps {
 
 export default function Feed({ id }: FeedProps) {
   const supabase = createClient();
-
-  // const eventsSupabaseQuery = supabase
-  //   .from("users_events")
-  //   .select(
-  //     `
-  //       id,
-  //       user_id,
-  //       event_id,
-  //       profiles ( first_name, last_name, username ),
-  //       events (name, date, artists (id, name),
-  //       venues (id, name, location))
-  //     `
-  //   )
-  //   .order("events(date)", { ascending: false });
-
-  // const getEvents = async () => {
-  //   return await eventsSupabaseQuery;
-  // };
   const eventosSupabaseQuery = supabase
     .from("eventos")
     .select(
@@ -52,8 +34,8 @@ export default function Feed({ id }: FeedProps) {
   if (eventsQuery.error) {
     console.error(eventsQuery.error.message);
   }
-
   const eventsList = eventsQuery.data?.data;
+
   return (
     <div>
       {eventsQuery.isLoading ? (
@@ -66,6 +48,26 @@ export default function Feed({ id }: FeedProps) {
           transition={{ ease: "easeOut", duration: 0.5 }}
         >
           {eventsList?.map((e) => {
+            const cardDate = new Date(e!.date!);
+
+            const monthNames = [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December",
+            ];
+
+            const month = monthNames[cardDate.getMonth()].slice(0, 3);
+            const day = cardDate.getDate().toString();
+            const year = cardDate.getFullYear().toString();
             return (
               <div key={e.id} className="flex flex-col gap-y-3">
                 <div className="flex flex-row items-center gap-x-2.5">
@@ -89,24 +91,17 @@ export default function Feed({ id }: FeedProps) {
                     </div>
                   </div>
                 </div>
-                <div className="text-base dark:text-neutral-300">
-                  Attended{" "}
-                  <span className="font-semibold text-secondary-foreground">
-                    {e.tour
-                      ? `${e.artist} ${e.tour}`
-                      : `an event by ${e.artist}`}
-                  </span>
-                </div>
-                <Card
-                  eventData={{
-                    tour: e.tour,
-                    date: e.date,
-                    artist: e.artist,
-                    venue: e.venue,
-                    city: e.city,
-                    slfmId: e.slfm_id,
-                  }}
-                />
+                
+                <EventoCard eventData={{
+                  tour: e.tour,
+                  date: {
+                    day, month, year
+                  },
+                  artist: e.artist,
+                  venue: e.venue,
+                  city: e.city,
+                  slfmId: e.slfm_id,
+                }} />
               </div>
             );
           })}

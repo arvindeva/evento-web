@@ -8,11 +8,11 @@ import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Evento - v.0.0",
-  description: "Event Scrapbook App",
+  description: "Event Scrapbook App"
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
