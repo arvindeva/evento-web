@@ -151,29 +151,23 @@ export default function Form() {
   }
 
   return (
-    <div>
-      <div className="form-widget p-4 flex flex-col gap-y-4">
+    <div className="relative">
+     <div className="sticky top-0 z-40 w-full bg-background form-widget p-4 flex flex-col gap-y-4">
+        <h1 className="text-3xl font-semibold">Add event</h1>
         <Combobox getEventsByMbid={getEventsByMbid} />
         <Select value={year} onValueChange={handleValueChange}>
           <div className="flex flex-row items-center gap-x-5">
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] text-lg">
               <SelectValue placeholder="Year">{year}</SelectValue>
             </SelectTrigger>
             <Button variant="outline" onClick={() => handleValueChange("")}>
               <FilterX />
             </Button>
           </div>
-          <SelectContent
-          // ref={(ref) => {
-          //   if (!ref) return;
-          //   ref.ontouchstart = (e) => {
-          //     e.preventDefault();
-          //   }
-          // }}
-          >
+          <SelectContent>
             {Array.from({ length: 30 }, (_, i) => (
-              <SelectItem key={i} value={`${new Date().getFullYear() - i}`}>
-                {new Date().getFullYear() - i}
+              <SelectItem key={i} value={`${new Date().getFullYear() - i}`} className="text-lg">
+               {new Date().getFullYear() - i}
               </SelectItem>
             ))}
           </SelectContent>

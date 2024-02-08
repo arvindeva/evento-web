@@ -44,7 +44,7 @@ export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
         <Button
           variant="outline"
           role="combobox"
-          className={cn("justify-between", POPOVER_WIDTH)}
+          className={cn("justify-between text-lg", POPOVER_WIDTH)}
         >
           {displayName}
 

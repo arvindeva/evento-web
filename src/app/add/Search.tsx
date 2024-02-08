@@ -49,6 +49,7 @@ export function Search({ selectedResult, onSelectResult }: SearchProps) {
         value={searchQuery}
         onValueChange={setSearchQuery}
         placeholder="Search for Artist"
+        className="text-lg"
       />
 
       <SearchResults
@@ -107,11 +108,11 @@ function SearchResults({
   return (
     <CommandList>
       {/* TODO: these should have proper loading aria */}
-      {isLoading && <div className="p-4 text-sm">Searching...</div>}
+      {isLoading && <div className="p-4 text-lg">Searching...</div>}
       {!isError && !isLoading && !data?.artist && (
-        <div className="p-4 text-sm">No artists found</div>
+        <div className="p-4 text-lg">No artists found</div>
       )}
-      {isError && <div className="p-4 text-sm">Something went wrong</div>}
+      {isError && <div className="p-4 text-lg">Something went wrong</div>}
 
       {data?.artist?.map(({ mbid, name }) => {
         return (
@@ -119,6 +120,7 @@ function SearchResults({
             key={mbid}
             onSelect={() => onSelectResult({ mbid, name })}
             value={name}
+            className="text-lg"
           >
             <Check
               className={cn(
