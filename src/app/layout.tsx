@@ -8,11 +8,11 @@ import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Evento - v.0.0",
-  description: "Event Scrapbook App"
+  description: "Event Scrapbook App",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -22,7 +22,7 @@ export default function RootLayout({
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
-            inter.variable
+            inter.variable,
           )}
         >
           <ThemeProvider

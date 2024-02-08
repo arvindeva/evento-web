@@ -254,7 +254,9 @@ export default function Form({ eventData }: FormProps) {
                 </div>
               </TabsContent>
               <TabsContent value="details">
-                <div className="p-4 text-center text-2xl font-semibold">🛠️ Under Construction 🛠️</div>
+                <div className="p-4 text-center text-2xl font-semibold">
+                  🛠️ Under Construction 🛠️
+                </div>
               </TabsContent>
             </Tabs>
             <div className="p-2.5 w-full">

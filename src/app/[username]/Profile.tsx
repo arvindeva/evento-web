@@ -55,7 +55,7 @@ export default function Profile(props: ProfileProps) {
   const eventosSupabaseQuery = supabase
     .from("eventos")
     .select(
-      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
+      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`,
     )
     .eq("user_id", props.profile!.id)
     .order("date", { ascending: false });
@@ -198,7 +198,7 @@ export default function Profile(props: ProfileProps) {
           <section className="flex flex-col ">
             <div className="flex flex-row justify-between items-center pt-4">
               <div className="text-xl font-bold tracking-tight mb-3">
-                {profileQuery.data?.data?.first_name}&apos;s events 
+                {profileQuery.data?.data?.first_name}&apos;s events
               </div>
             </div>
             <div className="text-center dark:text-zinc-400">
@@ -244,13 +244,13 @@ export default function Profile(props: ProfileProps) {
                 const day = cardDate.getDate().toString();
                 const year = cardDate.getFullYear().toString();
                 return (
-
-
                   <EventoCard
                     eventData={{
                       tour: e.tour,
                       date: {
-                        day, month, year
+                        day,
+                        month,
+                        year,
                       },
                       artist: e.artist,
                       venue: e.venue,
@@ -259,7 +259,6 @@ export default function Profile(props: ProfileProps) {
                     }}
                     key={e.id}
                   />
-
                 );
               })}
             </div>
