@@ -1,6 +1,6 @@
-import { withSentryConfig } from "@sentry/nextjs";
+import { withSentryConfig } from '@sentry/nextjs'
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {}
 
 export default withSentryConfig(
   nextConfig,
@@ -10,8 +10,8 @@ export default withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: "evento-mvp",
-    project: "evento-mvp",
+    org: 'evento-mvp',
+    project: 'evento-mvp',
   },
   {
     // For all available options, see:
@@ -24,7 +24,7 @@ export default withSentryConfig(
     transpileClientSDK: true,
 
     // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
-    tunnelRoute: "/monitoring",
+    tunnelRoute: '/monitoring',
 
     // Hides source maps from generated client bundles
     hideSourceMaps: true,
@@ -37,5 +37,5 @@ export default withSentryConfig(
     // https://docs.sentry.io/product/crons/
     // https://vercel.com/docs/cron-jobs
     automaticVercelMonitors: true,
-  },
-);
+  }
+)

@@ -1,17 +1,17 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Plus, UserRound } from "lucide-react";
-import ThemeToggle from "@/components/ui/ThemeToggle";
-import Burger from "./Burger";
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Plus, UserRound } from 'lucide-react'
+import ThemeToggle from '@/components/ui/ThemeToggle'
+import Burger from './Burger'
 
 interface IMyNavBar {
-  profile?: boolean | null;
-  add?: boolean | null;
-  login?: boolean | null;
-  authed?: boolean | null;
-  username: string | null;
+  profile?: boolean | null
+  add?: boolean | null
+  login?: boolean | null
+  authed?: boolean | null
+  username: string | null
 }
 
 export default function MyNavBar({
@@ -52,5 +52,5 @@ export default function MyNavBar({
         )}
       </div>
     </header>
-  );
+  )
 }

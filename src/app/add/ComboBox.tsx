@@ -1,45 +1,45 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { ChevronsUpDown, Search as SearchIcon } from "lucide-react";
+import * as React from 'react'
+import { ChevronsUpDown, Search as SearchIcon } from 'lucide-react'
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Search } from "@/app/add/Search";
+} from '@/components/ui/popover'
+import { Search } from '@/app/add/Search'
 
 export interface Artist {
-  mbid: string;
-  name: string;
+  mbid: string
+  name: string
 }
 
-const POPOVER_WIDTH = "w-[252px]";
+const POPOVER_WIDTH = 'w-[252px]'
 
 interface ComboBoxProps {
-  getEventsByMbid: (selected: string) => void;
+  getEventsByMbid: (selected: string) => void
 }
 
 export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
-  const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<Artist | undefined>();
+  const [open, setOpen] = React.useState(false)
+  const [selected, setSelected] = React.useState<Artist | undefined>()
 
   const handleSetActive = React.useCallback(
     (artist: Artist) => {
-      setSelected(artist);
+      setSelected(artist)
 
       //fire parent component's function to search artist's setlists.
-      getEventsByMbid(artist.mbid);
-      setOpen(false);
+      getEventsByMbid(artist.mbid)
+      setOpen(false)
     },
-    [getEventsByMbid],
-  );
+    [getEventsByMbid]
+  )
 
-  const displayName = selected ? selected.name : "Select artist";
+  const displayName = selected ? selected.name : 'Select artist'
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -47,7 +47,7 @@ export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
         <Button
           variant="outline"
           role="combobox"
-          className={cn("justify-between text-lg", POPOVER_WIDTH)}
+          className={cn('justify-between text-lg', POPOVER_WIDTH)}
         >
           {displayName}
 
@@ -55,9 +55,9 @@ export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent side="bottom" className={cn("p-0", POPOVER_WIDTH)}>
+      <PopoverContent side="bottom" className={cn('p-0', POPOVER_WIDTH)}>
         <Search selectedResult={selected} onSelectResult={handleSetActive} />
       </PopoverContent>
     </Popover>
-  );
+  )
 }

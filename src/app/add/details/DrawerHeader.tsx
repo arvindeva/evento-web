@@ -1,9 +1,9 @@
-import { DrawerClose, DrawerTitle } from "@/components/ui/drawer";
+import { DrawerClose, DrawerTitle } from '@/components/ui/drawer'
 
 interface IDrawerHeader {
-  heading: string;
-  subheading: string | null;
-  starRating: string | null;
+  heading: string
+  subheading: string | null
+  starRating: string | null
 }
 
 export default function DrawerHeader({
@@ -19,7 +19,7 @@ export default function DrawerHeader({
         </DrawerTitle>
         <div className="text-left text-sm text-zinc-400">{subheading}</div>
       </div>
-      <DrawerClose>{starRating !== "0" ? "Save" : "Cancel"}</DrawerClose>
+      <DrawerClose>{starRating !== '0' ? 'Save' : 'Cancel'}</DrawerClose>
     </div>
-  );
+  )
 }

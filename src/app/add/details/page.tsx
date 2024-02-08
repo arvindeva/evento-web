@@ -1,75 +1,75 @@
-import { createClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
-import Form from "./Form";
-import MyNavBar from "@/components/ui/MyNavBar";
-import { redirect } from "next/navigation";
-import ky from "ky";
+import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
+import Form from './Form'
+import MyNavBar from '@/components/ui/MyNavBar'
+import { redirect } from 'next/navigation'
+import ky from 'ky'
 
 interface Setlist {
-  id: string;
-  eventDate: string;
+  id: string
+  eventDate: string
   artist: {
-    mbid: string;
-    name: string;
-  };
+    mbid: string
+    name: string
+  }
   venue: {
-    name: string;
+    name: string
     city: {
-      name: string;
+      name: string
       country: {
-        name: string;
-      };
-    };
-    id: string;
-  };
+        name: string
+      }
+    }
+    id: string
+  }
   tour: {
-    name: string;
-  };
+    name: string
+  }
 }
 
 export default async function DetailsPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
 
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const { data: userData, error: userError } = await supabase.auth.getUser()
   if (userError || !userData?.user) {
-    console.error(userError?.message || "Fetching user failed.");
-    redirect("/");
+    console.error(userError?.message || 'Fetching user failed.')
+    redirect('/')
   }
   const { data: profileDataArray, error: profileError } = await supabase
-    .from("profiles")
+    .from('profiles')
     .select()
-    .eq("id", userData.user!.id);
+    .eq('id', userData.user!.id)
 
-  const profileData = profileDataArray && profileDataArray[0];
+  const profileData = profileDataArray && profileDataArray[0]
   if (profileError || !profileData) {
-    console.error(profileError?.message || "Error fetching user");
-    redirect("/");
+    console.error(profileError?.message || 'Error fetching user')
+    redirect('/')
   }
 
   const data = await ky
     .get(
-      `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/event/${searchParams.event_id}`,
+      `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/event/${searchParams.event_id}`
     )
-    .json<Setlist>();
+    .json<Setlist>()
 
   const { data: userEventData, error: userEventError } = await supabase
-    .from("eventos")
-    .select("*")
-    .eq("user_id", userData.user!.id)
-    .eq("slfm_id", data!.id);
+    .from('eventos')
+    .select('*')
+    .eq('user_id', userData.user!.id)
+    .eq('slfm_id', data!.id)
 
   if (userEventError) {
-    console.error("fetching eventos failed.");
-    redirect("/");
+    console.error('fetching eventos failed.')
+    redirect('/')
   }
 
   if (userEventData!.length > 0) {
-    redirect(`/add?error=true&type=user_event_already_exist`);
+    redirect(`/add?error=true&type=user_event_already_exist`)
   }
 
   const eventData = {
@@ -83,11 +83,11 @@ export default async function DetailsPage({
     venueId: data.venue.id,
     city: data.venue.city.name,
     country: data.venue.city.country.name,
-  };
+  }
   return (
     <div>
       <MyNavBar profile username={profileData.username!} authed />
       <Form eventData={{ ...eventData }} />
     </div>
-  );
+  )
 }

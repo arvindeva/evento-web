@@ -1,28 +1,28 @@
-import type { Metadata } from "next";
-import { inter } from "@/app/fonts";
-import "@/styles/globals.css";
-import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ReactQueryProvider } from "@/components/react-query-provider";
-import { Toaster } from "@/components/ui/toaster";
+import type { Metadata } from 'next'
+import { inter } from '@/app/fonts'
+import '@/styles/globals.css'
+import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/components/theme-provider'
+import { ReactQueryProvider } from '@/components/react-query-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
-  title: "Evento - v.0.0",
-  description: "Event Scrapbook App",
-};
+  title: 'Evento - v.0.0',
+  description: 'Event Scrapbook App',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <ReactQueryProvider>
       <html suppressHydrationWarning lang="en">
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            inter.variable,
+            'min-h-screen bg-background font-sans antialiased',
+            inter.variable
           )}
         >
           <ThemeProvider
@@ -37,5 +37,5 @@ export default function RootLayout({
         </body>
       </html>
     </ReactQueryProvider>
-  );
+  )
 }

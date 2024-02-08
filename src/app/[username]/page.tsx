@@ -1,32 +1,32 @@
-import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { cookies } from 'next/headers'
+import { notFound } from 'next/navigation'
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server'
 
-import Profile from "./Profile";
-import MyNavBar from "@/components/ui/MyNavBar";
+import Profile from './Profile'
+import MyNavBar from '@/components/ui/MyNavBar'
 
 export default async function UserPage({
   params,
 }: {
-  params: { username: string };
+  params: { username: string }
 }) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+  const { data: userData, error: userError } = await supabase.auth.getUser()
   const { data: profileDataArray, error: profileError } = await supabase
-    .from("profiles")
+    .from('profiles')
     .select()
-    .eq("username", params.username);
+    .eq('username', params.username)
 
-  const profileData = profileDataArray && profileDataArray[0];
+  const profileData = profileDataArray && profileDataArray[0]
   const isOwner =
-    userData.user && profileData && userData.user.id === profileData.id;
+    userData.user && profileData && userData.user.id === profileData.id
 
-  const authed = !!userData.user;
+  const authed = !!userData.user
 
   if (!profileData) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -36,5 +36,5 @@ export default async function UserPage({
         <Profile profile={profileData} isOwner={isOwner} />
       </div>
     </div>
-  );
+  )
 }

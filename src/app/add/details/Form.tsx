@@ -1,77 +1,77 @@
-"use client";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RadioGroup } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
+'use client'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { RadioGroup } from '@/components/ui/radio-group'
+import { Button } from '@/components/ui/button'
 import {
   Form as RHForm,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form'
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerFooter,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import RatingItem from "@/app/add/details/RatingItems";
+} from '@/components/ui/drawer'
+import RatingItem from '@/app/add/details/RatingItems'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import RatingCard from "./RatingCard";
-import DrawerHeader from "@/app/add/details/DrawerHeader";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
-import MyCard from "@/app/add/details/Card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import RatingCard from './RatingCard'
+import DrawerHeader from '@/app/add/details/DrawerHeader'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/use-toast'
+import MyCard from '@/app/add/details/Card'
 
 export interface FormProps {
-  eventData: Setlist;
+  eventData: Setlist
 }
 
 export interface Setlist {
-  id: string;
-  tour: string;
-  date: string;
-  artist: string;
-  venue: string;
-  userId: string;
-  artistMbid: string;
-  venueId: string;
-  city: string;
-  country: string;
+  id: string
+  tour: string
+  date: string
+  artist: string
+  venue: string
+  userId: string
+  artistMbid: string
+  venueId: string
+  city: string
+  country: string
 }
 
 const formSchema = z.object({
   performance: z.string(),
   venue: z.string(),
-});
+})
 
-const ratings = ["1", "2", "3", "4", "5"];
+const ratings = ['1', '2', '3', '4', '5']
 
 export default function Form({ eventData }: FormProps) {
   // supabase
-  const supabase = createClient();
-  const router = useRouter();
+  const supabase = createClient()
+  const router = useRouter()
 
   //  form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      performance: "0",
-      venue: "0",
+      performance: '0',
+      venue: '0',
     },
-  });
+  })
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
   // submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const datearray = eventData!.date!.split("-");
-    var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+    const datearray = eventData!.date!.split('-')
+    var formattedDate = datearray[1] + '/' + datearray[0] + '/' + datearray[2]
 
     const payload = {
       slfm_id: eventData.id,
@@ -86,27 +86,27 @@ export default function Form({ eventData }: FormProps) {
       tour: eventData.tour,
       performance_rating: parseInt(values.performance),
       venue_rating: parseInt(values.venue),
-    };
+    }
     const { data, error } = await supabase
-      .from("eventos")
+      .from('eventos')
       .insert(payload)
-      .select();
+      .select()
 
     if (error) {
       toast({
         description: `Error: ${error.message}`,
-        variant: "destructive",
-      });
+        variant: 'destructive',
+      })
     }
     if (data) {
-      router.push("/home");
+      router.push('/home')
     }
   }
 
-  const performanceStarRating = form.watch("performance");
-  const venueStarRating = form.watch("venue");
+  const performanceStarRating = form.watch('performance')
+  const venueStarRating = form.watch('venue')
 
-  const closeDrawerText = "Remove rating & review";
+  const closeDrawerText = 'Remove rating & review'
   return (
     <div className="flex flex-col gap-y-4 mt-3">
       <div>
@@ -177,7 +177,7 @@ export default function Form({ eventData }: FormProps) {
                                           parseInt(num)
                                         }
                                       />
-                                    );
+                                    )
                                   })}
                                 </RadioGroup>
                               </FormControl>
@@ -188,7 +188,7 @@ export default function Form({ eventData }: FormProps) {
                       </div>
                       <DrawerFooter>
                         <DrawerClose
-                          onClick={() => form.setValue("performance", "0")}
+                          onClick={() => form.setValue('performance', '0')}
                           className="text-base font-semibold text-red-500"
                         >
                           {closeDrawerText}
@@ -232,7 +232,7 @@ export default function Form({ eventData }: FormProps) {
                                           parseInt(num)
                                         }
                                       />
-                                    );
+                                    )
                                   })}
                                 </RadioGroup>
                               </FormControl>
@@ -243,7 +243,7 @@ export default function Form({ eventData }: FormProps) {
                       </div>
                       <DrawerFooter>
                         <DrawerClose
-                          onClick={() => form.setValue("venue", "0")}
+                          onClick={() => form.setValue('venue', '0')}
                           className="text-base font-semibold text-red-500"
                         >
                           {closeDrawerText}
@@ -268,5 +268,5 @@ export default function Form({ eventData }: FormProps) {
         </RHForm>
       </div>
     </div>
-  );
+  )
 }

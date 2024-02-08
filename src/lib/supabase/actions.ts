@@ -1,6 +1,6 @@
-import { type CookieOptions, createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
-import { Database } from "@/types/supabase";
+import { type CookieOptions, createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import { Database } from '@/types/supabase'
 
 export function createClient(cookieStore: ReturnType<typeof cookies>) {
   return createServerClient<Database>(
@@ -9,15 +9,15 @@ export function createClient(cookieStore: ReturnType<typeof cookies>) {
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value;
+          return cookieStore.get(name)?.value
         },
         set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options });
+          cookieStore.set({ name, value, ...options })
         },
         remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: "", ...options });
+          cookieStore.set({ name, value: '', ...options })
         },
       },
-    },
-  );
+    }
+  )
 }

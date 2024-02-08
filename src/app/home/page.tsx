@@ -1,25 +1,25 @@
-import { createClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import MyNavBar from "@/components/ui/MyNavBar";
-import Feed from "./Feed";
+import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import MyNavBar from '@/components/ui/MyNavBar'
+import Feed from './Feed'
 
 export default async function Home() {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
 
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const { data: userData, error: userError } = await supabase.auth.getUser()
 
   if (userError || !userData?.user) {
-    redirect("/");
+    redirect('/')
   }
 
   const { data: profileDataArray, error: profileError } = await supabase
-    .from("profiles")
+    .from('profiles')
     .select()
-    .eq("id", userData.user.id);
+    .eq('id', userData.user.id)
 
-  const profileData = profileDataArray && profileDataArray[0];
+  const profileData = profileDataArray && profileDataArray[0]
 
   return (
     <div>
@@ -32,9 +32,9 @@ export default async function Home() {
       />
       <div className="mt-4 mb-4 px-4 max-w-lg sm:mx-auto">
         <h2 className="text-[32px] font-bold tracking-tight text-secondary-foreground">
-          Hi,{" "}
+          Hi,{' '}
           <span className="bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text">
-            {" "}
+            {' '}
             {profileData!.username}
           </span>
           !
@@ -48,5 +48,5 @@ export default async function Home() {
         <Feed id={profileData!.id} />
       </div>
     </div>
-  );
+  )
 }

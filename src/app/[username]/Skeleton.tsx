@@ -1,4 +1,4 @@
-import { Skeleton as ShadSkeleton } from "@/components/ui/skeleton";
+import { Skeleton as ShadSkeleton } from '@/components/ui/skeleton'
 
 export default function Skeleton() {
   return (
@@ -28,5 +28,5 @@ export default function Skeleton() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,40 +1,40 @@
-"use client";
+'use client'
 
-import { createClient } from "@/lib/supabase/client";
-import { useQuery } from "@tanstack/react-query";
-import Skeleton from "@/app/[username]/Skeleton";
-import Card from "@/app/[username]/Card";
-import Link from "next/link";
-import Image from "next/image";
-import { formatDistance } from "date-fns";
-import { motion } from "framer-motion";
-import EventoCard from "@/components/ui/EventoCard";
+import { createClient } from '@/lib/supabase/client'
+import { useQuery } from '@tanstack/react-query'
+import Skeleton from '@/app/[username]/Skeleton'
+import Card from '@/app/[username]/Card'
+import Link from 'next/link'
+import Image from 'next/image'
+import { formatDistance } from 'date-fns'
+import { motion } from 'framer-motion'
+import EventoCard from '@/components/ui/EventoCard'
 interface FeedProps {
-  id: string;
+  id: string
 }
 
 export default function Feed({ id }: FeedProps) {
-  const supabase = createClient();
+  const supabase = createClient()
   const eventosSupabaseQuery = supabase
-    .from("eventos")
+    .from('eventos')
     .select(
-      `id, user_id, slfm_id, profiles ( first_name, last_name, username ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`,
+      `id, user_id, slfm_id, profiles ( first_name, last_name, username ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
-    .order("date", { ascending: false });
+    .order('date', { ascending: false })
 
   const getEvents = async () => {
-    return await eventosSupabaseQuery;
-  };
+    return await eventosSupabaseQuery
+  }
 
   const eventsQuery = useQuery({
-    queryKey: ["events"],
+    queryKey: ['events'],
     queryFn: getEvents,
-  });
+  })
 
   if (eventsQuery.error) {
-    console.error(eventsQuery.error.message);
+    console.error(eventsQuery.error.message)
   }
-  const eventsList = eventsQuery.data?.data;
+  const eventsList = eventsQuery.data?.data
 
   return (
     <div>
@@ -45,29 +45,29 @@ export default function Feed({ id }: FeedProps) {
           className="p-4 flex flex-col gap-y-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ ease: "easeOut", duration: 0.5 }}
+          transition={{ ease: 'easeOut', duration: 0.5 }}
         >
           {eventsList?.map((e) => {
-            const cardDate = new Date(e!.date!);
+            const cardDate = new Date(e!.date!)
 
             const monthNames = [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ];
+              'January',
+              'February',
+              'March',
+              'April',
+              'May',
+              'June',
+              'July',
+              'August',
+              'September',
+              'October',
+              'November',
+              'December',
+            ]
 
-            const month = monthNames[cardDate.getMonth()].slice(0, 3);
-            const day = cardDate.getDate().toString();
-            const year = cardDate.getFullYear().toString();
+            const month = monthNames[cardDate.getMonth()].slice(0, 3)
+            const day = cardDate.getDate().toString()
+            const year = cardDate.getFullYear().toString()
             return (
               <div key={e.id} className="flex flex-col gap-y-3">
                 <div className="flex flex-row items-center gap-x-2.5">
@@ -107,10 +107,10 @@ export default function Feed({ id }: FeedProps) {
                   }}
                 />
               </div>
-            );
+            )
           })}
         </motion.div>
       )}
     </div>
-  );
+  )
 }

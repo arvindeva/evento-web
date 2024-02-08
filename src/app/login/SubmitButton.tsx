@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { useFormStatus } from "react-dom";
-import { Button } from "@/components/ui/button";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useFormStatus } from 'react-dom'
+import { Button } from '@/components/ui/button'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 export default function SubmitButton() {
-  const { pending } = useFormStatus();
+  const { pending } = useFormStatus()
   return (
     <Button type="submit" className="h-11 mt-6" aria-disabled={pending}>
       {pending ? (
@@ -14,5 +14,5 @@ export default function SubmitButton() {
         <span>Log in</span>
       )}
     </Button>
-  );
+  )
 }

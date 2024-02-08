@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function NavBar() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <header className="sticky -top-px z-50 border-b dark:border-b-zinc-600 bg-background">
@@ -21,5 +21,5 @@ export default function NavBar() {
         <div></div>
       </div>
     </header>
-  );
+  )
 }

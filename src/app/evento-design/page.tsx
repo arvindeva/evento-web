@@ -1,7 +1,7 @@
-import { source_serif_4 } from "@/app/fonts";
-import { cn } from "@/lib/utils";
-import concertImage from "../../../public/images/concert.jpg";
-import Image from "next/image";
+import { source_serif_4 } from '@/app/fonts'
+import { cn } from '@/lib/utils'
+import concertImage from '../../../public/images/concert.jpg'
+import Image from 'next/image'
 
 export default function EventoDesignPage() {
   return (
@@ -13,7 +13,7 @@ export default function EventoDesignPage() {
               src={concertImage}
               alt="hi"
               fill
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: 'cover' }}
               className="static opacity-25"
             />
           </div>
@@ -26,8 +26,8 @@ export default function EventoDesignPage() {
             <div className="flex flex-col items-end">
               <h1
                 className={cn(
-                  "text-[24px] font-bold font-serif tracking-wide",
-                  source_serif_4.className,
+                  'text-[24px] font-bold font-serif tracking-wide',
+                  source_serif_4.className
                 )}
               >
                 Placebo
@@ -46,5 +46,5 @@ export default function EventoDesignPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

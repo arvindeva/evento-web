@@ -1,21 +1,21 @@
-import { source_serif_4, jetbrains_mono } from "@/app/fonts";
-import { cn } from "@/lib/utils";
-import concertImage from "../../../public/images/concert.jpg";
-import Image from "next/image";
+import { source_serif_4, jetbrains_mono } from '@/app/fonts'
+import { cn } from '@/lib/utils'
+import concertImage from '../../../public/images/concert.jpg'
+import Image from 'next/image'
 
 interface IEventoCard {
   eventData: {
     date: {
-      day: string | null;
-      month: string | null;
-      year: string | null;
-    } | null;
-    artist: string | null;
-    venue: string | null;
-    slfmId: string | null;
-    city: string | null;
-    tour: string | null;
-  } | null;
+      day: string | null
+      month: string | null
+      year: string | null
+    } | null
+    artist: string | null
+    venue: string | null
+    slfmId: string | null
+    city: string | null
+    tour: string | null
+  } | null
 }
 
 export default function EventoCard({ eventData }: IEventoCard) {
@@ -27,15 +27,15 @@ export default function EventoCard({ eventData }: IEventoCard) {
             src={concertImage}
             alt="hi"
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
             className="static opacity-20"
             priority
           />
         </div>
         <div
           className={cn(
-            "flex flex-col p-3 px-5 justify-center items-center  backdrop-grayscale text-zinc-50  bg-gradient-to-b from-violet-500 to-fuchsia-500 bg-opacity-50",
-            jetbrains_mono.className,
+            'flex flex-col p-3 px-5 justify-center items-center  backdrop-grayscale text-zinc-50  bg-gradient-to-b from-violet-500 to-fuchsia-500 bg-opacity-50',
+            jetbrains_mono.className
           )}
         >
           <h1 className="text-lg leading-none">{eventData?.date?.day}</h1>
@@ -48,10 +48,10 @@ export default function EventoCard({ eventData }: IEventoCard) {
           <div className="flex flex-col items-end text-right">
             <h1
               className={cn(
-                "font-bold font-serif tracking-wide text-wrap leading-snug",
+                'font-bold font-serif tracking-wide text-wrap leading-snug',
                 source_serif_4.className,
-                eventData!.artist!.length < 17 ? "text-3xl" : "text-xl",
-                "leading-tight",
+                eventData!.artist!.length < 17 ? 'text-3xl' : 'text-xl',
+                'leading-tight'
               )}
             >
               {eventData?.artist}
@@ -65,5 +65,5 @@ export default function EventoCard({ eventData }: IEventoCard) {
         </div>
       </div>
     </div>
-  );
+  )
 }

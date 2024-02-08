@@ -1,39 +1,39 @@
-"use client";
+'use client'
 
-import Image from "next/image";
+import Image from 'next/image'
 
 interface ICard {
   eventData: {
-    date: string | null;
-    artist: string | null;
-    venue: string | null;
-    slfmId: string | null;
-    city: string | null;
-    tour: string | null;
-  } | null;
+    date: string | null
+    artist: string | null
+    venue: string | null
+    slfmId: string | null
+    city: string | null
+    tour: string | null
+  } | null
 }
 
 export default function Card({ eventData }: ICard) {
-  const cardDate = new Date(eventData!.date!);
+  const cardDate = new Date(eventData!.date!)
 
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
 
-  const month = monthNames[cardDate.getMonth()].slice(0, 3);
-  const day = cardDate.getDate();
-  const year = cardDate.getFullYear();
+  const month = monthNames[cardDate.getMonth()].slice(0, 3)
+  const day = cardDate.getDate()
+  const year = cardDate.getFullYear()
   return (
     <div className="max-w-lg rounded-xl overflow-hidden shadow-lg border bg-white text-black">
       <section className="border-dashed border-b border-zinc-300">
@@ -68,5 +68,5 @@ export default function Card({ eventData }: ICard) {
       </section>
       <section id="tab"></section>
     </div>
-  );
+  )
 }

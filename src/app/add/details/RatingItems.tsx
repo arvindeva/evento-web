@@ -1,10 +1,10 @@
-import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
-import { RadioGroupItem } from "@/components/ui/radio-group";
-import { Star } from "lucide-react";
+import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
+import { RadioGroupItem } from '@/components/ui/radio-group'
+import { Star } from 'lucide-react'
 
 interface IRatingItem {
-  num: string;
-  active: boolean;
+  num: string
+  active: boolean
 }
 
 export default function RatingItem({ num, active }: IRatingItem) {
@@ -14,5 +14,5 @@ export default function RatingItem({ num, active }: IRatingItem) {
         <RadioGroupItem value={num} active={active}></RadioGroupItem>
       </FormControl>
     </FormItem>
-  );
+  )
 }

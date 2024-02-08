@@ -1,35 +1,35 @@
-import { login, signup } from "./actions";
-import { Input } from "@/components/ui/input";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import MyNavBar from "@/components/ui/MyNavBar";
+import { login, signup } from './actions'
+import { Input } from '@/components/ui/input'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import MyNavBar from '@/components/ui/MyNavBar'
 
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import SubmitButton from "./SubmitButton";
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import SubmitButton from './SubmitButton'
 
 interface ILoginPage {
   searchParams: {
-    error: string;
-    type: string;
-  };
+    error: string
+    type: string
+  }
 }
 
 export default async function LoginPage({ searchParams }: ILoginPage) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+  const { data: userData, error: userError } = await supabase.auth.getUser()
 
   if (userData?.user) {
-    redirect("/");
+    redirect('/')
   }
   return (
     <>
       <MyNavBar authed={false} username={null} />
       <div className="max-w-xl mx-auto">
-        {searchParams.error === "true" && (
+        {searchParams.error === 'true' && (
           <div className="p-4">
             <Alert className="bg-red-700 text-zinc-100">
               <AlertDescription className="text-lg">
@@ -69,5 +69,5 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
         </div>
       </div>
     </>
-  );
+  )
 }

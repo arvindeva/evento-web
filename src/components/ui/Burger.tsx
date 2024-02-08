@@ -7,12 +7,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
-import Link from "next/link";
+} from '@/components/ui/sheet'
+import { Menu } from 'lucide-react'
+import Link from 'next/link'
 
 interface IBurger {
-  username: string;
+  username: string
 }
 
 export default function Burger({ username }: IBurger) {
@@ -24,7 +24,7 @@ export default function Burger({ username }: IBurger) {
       <SheetContent>
         <SheetHeader>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text mb-8">
-            Evento{" "}
+            Evento{' '}
             <span className="text-lg font-light text-purple-600">v0.0</span>
           </h1>
         </SheetHeader>
@@ -50,5 +50,5 @@ export default function Burger({ username }: IBurger) {
         <SheetFooter></SheetFooter>
       </SheetContent>
     </Sheet>
-  );
+  )
 }

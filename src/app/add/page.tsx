@@ -1,37 +1,37 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-import { createClient } from "@/lib/supabase/server";
-import Form from "./Form";
-import MyNavBar from "@/components/ui/MyNavBar";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { createClient } from '@/lib/supabase/server'
+import Form from './Form'
+import MyNavBar from '@/components/ui/MyNavBar'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 interface IAddPage {
   searchParams: {
-    error?: string;
-    type?: string;
-  };
+    error?: string
+    type?: string
+  }
 }
 
 export default async function AddPage({ searchParams }: IAddPage) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+  const { data: userData, error: userError } = await supabase.auth.getUser()
 
   if (userError || !userData?.user) {
-    redirect("/");
+    redirect('/')
   }
 
   const { data: profileDataArray, error: profileError } = await supabase
-    .from("profiles")
+    .from('profiles')
     .select()
-    .eq("id", userData.user.id);
+    .eq('id', userData.user.id)
   if (profileError) {
-    console.error(profileError.message);
-    redirect("/");
+    console.error(profileError.message)
+    redirect('/')
   }
 
-  const initialData = profileDataArray && profileDataArray[0];
+  const initialData = profileDataArray && profileDataArray[0]
 
   return (
     <div>
@@ -42,7 +42,7 @@ export default async function AddPage({ searchParams }: IAddPage) {
         authed={true}
         username={initialData.username!}
       />
-      {searchParams.error === "true" && (
+      {searchParams.error === 'true' && (
         <div className="px-4 my-2">
           <Alert variant="destructive" className="bg-red-700 text-zinc-300">
             <AlertTitle>Server Error!</AlertTitle>
@@ -54,5 +54,5 @@ export default async function AddPage({ searchParams }: IAddPage) {
         <Form />
       </div>
     </div>
-  );
+  )
 }

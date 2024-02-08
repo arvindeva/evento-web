@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import Loader from "@/components/ui/loader";
+import Loader from '@/components/ui/loader'
 
 export default function Loading() {
   // Or a custom loading skeleton component
@@ -8,5 +8,5 @@ export default function Loading() {
     <div className="w-screen h-screen flex flex-row items-center justify-center">
       <Loader />
     </div>
-  );
+  )
 }

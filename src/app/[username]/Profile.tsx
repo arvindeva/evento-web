@@ -1,17 +1,17 @@
-"use client";
-import { useCallback, useEffect, useState } from "react";
-import { Database } from "@/types/supabase";
-import { createClient } from "@/lib/supabase/client";
-import { QueryData, User } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { Settings } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
+'use client'
+import { useCallback, useEffect, useState } from 'react'
+import { Database } from '@/types/supabase'
+import { createClient } from '@/lib/supabase/client'
+import { QueryData, User } from '@supabase/supabase-js'
+import { useRouter } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
+import { Settings } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Plus } from 'lucide-react'
 import {
   Sheet,
   SheetClose,
@@ -21,83 +21,83 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import Skeleton from "@/app/[username]/Skeleton";
+} from '@/components/ui/sheet'
+import Skeleton from '@/app/[username]/Skeleton'
 
-import Card from "./Card";
-import Image from "next/image";
-import LogoutButton from "@/components/ui/LogoutButton";
-import ThemeToggle from "@/components/ui/ThemeToggle";
-import EventoCard from "@/components/ui/EventoCard";
+import Card from './Card'
+import Image from 'next/image'
+import LogoutButton from '@/components/ui/LogoutButton'
+import ThemeToggle from '@/components/ui/ThemeToggle'
+import EventoCard from '@/components/ui/EventoCard'
 interface ProfileProps {
   profile: {
-    bio: string | null;
-    first_name: string | null;
-    id: string;
-    last_name: string | null;
-    updated_at: string | null;
-    username: string | null;
-  } | null;
-  isOwner: boolean | null;
+    bio: string | null
+    first_name: string | null
+    id: string
+    last_name: string | null
+    updated_at: string | null
+    username: string | null
+  } | null
+  isOwner: boolean | null
 }
 
 export default function Profile(props: ProfileProps) {
-  const supabase = createClient();
+  const supabase = createClient()
 
   const getProfile = async () => {
     return await supabase
-      .from("profiles")
+      .from('profiles')
       .select(`first_name, last_name, username`)
-      .eq("id", props.profile!.id)
-      .single();
-  };
+      .eq('id', props.profile!.id)
+      .single()
+  }
 
   const eventosSupabaseQuery = supabase
-    .from("eventos")
+    .from('eventos')
     .select(
-      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`,
+      `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
-    .eq("user_id", props.profile!.id)
-    .order("date", { ascending: false });
+    .eq('user_id', props.profile!.id)
+    .order('date', { ascending: false })
 
   const getEvents = async () => {
-    return await eventosSupabaseQuery;
-  };
+    return await eventosSupabaseQuery
+  }
 
   const profileQuery = useQuery({
-    queryKey: ["profile"],
+    queryKey: ['profile'],
     queryFn: getProfile,
-  });
+  })
 
   const eventosQuery = useQuery({
-    queryKey: ["eventos"],
+    queryKey: ['eventos'],
     queryFn: getEvents,
-  });
+  })
 
   if (profileQuery.error) {
-    console.error(profileQuery.error.message);
+    console.error(profileQuery.error.message)
   }
 
   if (eventosQuery.error) {
-    console.error(eventosQuery.error.message);
+    console.error(eventosQuery.error.message)
   }
 
-  const eventsList = eventosQuery.data?.data;
-  let venue_ids: string[] = [];
-  let artist_ids: string[] = [];
+  const eventsList = eventosQuery.data?.data
+  let venue_ids: string[] = []
+  let artist_ids: string[] = []
 
   if (eventsList) {
     for (const event of eventsList) {
-      venue_ids.push(event!.venue_id!);
+      venue_ids.push(event!.venue_id!)
     }
     for (const event of eventsList) {
-      artist_ids.push(event!.artist_mbid!);
+      artist_ids.push(event!.artist_mbid!)
     }
   }
 
-  const uniqueEvents = eventsList?.length;
-  const uniqueVenues = new Set(venue_ids).size;
-  const uniqueArtists = new Set(artist_ids).size;
+  const uniqueEvents = eventsList?.length
+  const uniqueVenues = new Set(venue_ids).size
+  const uniqueArtists = new Set(artist_ids).size
 
   return (
     <div className="">
@@ -117,7 +117,7 @@ export default function Profile(props: ProfileProps) {
               </div>
               <div>
                 <div className="text-xl font-bold tracking-base">
-                  {profileQuery.data?.data?.first_name}{" "}
+                  {profileQuery.data?.data?.first_name}{' '}
                   {profileQuery.data?.data?.last_name}
                 </div>
                 <div className="text-base font-base tracking-wide text-zinc-500 dark:text-zinc-400">
@@ -144,7 +144,7 @@ export default function Profile(props: ProfileProps) {
                   <SheetContent>
                     <SheetHeader>
                       <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text mb-8">
-                        Evento{" "}
+                        Evento{' '}
                         <span className="text-lg font-light text-purple-500">
                           v0.0
                         </span>
@@ -223,26 +223,26 @@ export default function Profile(props: ProfileProps) {
             </div>
             <div className="flex flex-col gap-y-6">
               {eventsList?.map((e) => {
-                const cardDate = new Date(e!.date!);
+                const cardDate = new Date(e!.date!)
 
                 const monthNames = [
-                  "January",
-                  "February",
-                  "March",
-                  "April",
-                  "May",
-                  "June",
-                  "July",
-                  "August",
-                  "September",
-                  "October",
-                  "November",
-                  "December",
-                ];
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December',
+                ]
 
-                const month = monthNames[cardDate.getMonth()].slice(0, 3);
-                const day = cardDate.getDate().toString();
-                const year = cardDate.getFullYear().toString();
+                const month = monthNames[cardDate.getMonth()].slice(0, 3)
+                const day = cardDate.getDate().toString()
+                const year = cardDate.getFullYear().toString()
                 return (
                   <EventoCard
                     eventData={{
@@ -259,12 +259,12 @@ export default function Profile(props: ProfileProps) {
                     }}
                     key={e.id}
                   />
-                );
+                )
               })}
             </div>
           </section>
         </div>
       )}
     </div>
-  );
+  )
 }

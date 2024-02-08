@@ -1,11 +1,11 @@
-import { Card } from "@/components/ui/card";
-import { Star } from "lucide-react";
+import { Card } from '@/components/ui/card'
+import { Star } from 'lucide-react'
 
-const ratings = ["1", "2", "3", "4", "5"];
+const ratings = ['1', '2', '3', '4', '5']
 
 interface IRatingCard {
-  title: string | null;
-  currentRating: string;
+  title: string | null
+  currentRating: string
 }
 
 export default function RatingCard({ title, currentRating }: IRatingCard) {
@@ -18,8 +18,8 @@ export default function RatingCard({ title, currentRating }: IRatingCard) {
             <Star
               fill={`${
                 parseInt(currentRating) >= parseInt(rating)
-                  ? "#FACC15"
-                  : "#D8DDE4"
+                  ? '#FACC15'
+                  : '#D8DDE4'
               }`}
               strokeWidth={0}
               key={rating}
@@ -28,5 +28,5 @@ export default function RatingCard({ title, currentRating }: IRatingCard) {
         </div>
       </div>
     </Card>
-  );
+  )
 }

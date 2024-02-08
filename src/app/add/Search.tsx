@@ -1,44 +1,44 @@
-import * as React from "react";
-import { useDebounce } from "use-debounce";
-import { useQuery } from "@tanstack/react-query";
+import * as React from 'react'
+import { useDebounce } from 'use-debounce'
+import { useQuery } from '@tanstack/react-query'
 
 import {
   Command,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
-import ky from "ky";
+} from '@/components/ui/command'
+import { Check } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import ky from 'ky'
 
 interface SearchProps {
-  selectedResult?: Artist;
-  onSelectResult: (artist: Artist) => void;
+  selectedResult?: Artist
+  onSelectResult: (artist: Artist) => void
 }
 
 export interface Artist {
-  mbid: string;
-  name: string;
+  mbid: string
+  name: string
 }
 
 export interface SearchResponse {
-  artist: Artist[];
-  type: string;
-  itemsPerPage: number;
-  page: number;
-  total: number;
+  artist: Artist[]
+  type: string
+  itemsPerPage: number
+  page: number
+  total: number
 }
 
 export function Search({ selectedResult, onSelectResult }: SearchProps) {
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchQuery, setSearchQuery] = React.useState('')
 
   const handleSelectResult = (artist: Artist) => {
-    onSelectResult(artist);
+    onSelectResult(artist)
 
     // OPTIONAL: reset the search query upon selection
     // setSearchQuery('');
-  };
+  }
 
   return (
     <Command
@@ -58,13 +58,13 @@ export function Search({ selectedResult, onSelectResult }: SearchProps) {
         onSelectResult={handleSelectResult}
       />
     </Command>
-  );
+  )
 }
 
 interface SearchResultsProps {
-  query: string;
-  selectedResult: SearchProps["selectedResult"];
-  onSelectResult: SearchProps["onSelectResult"];
+  query: string
+  selectedResult: SearchProps['selectedResult']
+  onSelectResult: SearchProps['onSelectResult']
 }
 
 function SearchResults({
@@ -72,38 +72,38 @@ function SearchResults({
   selectedResult,
   onSelectResult,
 }: SearchResultsProps) {
-  const [debouncedSearchQuery] = useDebounce(query, 500);
+  const [debouncedSearchQuery] = useDebounce(query, 500)
 
-  const enabled = !!debouncedSearchQuery;
+  const enabled = !!debouncedSearchQuery
 
   const mockDelay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+    new Promise((resolve) => setTimeout(resolve, ms))
   const searchProductsByName = async (query: string) => {
     const data = await ky
       .get(
         `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/artists/${query
-          .split(" ")
-          .join("-")}`,
+          .split(' ')
+          .join('-')}`
       )
-      .json<SearchResponse>();
+      .json<SearchResponse>()
 
-    return data;
-  };
+    return data
+  }
 
   const {
     data,
     isLoading: isLoadingOrig,
     isError,
   } = useQuery<SearchResponse>({
-    queryKey: ["search", debouncedSearchQuery],
+    queryKey: ['search', debouncedSearchQuery],
     queryFn: () => searchProductsByName(debouncedSearchQuery),
     enabled,
-  });
+  })
 
   // To get around this https://github.com/TanStack/query/issues/3584
-  const isLoading = enabled && isLoadingOrig;
+  const isLoading = enabled && isLoadingOrig
 
-  if (!enabled) return null;
+  if (!enabled) return null
 
   return (
     <CommandList>
@@ -124,14 +124,14 @@ function SearchResults({
           >
             <Check
               className={cn(
-                "mr-2 h-4 w-4",
-                selectedResult?.mbid === mbid ? "opacity-100" : "opacity-0",
+                'mr-2 h-4 w-4',
+                selectedResult?.mbid === mbid ? 'opacity-100' : 'opacity-0'
               )}
             />
             {name}
           </CommandItem>
-        );
+        )
       })}
     </CommandList>
-  );
+  )
 }

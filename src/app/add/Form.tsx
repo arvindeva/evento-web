@@ -1,46 +1,46 @@
-"use client";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { FilterX, ChevronRight } from "lucide-react";
-import Combobox from "./ComboBox";
-import ky from "ky";
+'use client'
+import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { FilterX, ChevronRight } from 'lucide-react'
+import Combobox from './ComboBox'
+import ky from 'ky'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "@/components/ui/loader";
+} from '@/components/ui/select'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Loader from '@/components/ui/loader'
 interface EventsResponse {
-  itemsPerPage: number;
-  page: number;
-  setlist: Setlist[];
-  total: number;
-  type: string;
+  itemsPerPage: number
+  page: number
+  setlist: Setlist[]
+  total: number
+  type: string
 }
 
 interface Setlist {
-  id: string;
-  eventDate: string;
+  id: string
+  eventDate: string
   artist: {
-    mbid: string;
-    name: string;
-  };
+    mbid: string
+    name: string
+  }
   venue: {
-    name: string;
+    name: string
     city: {
-      name: string;
+      name: string
       country: {
-        name: string;
-      };
-    };
-  };
+        name: string
+      }
+    }
+  }
   tour: {
-    name: string;
-  };
+    name: string
+  }
 }
 
 // interface NotFoundResponse {
@@ -51,92 +51,92 @@ interface Setlist {
 // }
 
 enum Status {
-  PENDING = "pending",
-  INACTIVE = "inactive",
+  PENDING = 'pending',
+  INACTIVE = 'inactive',
 }
 
 export default function Form() {
-  const [selectedMbid, setSelectedMbid] = useState<string>("");
-  const [eventResults, setEventResults] = useState<EventsResponse | null>(null);
-  const [eventList, setEventList] = useState<Setlist[]>([]);
-  const [year, setYear] = React.useState("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [selectedMbid, setSelectedMbid] = useState<string>('')
+  const [eventResults, setEventResults] = useState<EventsResponse | null>(null)
+  const [eventList, setEventList] = useState<Setlist[]>([])
+  const [year, setYear] = React.useState('')
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [hasMore, setHasMore] = useState<boolean>(false)
   const [firstLoadingStauts, setFirstLoadingStatus] = useState<Status>(
-    Status.INACTIVE,
-  );
+    Status.INACTIVE
+  )
 
   async function getEventsByMbid(selected: string) {
-    setSelectedMbid(selected);
-    setYear("");
-    setFirstLoadingStatus(Status.PENDING);
+    setSelectedMbid(selected)
+    setYear('')
+    setFirstLoadingStatus(Status.PENDING)
     const data = await ky
       .get(
-        `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selected}?p=1`,
+        `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selected}?p=1`
       )
-      .json<EventsResponse>();
-    setCurrentPage(1);
-    setEventResults(data);
-    setEventList(data.setlist);
-    setFirstLoadingStatus(Status.INACTIVE);
+      .json<EventsResponse>()
+    setCurrentPage(1)
+    setEventResults(data)
+    setEventList(data.setlist)
+    setFirstLoadingStatus(Status.INACTIVE)
 
     // check if theres more data to fetch
-    const difference = data.total - data.page * data.itemsPerPage;
-    console.log(data);
-    console.log(difference);
+    const difference = data.total - data.page * data.itemsPerPage
+    console.log(data)
+    console.log(difference)
     if (difference <= 0) {
-      setHasMore(false);
+      setHasMore(false)
     } else {
-      setHasMore(true);
+      setHasMore(true)
     }
   }
 
   // async function getEventsByMbid
   async function handleValueChange(newYear: string) {
-    setYear(newYear);
-    if (newYear === "") {
-      setFirstLoadingStatus(Status.PENDING);
+    setYear(newYear)
+    if (newYear === '') {
+      setFirstLoadingStatus(Status.PENDING)
       const data = await ky
         .get(
-          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}`,
+          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}`
         )
-        .json<EventsResponse>();
-      setEventResults(data);
-      setEventList(data.setlist);
-      const difference = data.total - data.page * data.itemsPerPage;
+        .json<EventsResponse>()
+      setEventResults(data)
+      setEventList(data.setlist)
+      const difference = data.total - data.page * data.itemsPerPage
       if (difference <= 0) {
-        setHasMore(false);
+        setHasMore(false)
       } else {
-        setHasMore(true);
+        setHasMore(true)
       }
-      setCurrentPage(1);
-      setFirstLoadingStatus(Status.INACTIVE);
+      setCurrentPage(1)
+      setFirstLoadingStatus(Status.INACTIVE)
     } else {
-      setFirstLoadingStatus(Status.PENDING);
+      setFirstLoadingStatus(Status.PENDING)
       const data = await ky
         .get(
-          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`,
+          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
         )
-        .json<EventsResponse>();
-      console.log(data);
-      setEventResults(data);
-      setEventList(data.setlist);
-      const difference = data.total - data.page * data.itemsPerPage;
+        .json<EventsResponse>()
+      console.log(data)
+      setEventResults(data)
+      setEventList(data.setlist)
+      const difference = data.total - data.page * data.itemsPerPage
 
-      console.log(difference);
+      console.log(difference)
       if (difference <= 0) {
-        setHasMore(false);
+        setHasMore(false)
       } else {
-        setHasMore(true);
+        setHasMore(true)
       }
-      setCurrentPage(1);
-      setFirstLoadingStatus(Status.INACTIVE);
+      setCurrentPage(1)
+      setFirstLoadingStatus(Status.INACTIVE)
     }
   }
 
   async function fetchMoreEvents() {
     const url =
-      year === ""
+      year === ''
         ? `${
             process.env.NEXT_PUBLIC_EVENTO_API_URL
           }/search/events/${selectedMbid}?p=${currentPage + 1}`
@@ -144,22 +144,22 @@ export default function Form() {
             process.env.NEXT_PUBLIC_EVENTO_API_URL
           }/search/events?artistMbid=${selectedMbid}&year=${year}&p=${
             currentPage + 1
-          }`;
+          }`
     try {
-      const data = await ky.get(url).json<EventsResponse>();
-      console.log(data);
-      setEventResults(data);
-      setEventList([...eventList, ...data.setlist]);
-      const difference = data.total - data.page * data.itemsPerPage;
-      console.log(difference);
+      const data = await ky.get(url).json<EventsResponse>()
+      console.log(data)
+      setEventResults(data)
+      setEventList([...eventList, ...data.setlist])
+      const difference = data.total - data.page * data.itemsPerPage
+      console.log(difference)
       if (difference <= 0) {
-        setHasMore(false);
+        setHasMore(false)
       } else {
-        setHasMore(true);
+        setHasMore(true)
       }
-      setCurrentPage((prevState) => prevState + 1);
+      setCurrentPage((prevState) => prevState + 1)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
@@ -173,7 +173,7 @@ export default function Form() {
             <SelectTrigger className="w-[180px] text-lg">
               <SelectValue placeholder="Year">{year}</SelectValue>
             </SelectTrigger>
-            <Button variant="outline" onClick={() => handleValueChange("")}>
+            <Button variant="outline" onClick={() => handleValueChange('')}>
               <FilterX />
             </Button>
           </div>
@@ -192,7 +192,7 @@ export default function Form() {
 
         {eventResults?.total! > 0 ? (
           <div className="text-slate-500 text-base dark:text-slate-300 mb-2 mt-4">
-            <span className="font-semibold">{eventResults!.total!}</span>{" "}
+            <span className="font-semibold">{eventResults!.total!}</span>{' '}
             results found
           </div>
         ) : (
@@ -225,28 +225,28 @@ export default function Form() {
             >
               <div className="flex flex-col gap-y-4">
                 {eventList.map((evento: Setlist) => {
-                  const datearray = evento.eventDate.split("-");
+                  const datearray = evento.eventDate.split('-')
                   var formattedDate =
-                    datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-                  const cardDate = new Date(formattedDate);
+                    datearray[1] + '/' + datearray[0] + '/' + datearray[2]
+                  const cardDate = new Date(formattedDate)
                   const monthNames = [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                  ];
+                    'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June',
+                    'July',
+                    'August',
+                    'September',
+                    'October',
+                    'November',
+                    'December',
+                  ]
 
-                  const month = monthNames[cardDate.getMonth()].slice(0, 3);
-                  const day = cardDate.getDate();
-                  const year = cardDate.getFullYear();
+                  const month = monthNames[cardDate.getMonth()].slice(0, 3)
+                  const day = cardDate.getDate()
+                  const year = cardDate.getFullYear()
                   return (
                     <div key={evento.id} className="flex flex-col gap-y-4">
                       <Link href={`/add/details?event_id=${evento.id}`}>
@@ -286,7 +286,7 @@ export default function Form() {
                         </div>
                       </Link>
                     </div>
-                  );
+                  )
                 })}
               </div>
             </InfiniteScroll>
@@ -294,5 +294,5 @@ export default function Form() {
         </div>
       )}
     </div>
-  );
+  )
 }

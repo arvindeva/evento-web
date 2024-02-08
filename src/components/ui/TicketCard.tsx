@@ -1,34 +1,34 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 interface EventData {
   eventData: {
-    id: number;
-    eventName: string | null;
-    date: string | null;
-    artistName: string | null;
-    venueName: string | null;
-  };
+    id: number
+    eventName: string | null
+    date: string | null
+    artistName: string | null
+    venueName: string | null
+  }
 }
 
 export default function TicketCard({ eventData }: EventData) {
-  const cardDate = new Date(eventData!.date!);
+  const cardDate = new Date(eventData!.date!)
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const month = monthNames[cardDate.getMonth()].slice(0, 3);
-  const day = cardDate.getDate();
-  const year = cardDate.getFullYear();
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+  const month = monthNames[cardDate.getMonth()].slice(0, 3)
+  const day = cardDate.getDate()
+  const year = cardDate.getFullYear()
 
   return (
     <div className="max-w-lg rounded-xl overflow-hidden shadow-lg border bg-white text-black m-2.5">
@@ -62,5 +62,5 @@ export default function TicketCard({ eventData }: EventData) {
       </section>
       <section id="tab"></section>
     </div>
-  );
+  )
 }

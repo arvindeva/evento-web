@@ -1,31 +1,31 @@
-import Image from "next/image";
-import type { FormProps } from "./Form";
+import Image from 'next/image'
+import type { FormProps } from './Form'
 
 export default function Card(props: FormProps) {
-  const datearray = props.eventData!.date!.split("-");
+  const datearray = props.eventData!.date!.split('-')
 
-  var formattedDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+  var formattedDate = datearray[1] + '/' + datearray[0] + '/' + datearray[2]
 
-  const cardDate = new Date(formattedDate);
+  const cardDate = new Date(formattedDate)
 
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
 
-  const month = monthNames[cardDate.getMonth()].slice(0, 3);
-  const day = cardDate.getDate();
-  const year = cardDate.getFullYear();
+  const month = monthNames[cardDate.getMonth()].slice(0, 3)
+  const day = cardDate.getDate()
+  const year = cardDate.getFullYear()
 
   return (
     <div className="max-w-lg rounded-xl overflow-hidden shadow-lg border bg-white text-black m-2.5">
@@ -64,5 +64,5 @@ export default function Card(props: FormProps) {
       </section>
       <section id="tab"></section>
     </div>
-  );
+  )
 }
