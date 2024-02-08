@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { formatDistance } from "date-fns";
 import { motion } from "framer-motion";
-
+import EventoCard from "@/components/ui/EventoCard";
 interface FeedProps {
   id: string;
 }
