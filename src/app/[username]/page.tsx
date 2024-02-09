@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 
 import Profile from './Profile'
 import MyNavBar from '@/components/ui/MyNavBar'
+import ProfileNavBar from './ProfileNavBar'
 
 export default async function UserPage({
   params,
@@ -14,20 +15,6 @@ export default async function UserPage({
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
   const { data: userData, error: userError } = await supabase.auth.getUser()
-
-  if (userError || !userData) {
-    console.error('Something went wrong')
-    redirect('/')
-  }
-
-  const { data: ownerData, error: ownerError } = await supabase
-    .from('profiles')
-    .select()
-    .eq('id', userData!.user!.id)
-    .single()
-  if (ownerError) {
-    console.error('something went wrong')
-  }
 
   const { data: profileDataArray, error: profileError } = await supabase
     .from('profiles')
@@ -46,7 +33,11 @@ export default async function UserPage({
 
   return (
     <div>
-      <MyNavBar authed={authed} username={ownerData!.username} add />
+      {userData.user ? (
+        <ProfileNavBar userId={userData.user.id} />
+      ) : (
+        <MyNavBar authed={false} username={null} />
+      )}
       <div className="max-w-lg sm:mx-auto">
         <Profile profile={profileData} isOwner={isOwner} />
       </div>
