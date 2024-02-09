@@ -16,6 +16,7 @@ export default async function UserPage({
   const { data: userData, error: userError } = await supabase.auth.getUser()
 
   if (userError || !userData) {
+    console.error('Something went wrong')
     redirect('/')
   }
 
