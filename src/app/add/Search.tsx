@@ -43,13 +43,13 @@ export function Search({ selectedResult, onSelectResult }: SearchProps) {
   return (
     <Command
       shouldFilter={false}
-      className="h-auto rounded-lg border border-b-0 shadow-md w-full"
+      className="h-auto rounded-lg border border-b-0 shadow-md w-full max-w-[370px]"
     >
       <CommandInput
         value={searchQuery}
         onValueChange={setSearchQuery}
         placeholder="Search for Artist"
-        className="text-lg"
+        className="p-0 max-w-sm text-lg"
       />
 
       <SearchResults

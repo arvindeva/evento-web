@@ -18,7 +18,7 @@ export interface Artist {
   name: string
 }
 
-const POPOVER_WIDTH = 'w-[252px]'
+const POPOVER_WIDTH = 'w-full max-w-370'
 
 interface ComboBoxProps {
   getEventsByMbid: (selected: string) => void
@@ -55,7 +55,7 @@ export default function Combobox({ getEventsByMbid }: ComboBoxProps) {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent side="bottom" className={cn('p-0', POPOVER_WIDTH)}>
+      <PopoverContent side="bottom" className="p-0 w-full max-w-[370px]">
         <Search selectedResult={selected} onSelectResult={handleSetActive} />
       </PopoverContent>
     </Popover>
