@@ -144,7 +144,7 @@ export default function EditProfileForm({ userId }: IEditProfileForm) {
             variant="destructive"
             className="bg-red-500 text-white text-base"
           >
-            There's an error during submission
+            There&apos;s an error during submission
           </Alert>
         )}
         <Form {...form}>
@@ -163,7 +163,7 @@ export default function EditProfileForm({ userId }: IEditProfileForm) {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-2xl" />
                   </FormItem>
                 )}
               />
