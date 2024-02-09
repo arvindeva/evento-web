@@ -14,6 +14,11 @@ export default async function UserPage({
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
   const { data: userData, error: userError } = await supabase.auth.getUser()
+
+  if (userError || !userData) {
+    redirect('/')
+  }
+
   const { data: ownerData, error: ownerError } = await supabase
     .from('profiles')
     .select()
