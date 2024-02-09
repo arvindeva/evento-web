@@ -78,6 +78,7 @@ export default function Feed({ id }: FeedProps) {
                         alt="you"
                         width={100}
                         height={100}
+                        priority
                       />
                     ) : (
                       <Image
@@ -85,6 +86,7 @@ export default function Feed({ id }: FeedProps) {
                         alt="you"
                         width={200}
                         height={200}
+                        priority
                       />
                     )}
                   </div>
