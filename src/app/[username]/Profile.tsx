@@ -108,9 +108,26 @@ export default function Profile(props: ProfileProps) {
   })
 
   let final: any
+  const groupBy = (values: any, keyFinder: any) => {
+    // using reduce to aggregate values
+    return values.reduce((a: any, b: any) => {
+      // depending upon the type of keyFinder
+      // if it is function, pass the value to it
+      // if it is a property, access the property
+      const key = typeof keyFinder === 'function' ? keyFinder(b) : b[keyFinder]
 
+      // aggregate values based on the keys
+      if (!a[key]) {
+        a[key] = [b]
+      } else {
+        a[key] = [...a[key], b]
+      }
+
+      return a
+    }, {})
+  }
   if (eventosQuery.data?.data) {
-    const resultsByYear = Object.groupBy(yearInserted!, ({ year }) => year!)
+    const resultsByYear = groupBy(yearInserted!, ({ year }: any) => year!)
     final = resultsByYear
 
     let ready = []
@@ -205,7 +222,7 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-6">
+          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
             <div className="flex flex-col items-center w-1/5 text-center ">
               <div className="text-xl font-semibold ">{uniqueEvents}</div>
               <div className="text-sm whitespace-nowrap ">Live events</div>
@@ -226,42 +243,47 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <div>
-            <div className="text-2xl font-semibold mb-2">
-              {profileQuery.data?.data?.first_name}&apos;s Events
-            </div>
+          <section>
             {final && (
               <div className="flex flex-col gap-y-6">
                 {final.map((evento: any) => {
                   return (
                     <div key={evento.year} className="flex flex-col gap-y-1">
                       <div className="flex flex-row justify-between items-end">
-                        <div className="text-5xl font-black bg-gradient-to-b from-indigo-500 to-purple-500 text-transparent bg-clip-text leading-none">
+                        <div className="text-5xl font-black bg-gradient-to-b from-slate-500 via-zinc-600 to-black text-transparent bg-clip-text leading-none">
                           {evento.year}
                         </div>
-                        <div className="text-purple-500 font-medium">
-                          See All ({evento.events.length})
-                        </div>
+                        <Link
+                          href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
+                        >
+                          <div className="text-purple-500 font-semibold">
+                            See All ({evento.events.length})
+                          </div>
+                        </Link>
                       </div>
 
                       <div>
-                        <EventoCard
-                          eventData={{
-                            tour: evento.events[0].tour,
-                            date: dateStringToObject(evento.events[0].date),
-                            artist: evento.events[0].artist,
-                            venue: evento.events[0].venue,
-                            slfmId: evento.events[0].slfm_id,
-                            city: evento.events[0].city,
-                          }}
-                        />
+                        <Link
+                          href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
+                        >
+                          <EventoCard
+                            eventData={{
+                              tour: evento.events[0].tour,
+                              date: dateStringToObject(evento.events[0].date),
+                              artist: evento.events[0].artist,
+                              venue: evento.events[0].venue,
+                              slfmId: evento.events[0].slfm_id,
+                              city: evento.events[0].city,
+                            }}
+                          />
+                        </Link>
                       </div>
                     </div>
                   )
                 })}
               </div>
             )}
-          </div>
+          </section>
 
           {/* <section className="flex flex-col ">
             <div className="flex flex-row justify-between items-center pt-4">
