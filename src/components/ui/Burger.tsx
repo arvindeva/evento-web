@@ -45,7 +45,7 @@ export default function Burger({ username }: IBurger) {
                 <span>
                   <TicketPlus />
                 </span>
-                <p>Add An Event</p>
+                <p>Add Event</p>
               </Link>
             </SheetClose>
           </li>
