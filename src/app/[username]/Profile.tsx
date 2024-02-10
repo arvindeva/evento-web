@@ -215,7 +215,7 @@ export default function Profile(props: ProfileProps) {
               {!props.isOwner ? null : (
                 <Link href="/edit">
                   <Button variant="outline" className="py-1 text-sm rounded-xl">
-                    Edit Profile
+                    Edit
                   </Button>
                 </Link>
               )}
