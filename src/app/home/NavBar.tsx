@@ -15,7 +15,7 @@ export default function NavBar({ username }: INavBar) {
     // <header className="fixed top-0 w-full h-14 flex items-center justify-between px-4 md:px-6 bg-white dark:bg-background border-b border-b-zinc-300 ">
     <header className="sticky top-0 z-50 w-full flex items-center justify-between px-4 border-b h-14 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Link className="flex items-center" href="/home">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 via-primary to-fuchsia-600 text-transparent bg-clip-text">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-700  to-purple-500 text-transparent bg-clip-text">
           Evento <span className="text-lg font-light text-primary">v0.0</span>
         </h1>
         <span className="sr-only">Evento</span>

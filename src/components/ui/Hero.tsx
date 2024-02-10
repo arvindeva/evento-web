@@ -13,10 +13,10 @@ export default function Hero() {
       transition={{ ease: 'easeOut', duration: 0.5 }}
     >
       <h2 className="text-2xl ">
-        <span className="font-bold text-5xl md:text-[90px] bg-gradient-to-r from-indigo-600 via-purple-500 to-fuchsia-600 text-transparent bg-clip-text">
+        <span className="font-bold text-5xl md:text-[90px] bg-gradient-to-r from-indigo-700  to-fuchsia-500 text-transparent bg-clip-text">
           Evento
         </span>{' '}
-        <span className="bg-gradient-to-r from-fuchsia-600 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
+        <span className="bg-gradient-to-r from-red-700 via-red-500 to-fuchsia-500 text-transparent bg-clip-text">
           v.0.0
         </span>
         <p className="md:text-[42px] dark:text-slate-300">development build</p>

@@ -147,7 +147,7 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-fuchsia-600 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
+          <section className=" bg-gradient-to-r from-indigo-700  to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
             <div className="flex flex-col items-center w-1/5 text-center ">
               <div className="text-xl font-semibold ">{uniqueEvents}</div>
               <div className="text-sm whitespace-nowrap ">Live events</div>
