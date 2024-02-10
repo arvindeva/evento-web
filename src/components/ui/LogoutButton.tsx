@@ -18,5 +18,9 @@ export default function LogoutButton() {
     router.refresh()
   }
 
-  return <Button onClick={signOut}>Sign out</Button>
+  return (
+    <Button onClick={signOut} className="w-full">
+      Sign out
+    </Button>
+  )
 }

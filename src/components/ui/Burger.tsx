@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/sheet'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
+import LogoutButton from './LogoutButton'
 
 interface IBurger {
   username: string
@@ -47,7 +48,9 @@ export default function Burger({ username }: IBurger) {
             </SheetClose>
           </li>
         </ul>
-        <SheetFooter></SheetFooter>
+        <SheetFooter>
+          <LogoutButton />
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   )
