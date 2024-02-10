@@ -1,35 +1,14 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
-import { Database } from '@/types/supabase'
+
 import { createClient } from '@/lib/supabase/client'
-import { QueryData, User } from '@supabase/supabase-js'
-import { useRouter } from 'next/navigation'
-import { revalidatePath } from 'next/cache'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import { Settings } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Plus } from 'lucide-react'
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
 import Skeleton from '@/app/[username]/Skeleton'
-
-import Card from './Card'
 import Image from 'next/image'
-import LogoutButton from '@/components/ui/LogoutButton'
-import ThemeToggle from '@/components/ui/ThemeToggle'
 import EventoCard from '@/components/ui/EventoCard'
 import { useToast } from '@/components/ui/use-toast'
+import { groupEventsByYear, dateStringToObject } from '@/lib/utils'
 
 interface ProfileProps {
   profile: {
@@ -101,81 +80,9 @@ export default function Profile(props: ProfileProps) {
   const uniqueVenues = new Set(venue_ids).size
   const uniqueArtists = new Set(artist_ids).size
 
-  let yearList = eventsList?.map((evento) => {
-    return new Date(evento!.date!).getFullYear()
-  })
-
-  const yearInserted = eventsList?.map((evento, i) => {
-    return { ...evento, year: yearList![i] }
-  })
-
-  let final: any
-  const groupBy = (values: any, keyFinder: any) => {
-    // using reduce to aggregate values
-    return values.reduce((a: any, b: any) => {
-      // depending upon the type of keyFinder
-      // if it is function, pass the value to it
-      // if it is a property, access the property
-      const key = typeof keyFinder === 'function' ? keyFinder(b) : b[keyFinder]
-
-      // aggregate values based on the keys
-      if (!a[key]) {
-        a[key] = [b]
-      } else {
-        a[key] = [...a[key], b]
-      }
-
-      return a
-    }, {})
-  }
+  let final = []
   if (eventosQuery.data?.data) {
-    const resultsByYear = groupBy(yearInserted!, ({ year }: any) => year!)
-    final = resultsByYear
-
-    let ready = []
-
-    for (const [key, value] of Object.entries(final)) {
-      ready.push({ year: key, events: value })
-    }
-
-    let orderedReady = ready.reverse()
-    console.log(orderedReady)
-
-    final = orderedReady
-  }
-
-  interface DateObject {
-    day: string
-    month: string
-    year: string
-  }
-
-  function dateStringToObject(dateString: string): DateObject {
-    const cardDate = new Date(dateString)
-
-    console.log(dateString)
-    console.log(cardDate)
-
-    const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ]
-
-    const month = monthNames[cardDate.getMonth()].slice(0, 3)
-    const day = cardDate.getDate().toString()
-    const year = cardDate.getFullYear().toString()
-
-    return { day, month, year }
+    final = groupEventsByYear(eventosQuery.data?.data)
   }
 
   return (
@@ -297,75 +204,6 @@ export default function Profile(props: ProfileProps) {
               </div>
             )}
           </section>
-
-          {/* <section className="flex flex-col ">
-            <div className="flex flex-row justify-between items-center pt-4">
-              <div className="text-xl font-bold tracking-tight mb-3">
-                {profileQuery.data?.data?.first_name}&apos;s events
-              </div>
-            </div>
-            <div className="text-center dark:text-zinc-400">
-              {eventsList?.length === 0 && props.isOwner && (
-                <div className="flex flex-col gap-y-4 mt-2">
-                  <div>You have no events... try adding some!</div>
-                  <Link href="/add" className="w-full">
-                    <Button className="w-full flex flex-row items-center gap-x-2">
-                      <Plus width={18} height={18} />
-                      Add Event
-                    </Button>
-                  </Link>
-                </div>
-              )}
-              {eventsList?.length === 0 && !props.isOwner && (
-                <div className="flex flex-col gap-y-4 mt-2">
-                  <div>
-                    {profileQuery.data?.data?.username} have no events...
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="flex flex-col gap-y-6">
-              {eventsList?.map((e) => {
-                const cardDate = new Date(e!.date!)
-
-                const monthNames = [
-                  'January',
-                  'February',
-                  'March',
-                  'April',
-                  'May',
-                  'June',
-                  'July',
-                  'August',
-                  'September',
-                  'October',
-                  'November',
-                  'December',
-                ]
-
-                const month = monthNames[cardDate.getMonth()].slice(0, 3)
-                const day = cardDate.getDate().toString()
-                const year = cardDate.getFullYear().toString()
-                return (
-                  <EventoCard
-                    eventData={{
-                      tour: e.tour,
-                      date: {
-                        day,
-                        month,
-                        year,
-                      },
-                      artist: e.artist,
-                      venue: e.venue,
-                      slfmId: e.slfm_id,
-                      city: e.city,
-                    }}
-                    key={e.id}
-                  />
-                )
-              })}
-            </div>
-          </section> */}
         </div>
       )}
     </div>
