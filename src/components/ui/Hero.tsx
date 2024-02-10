@@ -13,7 +13,7 @@ export default function Hero() {
       transition={{ ease: 'easeOut', duration: 0.5 }}
     >
       <h2 className="text-2xl ">
-        <span className="font-bold text-5xl md:text-[90px] bg-gradient-to-r ffrom-gradient-start  to-gradient-end text-transparent bg-clip-text">
+        <span className="font-bold text-5xl md:text-[90px] bg-gradient-to-r from-gradient-start  to-red-600 text-transparent bg-clip-text">
           Evento
         </span>{' '}
         <span className="bg-gradient-to-r from-red-600  to-gradient-start text-transparent bg-clip-text">
