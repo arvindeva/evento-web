@@ -29,6 +29,8 @@ import Image from 'next/image'
 import LogoutButton from '@/components/ui/LogoutButton'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 import EventoCard from '@/components/ui/EventoCard'
+import { useToast } from '@/components/ui/use-toast'
+
 interface ProfileProps {
   profile: {
     bio: string | null
@@ -43,7 +45,7 @@ interface ProfileProps {
 
 export default function Profile(props: ProfileProps) {
   const supabase = createClient()
-
+  const { toast } = useToast()
   const getProfile = async () => {
     return await supabase
       .from('profiles')
@@ -212,7 +214,18 @@ export default function Profile(props: ProfileProps) {
               </div>
             </div>
             <div>
-              {!props.isOwner ? null : (
+              {!props.isOwner ? (
+                <Button
+                  className="text-base rounded-lg bg-purple-600 h-9"
+                  onClick={() => {
+                    toast({
+                      title: 'Feature is under construction',
+                    })
+                  }}
+                >
+                  Follow
+                </Button>
+              ) : (
                 <Link href="/edit">
                   <Button variant="outline" className="py-1 text-sm rounded-xl">
                     Edit
@@ -222,7 +235,7 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
+          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-purple-600 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
             <div className="flex flex-col items-center w-1/5 text-center ">
               <div className="text-xl font-semibold ">{uniqueEvents}</div>
               <div className="text-sm whitespace-nowrap ">Live events</div>
