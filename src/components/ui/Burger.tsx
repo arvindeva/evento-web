@@ -24,7 +24,7 @@ export default function Burger({ username }: IBurger) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-700  to-purple-500 text-transparent bg-clip-text mb-8">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-gradient-start  to-gradient-end text-transparent bg-clip-text mb-8">
             Evento{' '}
             <span className="text-lg font-light text-purple-500">v0.0</span>
           </h1>

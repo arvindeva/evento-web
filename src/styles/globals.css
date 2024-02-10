@@ -24,8 +24,10 @@
     --input: 220 13% 91%;
     --ring: 264 71% 58%;
     --radius: 0.5rem;
+    --gradient-start: 263 70% 50%;
+    --gradient-mid: 271 81% 56%;
+    --gradient-end: 292 84% 61%;
   }
-
   .dark {
     --background: 172 0% 0%;
     --foreground: 210 20% 98%;
@@ -46,6 +48,9 @@
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 264 71% 58%;
+    --gradient-start: 263 70% 50%;
+    --gradient-mid: 271 81% 56%;
+    --gradient-end: 292 84% 61%;
   }
 }
 

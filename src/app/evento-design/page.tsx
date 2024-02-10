@@ -17,7 +17,7 @@ export default function EventoDesignPage() {
               className="static opacity-25"
             />
           </div>
-          <div className="flex flex-col p-3 justify-center items-center border-r backdrop-grayscale border-r-zinc-300 bg-gradient-to-b from-indigo-700  to-purple-500 bg-opacity-50">
+          <div className="flex flex-col p-3 justify-center items-center border-r backdrop-grayscale border-r-zinc-300 bg-gradient-to-b from-gradient-start  to-gradient-end bg-opacity-50">
             <h1 className="text-lg leading-none">31</h1>
             <h1 className="text-2xl font-semibold">JAN</h1>
             <h1 className="text-lg leading-none">2024</h1>

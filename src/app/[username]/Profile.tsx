@@ -128,7 +128,7 @@ export default function Profile(props: ProfileProps) {
             <div>
               {!props.isOwner ? (
                 <Button
-                  className="text-base rounded-lg bg-primary h-9"
+                  className="text-base rounded-lg bg-purple-600 h-9"
                   onClick={() => {
                     toast({
                       title: 'Feature is under construction',
@@ -147,24 +147,24 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className=" bg-gradient-to-r from-indigo-700  to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
+          <section className=" bg-gray-100 text-slate-700 dark:bg-slate-800 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 dark:text-neutral-50 mb-2">
             <div className="flex flex-col items-center w-1/5 text-center ">
               <div className="text-xl font-semibold ">{uniqueEvents}</div>
-              <div className="text-sm whitespace-nowrap ">Live events</div>
+              <div className="text-base whitespace-nowrap ">Events</div>
             </div>
             <div className="w-1 flex justify-center">
               <div className="bg-zinc-400 w-px h-10" />
             </div>
             <div className="flex flex-col items-center w-1/5">
               <div className="text-xl font-semibold">{uniqueVenues}</div>
-              <div className="text-sm">Venues</div>
+              <div className="text-base">Venues</div>
             </div>
             <div className="w-1 flex justify-center">
               <div className="bg-zinc-400 w-px h-10" />
             </div>
             <div className="flex flex-col items-center w-1/5">
               <div className="text-xl font-semibold">{uniqueArtists}</div>
-              <div className="text-sm">Artists</div>
+              <div className="text-base">Artists</div>
             </div>
           </section>
 
@@ -181,7 +181,7 @@ export default function Profile(props: ProfileProps) {
                         <Link
                           href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
                         >
-                          <div className="text-primary font-semibold">
+                          <div className="text-purple-500 font-semibold">
                             See All ({evento.events.length})
                           </div>
                         </Link>
