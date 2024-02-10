@@ -20,11 +20,11 @@ export default function Burger({ username }: IBurger) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Menu width={26} height={26} className="text-fuchsia-500" />
+        <Menu width={26} height={26} className="text-primary" />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-fuchsia-500 to-red-500 text-transparent bg-clip-text mb-8">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-fuchsia-500 to-fuchsia-400 text-transparent bg-clip-text mb-8">
             Evento{' '}
             <span className="text-lg font-light text-fuchsia-600">v0.0</span>
           </h1>

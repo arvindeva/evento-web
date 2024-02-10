@@ -95,11 +95,11 @@ export default function Feed({ id }: FeedProps) {
                   <div className="tracking-medium flex flex-col">
                     <Link
                       href={`/${e.profiles?.username}`}
-                      className="font-semibold dark:text-neutral-200 text-base"
+                      className="font-semibold dark:text-neutral-200 text-base leading-tighter"
                     >
                       {e.profiles?.username}
                     </Link>
-                    <div className="text-sm text-neutral-500 dark:text-neutral-300">
+                    <div className="text-sm text-neutral-500 dark:text-neutral-300 leading-tighter">
                       {formatDistance(e.date!, new Date())} ago
                     </div>
                   </div>

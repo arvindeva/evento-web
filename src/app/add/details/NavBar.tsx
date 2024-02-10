@@ -15,7 +15,7 @@ export default function NavBar() {
             <ArrowLeft />
           </div>
         </div>
-        <div className="text-center text-lg font-bold tracking-tight">
+        <div className="text-center text-lg font-bold tracking-tight ">
           Add Event
         </div>
         <div></div>

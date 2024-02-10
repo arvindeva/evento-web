@@ -35,7 +35,7 @@ export default function EventoCard({ eventData }: IEventoCard) {
         </div>
         <div
           className={cn(
-            'flex flex-col p-3 px-5 justify-center items-center  backdrop-grayscale text-zinc-50  bg-gradient-to-b from-violet-500 to-fuchsia-500 bg-opacity-50',
+            'flex flex-col p-3 px-5 justify-center items-center  backdrop-grayscale text-zinc-50  bg-gradient-to-b from-violet-500 to-fuchsia-700 bg-opacity-50',
             jetbrains_mono.className
           )}
         >

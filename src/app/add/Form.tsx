@@ -166,7 +166,7 @@ export default function Form() {
   return (
     <div className="relative">
       <div className="sticky top-0 z-40 w-full bg-background form-widget p-4 flex flex-col gap-y-4">
-        <h1 className="text-3xl font-semibold">Add event</h1>
+        <h1 className="text-3xl font-semibold text-primary">Add event</h1>
         <Combobox getEventsByMbid={getEventsByMbid} />
         <Select value={year} onValueChange={handleValueChange}>
           <div className="flex flex-row items-center gap-x-5">
@@ -250,7 +250,7 @@ export default function Form() {
                   return (
                     <div key={evento.id} className="flex flex-col gap-y-4">
                       <Link href={`/add/details?event_id=${evento.id}`}>
-                        <div className="text-base flex items-center flex-row justify-between border-b border-b-purple-500 pb-4">
+                        <div className="text-base flex items-center flex-row justify-between border-b dark:border-b-zinc-800 pb-4">
                           <div className="flex flex-row gap-x-4 items-center">
                             <div className="flex flex-col items-center justify-center">
                               <div className="text-sm uppercase text-slate-500 dark:text-slate-300">
@@ -262,13 +262,13 @@ export default function Form() {
                               </div>
                             </div>
                             <div className="flex flex-col gap-y-1">
-                              <div className="font-semibold text-base leading-normal">
+                              <div className="font-semibold text-base leading-normal dark:text-zinc-50">
                                 {evento.artist.name}
                                 {evento.tour?.name && (
                                   <span>: {evento.tour?.name}</span>
                                 )}
                               </div>
-                              <div className="text-sm text-slate-500 dark:text-slate-300">
+                              <div className="text-sm text-slate-500 dark:text-slate-400">
                                 {evento.venue.name}, {evento.venue.city.name}
                               </div>
                             </div>
@@ -280,7 +280,7 @@ export default function Form() {
                             <ChevronRight
                               width={18}
                               height={18}
-                              className="text-fuchsia-500"
+                              className="text-primary"
                             />
                           </Button>
                         </div>

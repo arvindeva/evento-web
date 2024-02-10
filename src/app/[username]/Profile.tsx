@@ -128,7 +128,7 @@ export default function Profile(props: ProfileProps) {
             <div>
               {!props.isOwner ? (
                 <Button
-                  className="text-base rounded-lg bg-fuchsia-600 h-9"
+                  className="text-base rounded-lg bg-primary h-9"
                   onClick={() => {
                     toast({
                       title: 'Feature is under construction',
@@ -181,7 +181,7 @@ export default function Profile(props: ProfileProps) {
                         <Link
                           href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
                         >
-                          <div className="text-fuchsia-600 font-semibold">
+                          <div className="text-primary font-semibold">
                             See All ({evento.events.length})
                           </div>
                         </Link>

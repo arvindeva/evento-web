@@ -17,7 +17,7 @@ export default function EventoDesignPage() {
               className="static opacity-25"
             />
           </div>
-          <div className="flex flex-col p-3 justify-center items-center border-r backdrop-grayscale border-r-zinc-300 bg-gradient-to-b from-violet-500 to-fuchsia-500 bg-opacity-50">
+          <div className="flex flex-col p-3 justify-center items-center border-r backdrop-grayscale border-r-zinc-300 bg-gradient-to-b from-violet-500 to-primary bg-opacity-50">
             <h1 className="text-lg leading-none">31</h1>
             <h1 className="text-2xl font-semibold">JAN</h1>
             <h1 className="text-lg leading-none">2024</h1>
@@ -40,7 +40,7 @@ export default function EventoDesignPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row items-center justify-between h-7 px-4 border-t border-t-zinc-300 text-sm bg-gradient-to-l from-violet-500 to-fuchsia-500">
+        <div className="flex flex-row items-center justify-between h-7 px-4 border-t border-t-zinc-300 text-sm bg-gradient-to-l from-violet-500 to-primary">
           <div className="font-semibold">Evento</div>
           <div className="text-xs">2024</div>
         </div>
