@@ -280,7 +280,7 @@ export default function Form() {
                             <ChevronRight
                               width={18}
                               height={18}
-                              className="text-purple-500"
+                              className="text-fuchsia-500"
                             />
                           </Button>
                         </div>

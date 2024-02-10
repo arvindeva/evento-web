@@ -128,7 +128,7 @@ export default function Profile(props: ProfileProps) {
             <div>
               {!props.isOwner ? (
                 <Button
-                  className="text-base rounded-lg bg-purple-600 h-9"
+                  className="text-base rounded-lg bg-fuchsia-600 h-9"
                   onClick={() => {
                     toast({
                       title: 'Feature is under construction',
@@ -147,7 +147,7 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-purple-600 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
+          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-fuchsia-600 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-2">
             <div className="flex flex-col items-center w-1/5 text-center ">
               <div className="text-xl font-semibold ">{uniqueEvents}</div>
               <div className="text-sm whitespace-nowrap ">Live events</div>
@@ -175,13 +175,13 @@ export default function Profile(props: ProfileProps) {
                   return (
                     <div key={evento.year} className="flex flex-col gap-y-1">
                       <div className="flex flex-row justify-between items-end">
-                        <div className="text-5xl font-black bg-gradient-to-b from-slate-500 via-zinc-600 to-black text-transparent bg-clip-text leading-none">
+                        <div className="text-[2.2rem] font-black bg-gradient-to-b from-slate-900 via-zinc-600 to-white dark:bg-gradient-to-b dark:from-slate-400 dark:via-zinc-500 dark:to-black text-transparent bg-clip-text leading-none">
                           {evento.year}
                         </div>
                         <Link
                           href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
                         >
-                          <div className="text-purple-500 font-semibold">
+                          <div className="text-fuchsia-600 font-semibold">
                             See All ({evento.events.length})
                           </div>
                         </Link>
