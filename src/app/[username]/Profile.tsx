@@ -99,6 +99,66 @@ export default function Profile(props: ProfileProps) {
   const uniqueVenues = new Set(venue_ids).size
   const uniqueArtists = new Set(artist_ids).size
 
+  let yearList = eventsList?.map((evento) => {
+    return new Date(evento!.date!).getFullYear()
+  })
+
+  const yearInserted = eventsList?.map((evento, i) => {
+    return { ...evento, year: yearList![i] }
+  })
+
+  let final: any
+
+  if (eventosQuery.data?.data) {
+    const resultsByYear = Object.groupBy(yearInserted!, ({ year }) => year!)
+    final = resultsByYear
+
+    let ready = []
+
+    for (const [key, value] of Object.entries(final)) {
+      ready.push({ year: key, events: value })
+    }
+
+    let orderedReady = ready.reverse()
+    console.log(orderedReady)
+
+    final = orderedReady
+  }
+
+  interface DateObject {
+    day: string
+    month: string
+    year: string
+  }
+
+  function dateStringToObject(dateString: string): DateObject {
+    const cardDate = new Date(dateString)
+
+    console.log(dateString)
+    console.log(cardDate)
+
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]
+
+    const month = monthNames[cardDate.getMonth()].slice(0, 3)
+    const day = cardDate.getDate().toString()
+    const year = cardDate.getFullYear().toString()
+
+    return { day, month, year }
+  }
+
   return (
     <div className="">
       {profileQuery.isLoading || eventosQuery.isLoading ? (
@@ -136,54 +196,16 @@ export default function Profile(props: ProfileProps) {
             </div>
             <div>
               {!props.isOwner ? null : (
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="border-none"
-                    >
-                      <Settings
-                        width={26}
-                        height={26}
-                        className="text-purple-500"
-                      />
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent>
-                    <SheetHeader>
-                      <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-red-500 text-transparent bg-clip-text mb-8">
-                        Evento{' '}
-                        <span className="text-lg font-light text-purple-500">
-                          v0.0
-                        </span>
-                      </h1>
-                    </SheetHeader>
-
-                    <ul className="flex flex-col gap-y-8 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
-                      <li>
-                        <SheetClose asChild>
-                          <Link href="/edit">Edit Profile</Link>
-                        </SheetClose>
-                      </li>
-                      <li>
-                        <SheetClose asChild>
-                          <Link href="/settings">Settings</Link>
-                        </SheetClose>
-                      </li>
-                    </ul>
-                    <SheetFooter>
-                      <SheetClose asChild>
-                        <LogoutButton></LogoutButton>
-                      </SheetClose>
-                    </SheetFooter>
-                  </SheetContent>
-                </Sheet>
+                <Link href="/edit">
+                  <Button variant="outline" className="py-1 text-sm rounded-xl">
+                    Edit Profile
+                  </Button>
+                </Link>
               )}
             </div>
           </section>
 
-          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50">
+          <section className=" bg-gradient-to-r from-indigo-500  via-purple-500 to-purple-500 rounded-2xl flex flex-row justify-evenly items-center py-4 px-2 text-neutral-50 mb-6">
             <div className="flex flex-col items-center w-1/5 text-center ">
               <div className="text-xl font-semibold ">{uniqueEvents}</div>
               <div className="text-sm whitespace-nowrap ">Live events</div>
@@ -204,7 +226,44 @@ export default function Profile(props: ProfileProps) {
             </div>
           </section>
 
-          <section className="flex flex-col ">
+          <div>
+            <div className="text-2xl font-semibold mb-2">
+              {profileQuery.data?.data?.first_name}&apos;s Events
+            </div>
+            {final && (
+              <div className="flex flex-col gap-y-6">
+                {final.map((evento: any) => {
+                  return (
+                    <div key={evento.year} className="flex flex-col gap-y-1">
+                      <div className="flex flex-row justify-between items-end">
+                        <div className="text-5xl font-black bg-gradient-to-b from-indigo-500 to-purple-500 text-transparent bg-clip-text leading-none">
+                          {evento.year}
+                        </div>
+                        <div className="text-purple-500 font-medium">
+                          See All ({evento.events.length})
+                        </div>
+                      </div>
+
+                      <div>
+                        <EventoCard
+                          eventData={{
+                            tour: evento.events[0].tour,
+                            date: dateStringToObject(evento.events[0].date),
+                            artist: evento.events[0].artist,
+                            venue: evento.events[0].venue,
+                            slfmId: evento.events[0].slfm_id,
+                            city: evento.events[0].city,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* <section className="flex flex-col ">
             <div className="flex flex-row justify-between items-center pt-4">
               <div className="text-xl font-bold tracking-tight mb-3">
                 {profileQuery.data?.data?.first_name}&apos;s events
@@ -271,7 +330,7 @@ export default function Profile(props: ProfileProps) {
                 )
               })}
             </div>
-          </section>
+          </section> */}
         </div>
       )}
     </div>

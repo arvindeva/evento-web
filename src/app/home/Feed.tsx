@@ -72,23 +72,25 @@ export default function Feed({ id }: FeedProps) {
               <div key={e.id} className="flex flex-col gap-y-3">
                 <div className="flex flex-row items-center gap-x-2.5">
                   <div className="rounded-full w-10 h-10 bg-neutral-500 overflow-hidden z-5">
-                    {e.profiles!.avatar_url ? (
-                      <Image
-                        src={e.profiles?.avatar_url!}
-                        alt="you"
-                        width={100}
-                        height={100}
-                        priority
-                      />
-                    ) : (
-                      <Image
-                        src="/images/tom.jpg"
-                        alt="you"
-                        width={200}
-                        height={200}
-                        priority
-                      />
-                    )}
+                    <Link href={`/${e.profiles?.username}`}>
+                      {e.profiles!.avatar_url ? (
+                        <Image
+                          src={e.profiles?.avatar_url!}
+                          alt="you"
+                          width={100}
+                          height={100}
+                          priority
+                        />
+                      ) : (
+                        <Image
+                          src="/images/tom.jpg"
+                          alt="you"
+                          width={200}
+                          height={200}
+                          priority
+                        />
+                      )}
+                    </Link>
                   </div>
                   <div className="tracking-medium flex flex-col">
                     <Link
