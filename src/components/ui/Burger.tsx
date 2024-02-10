@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { Menu } from 'lucide-react'
+import { Menu, TicketPlus, Home, User, Settings } from 'lucide-react'
 import Link from 'next/link'
 import LogoutButton from './LogoutButton'
 
@@ -33,23 +33,50 @@ export default function Burger({ username }: IBurger) {
         <ul className="flex flex-col gap-y-8 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
           <li className="dark:active:text-indigo-600 active:text-indigo-600">
             <SheetClose asChild>
-              <Link href="/">Home</Link>
+              <Link href="/" className="flex flex-row items-center gap-x-3">
+                <Home />
+                <p>Home</p>
+              </Link>
             </SheetClose>
           </li>
           <li className="active:text-indigo-600 dark:active:text-indigo-600">
             <SheetClose asChild>
-              <Link href="/add">Add An Event</Link>
+              <Link href="/add" className="flex flex-row items-center gap-x-3">
+                <span>
+                  <TicketPlus />
+                </span>
+                <p>Add An Event</p>
+              </Link>
             </SheetClose>
           </li>
 
           <li className="active:text-indigo-600 dark:active:text-indigo-600">
             <SheetClose asChild>
-              <Link href={`/${username}`}>My Profile</Link>
+              <Link
+                href={`/${username}`}
+                className="flex flex-row items-center gap-x-3"
+              >
+                <User />
+                <p>My Profile</p>
+              </Link>
+            </SheetClose>
+          </li>
+          <li className="active:text-indigo-600 dark:active:text-indigo-600">
+            <SheetClose asChild>
+              <Link
+                href={`/settings`}
+                className="flex flex-row items-center gap-x-3"
+              >
+                <Settings />
+                <p>Settings</p>
+              </Link>
             </SheetClose>
           </li>
         </ul>
         <SheetFooter>
-          <LogoutButton />
+          <div className="mt-3 w-full">
+            <LogoutButton />
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>
