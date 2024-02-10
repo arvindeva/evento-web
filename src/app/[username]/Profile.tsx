@@ -8,7 +8,11 @@ import Skeleton from '@/app/[username]/Skeleton'
 import Image from 'next/image'
 import EventoCard from '@/components/ui/EventoCard'
 import { useToast } from '@/components/ui/use-toast'
-import { groupEventsByYear, dateStringToObject } from '@/lib/utils'
+import {
+  groupEventsByYear,
+  dateStringToObject,
+  EventsByYear,
+} from '@/lib/utils'
 
 interface ProfileProps {
   profile: {
@@ -80,9 +84,10 @@ export default function Profile(props: ProfileProps) {
   const uniqueVenues = new Set(venue_ids).size
   const uniqueArtists = new Set(artist_ids).size
 
-  let final = []
+  let final: any[] = []
   if (eventosQuery.data?.data) {
-    final = groupEventsByYear(eventosQuery.data?.data)
+    final = groupEventsByYear(eventosQuery!.data!.data!)
+    console.log(final)
   }
 
   return (

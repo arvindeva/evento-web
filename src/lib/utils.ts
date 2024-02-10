@@ -37,18 +37,65 @@ const groupBy = (values: any, keyFinder: any) => {
   }, {})
 }
 
-export function groupEventsByYear(data: any[]): any {
-  let yearList = data.map((evento) => {
-    return new Date(evento!.date!).getFullYear()
+export interface EventsByYear {
+  year: string | null
+  events: {
+    evento: EventoWithYear
+  }[]
+}
+
+interface Evento {
+  artist: string | null
+  artist_mbid: string | null
+  city: string | null
+  country: string | null
+  date: string | null
+  id: number
+  performance_rating: number | null
+  slfm_id: string | null
+  tour: string | null
+  user_id: string | null
+  venue: string | null
+  venue_id: string | null
+  venue_rating: number | null
+}
+
+interface EventoWithYear {
+  artist: string | null
+  artist_mbid: string | null
+  city: string | null
+  country: string | null
+  date: string | null
+  id: number
+  performance_rating: number | null
+  slfm_id: string | null
+  tour: string | null
+  user_id: string | null
+  venue: string | null
+  venue_id: string | null
+  venue_rating: number | null
+  year?: number | null
+}
+
+interface YearToEventsMapping {
+  year: EventoWithYear[]
+}
+
+export function groupEventsByYear(data: Evento[]): EventsByYear[] {
+  let yearList = data.map((evento: Evento) => {
+    return new Date(evento.date!).getFullYear()
   })
 
-  const yearInserted = data.map((evento, i) => {
-    return { ...evento, year: yearList![i] }
+  const yearInserted = data.map((evento: Evento, i: number): EventoWithYear => {
+    return { ...evento, year: yearList[i] }
   })
 
-  const resultsByYear = groupBy(yearInserted!, ({ year }: any) => year!)
+  const resultsByYear: YearToEventsMapping = groupBy(
+    yearInserted!,
+    ({ year }: EventoWithYear) => year
+  )
 
-  let ready = []
+  let ready: EventsByYear[] = []
 
   for (const [key, value] of Object.entries(resultsByYear)) {
     ready.push({ year: key, events: value })
