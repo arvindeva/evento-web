@@ -1,4 +1,4 @@
-import { login, signup } from './actions'
+import { login, signup, loginAsGuest } from './actions'
 import { Input } from '@/components/ui/input'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -9,6 +9,7 @@ import MyNavBar from '@/components/ui/MyNavBar'
 
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import SubmitButton from './SubmitButton'
+import LoginAsGuestButton from './LoginAsGuestButton'
 
 interface ILoginPage {
   searchParams: {
@@ -41,10 +42,12 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
         <div>
           <form className="p-4 flex flex-col gap-y-4 mt-4" action={login}>
             <h1 className="text-2xl font-extrabold">Login</h1>
-            <p className="mb-4 text-base text-zinc-500">
-              Welcome back! Please enter your account information.
+            <p className="mb-0 text-base text-zinc-500">
+              Welcome back! Please enter your account information or continue as
+              guest.
             </p>
-            <div className="flex flex-col gap-y-2">
+            <LoginAsGuestButton />
+            <div className="flex flex-col gap-y-2 mt-4">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"

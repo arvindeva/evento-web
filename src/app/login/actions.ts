@@ -27,6 +27,27 @@ export async function login(formData: FormData) {
   redirect('/')
 }
 
+export async function loginAsGuest() {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+
+  // type-casting here for convenience
+  const data = {
+    email: 'guest@guest.com',
+    password: 'guest1234',
+  }
+
+  const { error } = await supabase.auth.signInWithPassword(data)
+
+  if (error) {
+    console.error(error.message)
+    redirect('/login?error=true&type=login_error')
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/')
+}
+
 export async function signup(formData: FormData) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)

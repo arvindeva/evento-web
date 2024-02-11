@@ -169,7 +169,25 @@ export default function Profile(props: ProfileProps) {
           </section>
 
           <section>
-            {final && (
+            {final.length === 0 && props.isOwner && (
+              <div className="mt-12 flex flex-col items-center">
+                <h1 className="font-semibold mb-2">No Events Yet</h1>
+                <p className="text-muted-foreground text-base mb-4">
+                  Add your first event by tapping the button below
+                </p>
+                <Link href="/add">
+                  <Button className="w-50">Add Event</Button>
+                </Link>
+              </div>
+            )}
+            {final.length === 0 && !props.isOwner && (
+              <div className="mt-12 flex flex-col gap-y-2 items-center">
+                <p className="text-muted-foreground text-base">
+                  This user has no events yet.
+                </p>
+              </div>
+            )}
+            {final.length > 0 && (
               <div className="flex flex-col gap-y-6">
                 {final.map((evento: any) => {
                   return (
