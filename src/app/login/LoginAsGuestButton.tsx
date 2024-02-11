@@ -27,6 +27,7 @@ export default function LoginAsGuestButton() {
       className="h-9 w-28 text-xs"
       onClick={signInAsGuest}
       variant="secondary"
+      type="button"
     >
       <span>Continue as Guest</span>
     </Button>
