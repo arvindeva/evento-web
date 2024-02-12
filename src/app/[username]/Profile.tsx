@@ -91,7 +91,7 @@ export default function Profile(props: ProfileProps) {
   }
 
   return (
-    <div className="">
+    <div className="mt-2 sm:mt-8 mx-auto">
       {profileQuery.isLoading || eventosQuery.isLoading ? (
         <Skeleton />
       ) : (

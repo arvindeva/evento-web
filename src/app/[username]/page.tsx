@@ -38,7 +38,7 @@ export default async function UserPage({
       ) : (
         <MyNavBar authed={false} username={null} />
       )}
-      <div className="max-w-lg sm:mx-auto">
+      <div className="max-w-lg mx-auto">
         <Profile profile={profileData} isOwner={isOwner} />
       </div>
     </div>
