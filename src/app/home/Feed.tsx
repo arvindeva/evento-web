@@ -107,21 +107,22 @@ export default function Feed({ id }: FeedProps) {
                     </div>
                   </div>
                 </div>
-
-                <EventoCard
-                  eventData={{
-                    tour: e.tour,
-                    date: {
-                      day,
-                      month,
-                      year,
-                    },
-                    artist: e.artist,
-                    venue: e.venue,
-                    city: e.city,
-                    slfmId: e.slfm_id,
-                  }}
-                />
+                <Link href={`/evento/${e.id}`}>
+                  <EventoCard
+                    eventData={{
+                      tour: e.tour,
+                      date: {
+                        day,
+                        month,
+                        year,
+                      },
+                      artist: e.artist,
+                      venue: e.venue,
+                      city: e.city,
+                      slfmId: e.slfm_id,
+                    }}
+                  />
+                </Link>
               </div>
             )
           })}

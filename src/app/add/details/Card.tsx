@@ -3,9 +3,10 @@ import type { FormProps } from './Form'
 
 export default function Card(props: FormProps) {
   const datearray = props.eventData!.date!.split('-')
+  console.log(datearray)
 
   var formattedDate = datearray[1] + '/' + datearray[0] + '/' + datearray[2]
-
+  console.log(formattedDate)
   const cardDate = new Date(formattedDate)
 
   const monthNames = [
