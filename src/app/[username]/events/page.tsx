@@ -43,6 +43,7 @@ export default async function EventsPage({
     .eq('user_id', profileData!.id)
     .gte('date', `${searchParams.year.toString()}-01-01`)
     .lte('date', `${searchParams.year.toString()}-12-31`)
+    .order('date', { ascending: false })
 
   if (eventosError) {
     console.error(eventosError)
@@ -60,7 +61,7 @@ export default async function EventsPage({
         <MyNavBar authed={false} username={null} />
       )}
       <div className="p-4 mx-auto max-w-lg">
-        <h1 className="my-6 text-2xl">
+        <h1 className="mb-6 text-3xl">
           <span className="text-primary">
             <Link href={`/${profileData.username}`}>
               <span className="active:text-fuchsia-500 hover:text-fuchsia-700">
@@ -68,7 +69,7 @@ export default async function EventsPage({
               </span>
             </Link>
           </span>
-          &apos;s {searchParams.year} events
+          <span className="text-xl">&apos;s {searchParams.year} events</span>
         </h1>
         <div className="flex flex-col gap-y-8">
           {eventosData?.map((evento) => {

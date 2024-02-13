@@ -21,7 +21,7 @@ export default function Feed({ id }: FeedProps) {
       `id, user_id, slfm_id, profiles ( first_name, last_name, username, avatar_url ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
     .order('date', { ascending: false })
-    .range(0, 19)
+    .range(0, 29)
 
   const getEvents = async () => {
     return await eventosSupabaseQuery

@@ -6,6 +6,9 @@ import EventoCard from '@/components/ui/EventoCard'
 import { dateStringToObject } from '@/lib/utils'
 import Ratings from './Ratings'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import DeleteButton from './DeleteButton'
+import { Trash2 } from 'lucide-react'
 
 export default async function EventoPage({
   params,
@@ -58,9 +61,15 @@ export default async function EventoPage({
   return (
     <div>
       <ProfileNavBar userId={userData.user.id} />
-      <div className="p-4 flex flex-col gap-y-4">
+      <div className="p-4 flex flex-col gap-y-4 text-2xl">
         {isOwner ? (
-          <h1>My event</h1>
+          <div className="flex flex-row justify-between items-center font-semibold">
+            <h1>My event</h1>
+            <DeleteButton
+              eventoId={eventoData.id}
+              username={profileData.username!}
+            />
+          </div>
         ) : (
           <h1>
             <span className="font-bold text-primary">
