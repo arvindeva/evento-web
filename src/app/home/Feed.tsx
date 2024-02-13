@@ -100,7 +100,9 @@ export default function Feed({ id }: FeedProps) {
                       href={`/${e.profiles?.username}`}
                       className="font-semibold dark:text-neutral-200 text-base leading-tighter"
                     >
-                      {e.profiles?.username}
+                      <div className="active:text-fuchsia-500">
+                        {e.profiles?.username}
+                      </div>
                     </Link>
                     <div className="text-sm text-neutral-500 dark:text-neutral-300 leading-tighter">
                       {formatDistance(e.date!, new Date())} ago
@@ -108,20 +110,22 @@ export default function Feed({ id }: FeedProps) {
                   </div>
                 </div>
                 <Link href={`/evento/${e.id}`}>
-                  <EventoCard
-                    eventData={{
-                      tour: e.tour,
-                      date: {
-                        day,
-                        month,
-                        year,
-                      },
-                      artist: e.artist,
-                      venue: e.venue,
-                      city: e.city,
-                      slfmId: e.slfm_id,
-                    }}
-                  />
+                  <div className="box-border active:border border-fuchsia-500 rounded-2xl">
+                    <EventoCard
+                      eventData={{
+                        tour: e.tour,
+                        date: {
+                          day,
+                          month,
+                          year,
+                        },
+                        artist: e.artist,
+                        venue: e.venue,
+                        city: e.city,
+                        slfmId: e.slfm_id,
+                      }}
+                    />
+                  </div>
                 </Link>
               </div>
             )

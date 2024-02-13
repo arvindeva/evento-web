@@ -128,7 +128,7 @@ export default function Profile(props: ProfileProps) {
             <div>
               {!props.isOwner ? (
                 <Button
-                  className="text-base rounded-lg bg-purple-600 h-9"
+                  className="text-base rounded-lg bg-purple-600 h-9 active:bg-fuchsia-500"
                   onClick={() => {
                     toast({
                       title: 'Feature is under construction',
@@ -199,7 +199,7 @@ export default function Profile(props: ProfileProps) {
                         <Link
                           href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
                         >
-                          <div className="text-purple-500 font-semibold">
+                          <div className="text-purple-500 font-semibold active:text-fuchsia-500">
                             See All ({evento.events.length})
                           </div>
                         </Link>
@@ -209,16 +209,18 @@ export default function Profile(props: ProfileProps) {
                         <Link
                           href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
                         >
-                          <EventoCard
-                            eventData={{
-                              tour: evento.events[0].tour,
-                              date: dateStringToObject(evento.events[0].date),
-                              artist: evento.events[0].artist,
-                              venue: evento.events[0].venue,
-                              slfmId: evento.events[0].slfm_id,
-                              city: evento.events[0].city,
-                            }}
-                          />
+                          <div className="box-border active:border border-fuchsia-500 rounded-2xl">
+                            <EventoCard
+                              eventData={{
+                                tour: evento.events[0].tour,
+                                date: dateStringToObject(evento.events[0].date),
+                                artist: evento.events[0].artist,
+                                venue: evento.events[0].venue,
+                                slfmId: evento.events[0].slfm_id,
+                                city: evento.events[0].city,
+                              }}
+                            />
+                          </div>
                         </Link>
                       </div>
                     </div>

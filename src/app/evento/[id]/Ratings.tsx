@@ -48,15 +48,17 @@ export default function Ratings({
       </TabsList>
       <div className="bg-neutral-200 dark:bg-neutral-400 h-px" />
       <TabsContent value="rating">
-        <div className="flex flex-col p-2.5 gap-y-4">
+        <div className="flex flex-col p-4 gap-y-4">
           {isOwner ? (
             <h1>My event</h1>
           ) : (
             <h1>
               <span className="font-bold text-primary">
-                <Link href={`/${username}`}>{`${username}`}</Link>
+                <Link href={`/${username}`}>
+                  <span className="active:text-fuchsia-500">{`${username}`}</span>
+                </Link>
               </span>
-              's event
+              &apos;s event
             </h1>
           )}
           <RatingCard

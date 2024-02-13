@@ -64,11 +64,11 @@ export default async function EventoPage({
         ) : (
           <h1>
             <span className="font-bold text-primary">
-              <Link
-                href={`/${profileData.username}`}
-              >{`${profileData.username}`}</Link>
+              <Link href={`/${profileData.username}`}>
+                <span className="active:text-fuchsia-500">{`${profileData.username}`}</span>
+              </Link>
             </span>
-            's event
+            &apos;s event
           </h1>
         )}
         <EventoCard eventData={eventData} />
