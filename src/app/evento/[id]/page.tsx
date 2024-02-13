@@ -74,7 +74,7 @@ export default async function EventoPage({
           <h1>
             <span className="font-bold text-primary">
               <Link href={`/${profileData.username}`}>
-                <span className="active:text-fuchsia-500">{`${profileData.username}`}</span>
+                <span className="active:text-fuchsia-500 hover:text-fuchsia-500">{`${profileData.username}`}</span>
               </Link>
             </span>
             &apos;s event

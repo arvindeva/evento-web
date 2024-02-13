@@ -55,7 +55,7 @@ export default function Ratings({
             <h1>
               <span className="font-bold text-primary">
                 <Link href={`/${username}`}>
-                  <span className="active:text-fuchsia-500">{`${username}`}</span>
+                  <span className="active:text-fuchsia-500 hover:text-fuchsia-500">{`${username}`}</span>
                 </Link>
               </span>
               &apos;s event

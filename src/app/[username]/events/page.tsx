@@ -76,7 +76,7 @@ export default async function EventsPage({
             return (
               <div key={evento.id}>
                 <Link href={`/evento/${evento.id}`}>
-                  <div className="box-border active:border border-fuchsia-500 rounded-2xl">
+                  <div className="box-border active:border hover:border border-fuchsia-500 rounded-2xl">
                     <EventoCard
                       eventData={{
                         date: dateStringToObject(evento.date!),

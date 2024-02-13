@@ -100,7 +100,7 @@ export default function Feed({ id }: FeedProps) {
                       href={`/${e.profiles?.username}`}
                       className="font-semibold dark:text-neutral-200 text-base leading-tighter"
                     >
-                      <div className="active:text-fuchsia-500">
+                      <div className="active:text-fuchsia-500 hover:text-fuchsia-500">
                         {e.profiles?.username}
                       </div>
                     </Link>
@@ -110,7 +110,7 @@ export default function Feed({ id }: FeedProps) {
                   </div>
                 </div>
                 <Link href={`/evento/${e.id}`}>
-                  <div className="box-border active:border border-fuchsia-500 rounded-2xl">
+                  <div className="box-border active:border border-fuchsia-500 rounded-2xl hover:border">
                     <EventoCard
                       eventData={{
                         tour: e.tour,

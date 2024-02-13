@@ -199,7 +199,7 @@ export default function Profile(props: ProfileProps) {
                         <Link
                           href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
                         >
-                          <div className="text-purple-500 font-semibold active:text-fuchsia-500">
+                          <div className="text-purple-500 font-semibold active:text-fuchsia-500 hover:text-fuchsia-500">
                             See All ({evento.events.length})
                           </div>
                         </Link>
@@ -209,7 +209,7 @@ export default function Profile(props: ProfileProps) {
                         <Link
                           href={`/${profileQuery.data?.data?.username}/events?year=${evento.year}`}
                         >
-                          <div className="box-border active:border border-fuchsia-500 rounded-2xl">
+                          <div className="box-border active:border hover:border border-fuchsia-500 rounded-2xl">
                             <EventoCard
                               eventData={{
                                 tour: evento.events[0].tour,

@@ -31,7 +31,7 @@ export default function Burger({ username }: IBurger) {
         </SheetHeader>
 
         <ul className="flex flex-col gap-y-8 mb-8 font-semibold text-xl text-primary dark:text-slate-300">
-          <li className="dark:active:text-indigo-600 active:text-indigo-600">
+          <li className="dark:active:text-fuchsia-600 active:text-fuchsia-600 hover:text-fuchsia-600">
             <SheetClose asChild>
               <Link href="/" className="flex flex-row items-center gap-x-3">
                 <Home />
@@ -39,7 +39,7 @@ export default function Burger({ username }: IBurger) {
               </Link>
             </SheetClose>
           </li>
-          <li className="active:text-indigo-600 dark:active:text-indigo-600">
+          <li className="dark:active:text-fuchsia-600 active:text-fuchsia-600 hover:text-fuchsia-600">
             <SheetClose asChild>
               <Link href="/add" className="flex flex-row items-center gap-x-3">
                 <span>
@@ -50,7 +50,7 @@ export default function Burger({ username }: IBurger) {
             </SheetClose>
           </li>
 
-          <li className="active:text-indigo-600 dark:active:text-indigo-600">
+          <li className="dark:active:text-fuchsia-600 active:text-fuchsia-600 hover:text-fuchsia-600">
             <SheetClose asChild>
               <Link
                 href={`/${username}`}
@@ -61,7 +61,7 @@ export default function Burger({ username }: IBurger) {
               </Link>
             </SheetClose>
           </li>
-          <li className="active:text-indigo-600 dark:active:text-indigo-600">
+          <li className="dark:active:text-fuchsia-600 active:text-fuchsia-600 hover:text-fuchsia-600">
             <SheetClose asChild>
               <Link
                 href={`/settings`}
