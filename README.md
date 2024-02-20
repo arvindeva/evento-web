@@ -2,7 +2,7 @@
 
 This is the repository for the webapp of Evento, a musical events scrapbook where you can collect event memories to share with your friends. The search function is powered by [Setlist.fm](https://www.setlist.fm/)
 
-## [Live Demo](https://evento-web-v0.vercel.app)
+## [Live Demo](https://evento-v0.vercel.app)
 
 Click the link above for a live demo. Guest login is provided on the login page.
 
