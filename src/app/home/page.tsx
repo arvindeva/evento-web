@@ -14,12 +14,16 @@ export default async function Home() {
     redirect('/')
   }
 
-  const { data: profileDataArray, error: profileError } = await supabase
+  const { data: profileData, error: profileError } = await supabase
     .from('profiles')
     .select()
     .eq('id', userData.user.id)
+    .limit(1)
+    .single()
 
-  const profileData = profileDataArray && profileDataArray[0]
+  if (profileError || !profileData) {
+    return <div>error fetching data</div>
+  }
 
   return (
     <div>
@@ -28,14 +32,14 @@ export default async function Home() {
         add
         login={false}
         authed={true}
-        username={profileData!.username}
+        username={profileData.username}
       />
       <div className="mt-4 mb-4 px-4 max-w-lg sm:mx-auto">
         <h2 className="text-[32px] font-bold tracking-tight text-secondary-foreground">
           Hi,{' '}
           <span className="bg-gradient-to-r from-gradient-start  to-gradient-end text-transparent bg-clip-text">
             {' '}
-            {profileData!.username}
+            {profileData.username}
           </span>
           !
         </h2>
@@ -45,7 +49,7 @@ export default async function Home() {
       </div>
 
       <div className="max-w-lg sm:mx-auto">
-        <Feed id={profileData!.id} />
+        <Feed id={profileData.id} />
       </div>
     </div>
   )
