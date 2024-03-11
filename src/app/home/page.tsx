@@ -26,7 +26,7 @@ export default async function Home() {
   }
 
   return (
-    <div>
+    <main>
       <MyNavBar
         profile
         add
@@ -49,8 +49,8 @@ export default async function Home() {
       </div>
 
       <div className="max-w-lg sm:mx-auto">
-        <Feed id={profileData.id} />
+        <Feed />
       </div>
-    </div>
+    </main>
   )
 }

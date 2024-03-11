@@ -37,7 +37,7 @@ export type Database = {
           city: string | null
           country: string | null
           created_at: string
-          date: string | null
+          date: string
           id: number
           performance_rating: number | null
           slfm_id: string | null
@@ -46,6 +46,7 @@ export type Database = {
           venue: string | null
           venue_id: string | null
           venue_rating: number | null
+          year: number | null
         }
         Insert: {
           artist?: string | null
@@ -53,7 +54,7 @@ export type Database = {
           city?: string | null
           country?: string | null
           created_at?: string
-          date?: string | null
+          date: string
           id?: number
           performance_rating?: number | null
           slfm_id?: string | null
@@ -69,7 +70,7 @@ export type Database = {
           city?: string | null
           country?: string | null
           created_at?: string
-          date?: string | null
+          date?: string
           id?: number
           performance_rating?: number | null
           slfm_id?: string | null
@@ -297,6 +298,12 @@ export type Database = {
           object: string
         }
         Returns: Record<string, unknown>
+      }
+      year: {
+        Args: {
+          "": unknown
+        }
+        Returns: number
       }
     }
     Enums: {

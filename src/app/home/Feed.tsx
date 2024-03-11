@@ -3,28 +3,43 @@
 import { createClient } from '@/lib/supabase/client'
 import { useQuery } from '@tanstack/react-query'
 import Skeleton from '@/app/[username]/Skeleton'
-import Card from '@/app/[username]/Card'
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatDistance } from 'date-fns'
 import { motion } from 'framer-motion'
 import EventoCard from '@/components/ui/EventoCard'
-interface FeedProps {
-  id: string
-}
+import { dateStringToObject } from '@/lib/utils'
 
-export default function Feed({ id }: FeedProps) {
+// For later use when we personalize the feed
+// interface FeedProps {
+//   id: string
+// }
+
+const eventsQueryString = `
+  id, 
+  user_id,
+  slfm_id, 
+  profiles ( first_name, last_name, username, avatar_url ), 
+  date, 
+  artist,
+  venue, 
+  city, 
+  country, 
+  tour, 
+  artist_mbid, 
+  venue_id, 
+  performance_rating, 
+  venue_rating
+`
+
+export default function Feed() {
   const supabase = createClient()
-  const eventosSupabaseQuery = supabase
-    .from('eventos')
-    .select(
-      `id, user_id, slfm_id, profiles ( first_name, last_name, username, avatar_url ), date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
-    )
-    .order('date', { ascending: false })
-    .range(0, 29)
-
   const getEvents = async () => {
-    return await eventosSupabaseQuery
+    return await supabase
+      .from('eventos')
+      .select(eventsQueryString)
+      .order('date', { ascending: false })
+      .range(0, 19)
   }
 
   const eventsQuery = useQuery({
@@ -36,8 +51,6 @@ export default function Feed({ id }: FeedProps) {
     console.error(eventsQuery.error.message)
   }
   const eventsList = eventsQuery.data?.data
-
-  console.log(eventsList)
 
   return (
     <div>
@@ -51,34 +64,15 @@ export default function Feed({ id }: FeedProps) {
           transition={{ ease: 'easeOut', duration: 0.5 }}
         >
           {eventsList?.map((e) => {
-            const cardDate = new Date(e!.date!)
-
-            const monthNames = [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-              'August',
-              'September',
-              'October',
-              'November',
-              'December',
-            ]
-
-            const month = monthNames[cardDate.getMonth()].slice(0, 3)
-            const day = cardDate.getDate().toString()
-            const year = cardDate.getFullYear().toString()
+            const { day, month, year } = dateStringToObject(e.date)
             return (
               <div key={e.id} className="flex flex-col gap-y-3">
                 <div className="flex flex-row items-center gap-x-2.5">
                   <div className="rounded-full w-10 h-10 bg-neutral-500 overflow-hidden z-5">
                     <Link href={`/${e.profiles?.username}`}>
-                      {e.profiles!.avatar_url ? (
+                      {e.profiles?.avatar_url ? (
                         <Image
-                          src={e.profiles?.avatar_url!}
+                          src={e.profiles?.avatar_url}
                           alt="you"
                           width={100}
                           height={100}
@@ -105,7 +99,7 @@ export default function Feed({ id }: FeedProps) {
                       </div>
                     </Link>
                     <div className="text-sm text-neutral-500 dark:text-neutral-300 leading-tighter">
-                      {formatDistance(e.date!, new Date())} ago
+                      {formatDistance(e.date, new Date())} ago
                     </div>
                   </div>
                 </div>
