@@ -8,11 +8,7 @@ import Skeleton from '@/app/[username]/Skeleton'
 import Image from 'next/image'
 import EventoCard from '@/components/ui/EventoCard'
 import { useToast } from '@/components/ui/use-toast'
-import {
-  groupEventsByYear,
-  dateStringToObject,
-  EventsByYear,
-} from '@/lib/utils'
+import { groupEventsByYear, dateStringToObject } from '@/lib/utils'
 
 interface ProfileProps {
   profile: {
@@ -22,7 +18,7 @@ interface ProfileProps {
     last_name: string | null
     updated_at: string | null
     username: string | null
-  } | null
+  }
   isOwner: boolean | null
 }
 
@@ -33,7 +29,7 @@ export default function Profile(props: ProfileProps) {
     return await supabase
       .from('profiles')
       .select(`first_name, last_name, username, avatar_url`)
-      .eq('id', props.profile!.id)
+      .eq('id', props.profile.id)
       .single()
   }
 
@@ -42,7 +38,7 @@ export default function Profile(props: ProfileProps) {
     .select(
       `id, user_id, slfm_id, date, artist, venue, city, country, tour, artist_mbid, venue_id, performance_rating, venue_rating`
     )
-    .eq('user_id', props.profile!.id)
+    .eq('user_id', props.profile.id)
     .order('date', { ascending: false })
 
   const getEvents = async () => {
@@ -68,15 +64,15 @@ export default function Profile(props: ProfileProps) {
   }
 
   const eventsList = eventosQuery.data?.data
-  let venue_ids: string[] = []
-  let artist_ids: string[] = []
+  let venue_ids: (string | null)[] = []
+  let artist_ids: (string | null)[] = []
 
   if (eventsList) {
     for (const event of eventsList) {
-      venue_ids.push(event!.venue_id!)
+      venue_ids.push(event.venue_id)
     }
     for (const event of eventsList) {
-      artist_ids.push(event!.artist_mbid!)
+      artist_ids.push(event.artist_mbid)
     }
   }
 
@@ -86,7 +82,7 @@ export default function Profile(props: ProfileProps) {
 
   let final: any[] = []
   if (eventosQuery.data?.data) {
-    final = groupEventsByYear(eventosQuery!.data!.data!)
+    final = groupEventsByYear(eventosQuery.data.data)
     console.log(final)
   }
 
@@ -101,7 +97,7 @@ export default function Profile(props: ProfileProps) {
               <div className="rounded-full w-14 h-14 bg-zinc-500 overflow-hidden">
                 {profileQuery.data?.data?.avatar_url ? (
                   <Image
-                    src={profileQuery.data?.data?.avatar_url!}
+                    src={profileQuery.data?.data?.avatar_url}
                     alt="you"
                     width={100}
                     height={100}

@@ -40,7 +40,7 @@ export default async function AddPage({ searchParams }: IAddPage) {
         add={false}
         login={false}
         authed={true}
-        username={initialData.username!}
+        username={initialData.username}
       />
       {searchParams.error === 'true' && (
         <div className="px-4 my-2">

@@ -21,6 +21,10 @@ export default async function ProfileNavBar({ userId }: IProfileNavBar) {
     .limit(1)
     .single()
 
+  if (profileError || !profileData) {
+    console.error(profileError)
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full flex items-center justify-between px-4 border-b h-14 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Link className="flex items-center" href="/home">
@@ -41,7 +45,7 @@ export default async function ProfileNavBar({ userId }: IProfileNavBar) {
         </Link>
 
         <Button variant="outline" size="icon" className="border-none">
-          <Burger username={profileData?.username!} />
+          <Burger username={profileData?.username || ''} />
         </Button>
       </div>
     </header>

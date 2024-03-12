@@ -122,12 +122,12 @@ export default function EditProfileForm({ userId }: IEditProfileForm) {
           {profileData?.data?.avatar_url && !profileIsPending && (
             <div className="rounded-full w-20 h-20 bg-zinc-500 overflow-hidden">
               <Image
-                src={profileData?.data?.avatar_url!}
+                src={profileData?.data?.avatar_url}
                 alt="you"
                 width={100}
                 height={100}
                 placeholder="blur"
-                blurDataURL={profileData?.data?.avatar_url!}
+                blurDataURL={profileData?.data?.avatar_url}
               />
             </div>
           )}

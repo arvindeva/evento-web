@@ -4,7 +4,6 @@ import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,

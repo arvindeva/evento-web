@@ -6,9 +6,7 @@ import EventoCard from '@/components/ui/EventoCard'
 import { dateStringToObject } from '@/lib/utils'
 import Ratings from './Ratings'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import DeleteButton from './DeleteButton'
-import { Trash2 } from 'lucide-react'
 
 export default async function EventoPage({
   params,
@@ -34,11 +32,17 @@ export default async function EventoPage({
     console.error(eventoError)
     notFound()
   }
+  const userId = eventoData?.user_id
+
+  if (userId === null || userId === undefined) {
+    console.error('User ID not available in eventoData')
+    notFound()
+  }
 
   const { data: profileData, error: profileDataError } = await supabase
     .from('profiles')
     .select()
-    .eq('id', eventoData!.user_id!)
+    .eq('id', userId)
     .single()
 
   if (profileDataError) {
@@ -47,7 +51,7 @@ export default async function EventoPage({
   }
 
   let eventData = {
-    date: dateStringToObject(eventoData.date!),
+    date: dateStringToObject(eventoData.date),
     artist: eventoData?.artist,
     venue: eventoData?.venue,
     slfmId: eventoData?.slfm_id,
@@ -67,7 +71,7 @@ export default async function EventoPage({
             <h1>My event</h1>
             <DeleteButton
               eventoId={eventoData.id}
-              username={profileData.username!}
+              username={profileData.username || ''}
             />
           </div>
         ) : (
@@ -84,9 +88,9 @@ export default async function EventoPage({
       </div>
       <Ratings
         isOwner={isOwner}
-        username={profileData.username!}
-        venueRating={eventoData.venue_rating!}
-        performanceRating={eventoData.performance_rating!}
+        username={profileData.username || ''}
+        venueRating={eventoData.venue_rating || 0}
+        performanceRating={eventoData.performance_rating || 0}
       />
     </div>
   )

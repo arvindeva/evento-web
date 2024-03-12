@@ -1,16 +1,5 @@
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerTrigger,
-} from '@/components/ui/drawer'
-import RatingItem from '@/app/add/details/RatingItems'
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import RatingCard from '@/app/add/details/RatingCard'
-import DrawerHeader from '@/app/add/details/DrawerHeader'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 interface IRatings {
