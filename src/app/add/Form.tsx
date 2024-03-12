@@ -72,7 +72,7 @@ export default function Form() {
     setFirstLoadingStatus(Status.PENDING)
     const data = await ky
       .get(
-        `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selected}?p=1`
+        `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selected}&p=1`
       )
       .json<EventsResponse>()
     setCurrentPage(1)
@@ -98,7 +98,7 @@ export default function Form() {
       setFirstLoadingStatus(Status.PENDING)
       const data = await ky
         .get(
-          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events/${selectedMbid}`
+          `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&p=1`
         )
         .json<EventsResponse>()
       setEventResults(data)
@@ -115,7 +115,7 @@ export default function Form() {
       setFirstLoadingStatus(Status.PENDING)
       const data = await ky
         .get(
-          `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
+          `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
         )
         .json<EventsResponse>()
       console.log(data)
@@ -138,11 +138,11 @@ export default function Form() {
     const url =
       year === ''
         ? `${
-            process.env.NEXT_PUBLIC_EVENTO_API_URL
-          }/search/events/${selectedMbid}?p=${currentPage + 1}`
+            process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL
+          }/api/events?artistMbid=${selectedMbid}?p=${currentPage + 1}`
         : `${
-            process.env.NEXT_PUBLIC_EVENTO_API_URL
-          }/search/events?artistMbid=${selectedMbid}&year=${year}&p=${
+            process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL
+          }/api/events?artistMbid=${selectedMbid}&year=${year}&p=${
             currentPage + 1
           }`
     try {
