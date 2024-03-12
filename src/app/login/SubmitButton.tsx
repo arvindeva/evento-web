@@ -2,7 +2,6 @@
 
 import { useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
-import ClipLoader from 'react-spinners/ClipLoader'
 
 export default function SubmitButton() {
   const { pending } = useFormStatus()

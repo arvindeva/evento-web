@@ -1,9 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Plus, UserRound } from 'lucide-react'
-import { useTheme } from 'next-themes'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 
 export default function NavBar() {
