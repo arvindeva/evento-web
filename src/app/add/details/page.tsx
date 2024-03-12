@@ -51,9 +51,15 @@ export default async function DetailsPage({
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/event/${searchParams.event_id}`
+    `https://api.setlist.fm/rest/1.0/setlist/${searchParams.event_id}`,
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        'x-api-key': process.env.SETLIST_FM_API_KEY || '',
+      },
+    }
   )
-
   const data: EventResponse = await res.json()
 
   const { data: userEventData, error: userEventError } = await supabase
