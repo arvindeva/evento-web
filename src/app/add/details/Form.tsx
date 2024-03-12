@@ -27,6 +27,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import MyCard from '@/app/add/details/Card'
+import { useMutation } from '@tanstack/react-query'
 
 export interface FormProps {
   eventData: Setlist
@@ -67,7 +68,20 @@ export default function Form({ eventData }: FormProps) {
   })
 
   const { toast } = useToast()
-
+  const mutation = useMutation({
+    mutationFn: async (payload: any) => {
+      return await supabase.from('eventos').insert(payload).select()
+    },
+    onError: (error) => {
+      toast({
+        description: `Error: ${error.message}`,
+        variant: 'destructive',
+      })
+    },
+    onSuccess: () => {
+      router.push('/home')
+    },
+  })
   // submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const datearray = eventData!.date!.split('-')
@@ -87,20 +101,7 @@ export default function Form({ eventData }: FormProps) {
       performance_rating: parseInt(values.performance),
       venue_rating: parseInt(values.venue),
     }
-    const { data, error } = await supabase
-      .from('eventos')
-      .insert(payload)
-      .select()
-
-    if (error) {
-      toast({
-        description: `Error: ${error.message}`,
-        variant: 'destructive',
-      })
-    }
-    if (data) {
-      router.push('/home')
-    }
+    mutation.mutate(payload)
   }
 
   const performanceStarRating = form.watch('performance')

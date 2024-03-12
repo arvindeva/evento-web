@@ -124,7 +124,7 @@ export default function Form() {
   async function fetchMoreEvents() {
     const url =
       year === ''
-        ? `/api/events?artistMbid=${selectedMbid}?p=${currentPage + 1}`
+        ? `/api/events?artistMbid=${selectedMbid}&p=${currentPage + 1}`
         : `/api/events?artistMbid=${selectedMbid}&year=${year}&p=${
             currentPage + 1
           }`
