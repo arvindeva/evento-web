@@ -76,17 +76,13 @@ function SearchResults({
 
   const enabled = !!debouncedSearchQuery
 
-  const mockDelay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms))
   const searchProductsByName = async (query: string) => {
-    const data = await ky
-      .get(
-        `${process.env.NEXT_PUBLIC_EVENTO_API_URL}/search/artists/${query
-          .split(' ')
-          .join('-')}`
-      )
-      .json<SearchResponse>()
-
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/artists?term=${query
+        .split(' ')
+        .join('-')}`
+    )
+    const data = await res.json()
     return data
   }
 

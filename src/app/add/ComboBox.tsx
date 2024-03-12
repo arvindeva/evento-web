@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { ChevronsUpDown, Search as SearchIcon } from 'lucide-react'
 
