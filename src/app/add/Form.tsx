@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { FilterX, ChevronRight } from 'lucide-react'
 import Combobox from './ComboBox'
-import ky from 'ky'
 import {
   Select,
   SelectContent,
@@ -43,13 +42,6 @@ interface Setlist {
   }
 }
 
-// interface NotFoundResponse {
-//   code: string;
-//   status: string;
-//   message: string;
-//   timestamp: string;
-// }
-
 enum Status {
   PENDING = 'pending',
   INACTIVE = 'inactive',
@@ -70,11 +62,10 @@ export default function Form() {
     setSelectedMbid(selected)
     setYear('')
     setFirstLoadingStatus(Status.PENDING)
-    const data = await ky
-      .get(
-        `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selected}&p=1`
-      )
-      .json<EventsResponse>()
+
+    const res = await fetch(`/api/events?artistMbid=${selected}&p=1`)
+    const data = await res.json()
+
     setCurrentPage(1)
     setEventResults(data)
     setEventList(data.setlist)
@@ -96,11 +87,10 @@ export default function Form() {
     setYear(newYear)
     if (newYear === '') {
       setFirstLoadingStatus(Status.PENDING)
-      const data = await ky
-        .get(
-          `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&p=1`
-        )
-        .json<EventsResponse>()
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&p=1`
+      )
+      const data = await res.json()
       setEventResults(data)
       setEventList(data.setlist)
       const difference = data.total - data.page * data.itemsPerPage
@@ -113,11 +103,10 @@ export default function Form() {
       setFirstLoadingStatus(Status.INACTIVE)
     } else {
       setFirstLoadingStatus(Status.PENDING)
-      const data = await ky
-        .get(
-          `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
-        )
-        .json<EventsResponse>()
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
+      )
+      const data = await res.json()
       console.log(data)
       setEventResults(data)
       setEventList(data.setlist)
@@ -146,7 +135,8 @@ export default function Form() {
             currentPage + 1
           }`
     try {
-      const data = await ky.get(url).json<EventsResponse>()
+      const res = await fetch(url)
+      const data = await res.json()
       console.log(data)
       setEventResults(data)
       setEventList([...eventList, ...data.setlist])
@@ -192,8 +182,8 @@ export default function Form() {
 
         {eventResults?.total! > 0 ? (
           <div className="text-slate-500 text-base dark:text-slate-300 mb-2 mt-4">
-            <span className="font-semibold">{eventResults!.total!}</span>{' '}
-            results found
+            <span className="font-semibold">{eventResults?.total}</span> results
+            found
           </div>
         ) : (
           <div className="text-slate-500 text-base dark:text-slate-300 mb-2 mt-4">
