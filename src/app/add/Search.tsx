@@ -77,11 +77,7 @@ function SearchResults({
   const enabled = !!debouncedSearchQuery
 
   const searchProductsByName = async (query: string) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/artists?term=${query
-        .split(' ')
-        .join('-')}`
-    )
+    const res = await fetch(`/api/artists?term=${query.split(' ').join('-')}`)
     const data = await res.json()
     return data
   }

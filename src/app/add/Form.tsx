@@ -87,9 +87,7 @@ export default function Form() {
     setYear(newYear)
     if (newYear === '') {
       setFirstLoadingStatus(Status.PENDING)
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&p=1`
-      )
+      const res = await fetch(`/api/events?artistMbid=${selectedMbid}&p=1`)
       const data = await res.json()
       setEventResults(data)
       setEventList(data.setlist)
@@ -104,7 +102,7 @@ export default function Form() {
     } else {
       setFirstLoadingStatus(Status.PENDING)
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL}/api/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
+        `/api/events?artistMbid=${selectedMbid}&year=${newYear}&p=1`
       )
       const data = await res.json()
       console.log(data)
@@ -126,12 +124,8 @@ export default function Form() {
   async function fetchMoreEvents() {
     const url =
       year === ''
-        ? `${
-            process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL
-          }/api/events?artistMbid=${selectedMbid}?p=${currentPage + 1}`
-        : `${
-            process.env.NEXT_PUBLIC_ROUTE_HANDLER_URL
-          }/api/events?artistMbid=${selectedMbid}&year=${year}&p=${
+        ? `/api/events?artistMbid=${selectedMbid}?p=${currentPage + 1}`
+        : `/api/events?artistMbid=${selectedMbid}&year=${year}&p=${
             currentPage + 1
           }`
     try {
