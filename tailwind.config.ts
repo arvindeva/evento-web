@@ -13,21 +13,22 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
       screens: {
-        '2xl': '1400px',
+        '2xl': '1200px',
       },
     },
     fontSize: {
       xs: '10px',
       sm: '12px',
-      base: '14px',
-      lg: '16px',
-      xl: '18px',
-      '2xl': '20px',
-      '3xl': '24px',
-      '4xl': '',
-      '5xl': '3.052rem',
+      base: '16px',
+      lg: '18px',
+      xl: '20px',
+      '2xl': '24px',
+      '3xl': '32px',
+      '4xl': '40px',
+      '5xl': '48px',
+      '6xl': '56px',
+      '7xl': '64px',
     },
 
     fontFamily: {
@@ -44,6 +45,8 @@ const config = {
         'gradient-start': 'hsl(var(--gradient-start))',
         'gradient-mid': 'hsl(var(--gradient-mid))',
         'gradient-end': 'hsl(var(--gradient-end))',
+        'evento-light-purple': '#ad93f2',
+        'evento-purple': '#8347E0',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',

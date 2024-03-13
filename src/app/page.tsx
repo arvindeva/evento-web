@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import MyNavBar from '@/components/ui/MyNavBar'
 import Hero from '@/components/ui/Hero'
+import NewNavBar from '@/components/ui/NewNavBar'
 
 export default async function Home() {
   const cookieStore = cookies()
@@ -14,14 +15,8 @@ export default async function Home() {
   }
 
   return (
-    <main className="">
-      <MyNavBar
-        profile={false}
-        add={false}
-        login
-        authed={false}
-        username={null}
-      />
+    <main>
+      <NewNavBar />
       <Hero />
     </main>
   )

@@ -1,31 +1,54 @@
 'use client'
 
-import { Button } from './button'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { ibm_plex_serif } from '@/app/fonts'
+import { cn } from '@/lib/utils'
 
 export default function Hero() {
   return (
-    <motion.div
-      className="p-4 text-center mt-24"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ ease: 'easeOut', duration: 0.5 }}
-    >
-      <h2 className="text-2xl ">
-        <span className="font-bold text-5xl md:text-[90px] bg-gradient-to-r from-gradient-start  to-red-600 text-transparent bg-clip-text">
-          Evento
-        </span>{' '}
-        <span className="bg-gradient-to-r from-red-600  to-gradient-start text-transparent bg-clip-text">
-          v.0.0
-        </span>
-        <p className="md:text-[42px] dark:text-slate-300">development build</p>
-      </h2>
-      <div className="mt-8">
-        <Link href="/login">
-          <Button className="text-2xl p-8 w-72">Login</Button>
+    <section className="container flex flex-col lg:flex-row lg:justify-between lg:py-16 px-4">
+      <div className="flex justify-center flex-col space-y-6">
+        <div className=" text-7xl font-bold tracking-tight leading-snug">
+          <h1>
+            Capture{' '}
+            <span className={cn('italic', ibm_plex_serif.className)}>
+              memories,
+            </span>
+          </h1>
+          <h1>
+            share{' '}
+            <span className={cn('italic', ibm_plex_serif.className)}>
+              feedback,
+            </span>
+          </h1>
+          <h1>
+            relive{' '}
+            <span className={cn('italic', ibm_plex_serif.className)}>
+              events.
+            </span>
+          </h1>
+        </div>
+        <p>
+          Join a community of event enthusiasts, where every memory matters.
+        </p>
+        <Link href="">
+          <Image
+            src="/svg/app-store-badge.svg"
+            alt="app store badge"
+            width={156}
+            height={60}
+          />
         </Link>
       </div>
-    </motion.div>
+      <div className="">
+        <Image
+          alt="app mockup"
+          src="/images/landing-page/hero-mockup.png"
+          width={550}
+          height={550}
+        ></Image>
+      </div>
+    </section>
   )
 }
