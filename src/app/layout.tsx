@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ReactQueryProvider } from '@/components/react-query-provider'
 import { Toaster } from '@/components/ui/toaster'
+import NextTopLoader from 'nextjs-toploader'
 
 export const metadata: Metadata = {
   title: 'Evento - v.0.0',
@@ -31,6 +32,13 @@ export default function RootLayout({
             disableTransitionOnChange
             enableSystem
           >
+            <NextTopLoader
+              color="#B103FC"
+              initialPosition={0.08}
+              showSpinner={false}
+              crawlSpeed={200}
+              height={3}
+            />
             {children}
           </ThemeProvider>
           <Toaster />
