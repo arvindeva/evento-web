@@ -29,7 +29,7 @@ export default function Hero() {
             </span>
           </h1>
         </div>
-        <p className="text-base lg:text-lg">
+        <p>
           Join a community of event enthusiasts, where every memory matters.
         </p>
         <Link href="">

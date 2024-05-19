@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import MyNavBar from '@/components/ui/MyNavBar'
 import Hero from '@/components/ui/Hero'
 import NewNavBar from '@/components/ui/NewNavBar'
 

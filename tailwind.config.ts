@@ -18,8 +18,8 @@ const config = {
       },
     },
     fontSize: {
-      xs: '10px',
-      sm: '12px',
+      xs: '12px',
+      sm: '14px',
       base: '16px',
       lg: '18px',
       xl: '20px',
