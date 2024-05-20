@@ -5,7 +5,7 @@ import Hero from '@/components/ui/Hero'
 import Gallery from '@/components/landing-page/gallery'
 import Rating from '@/components/landing-page/rating'
 import Ratings from '@/components/landing-page/ratings'
-
+import Capture from '@/components/landing-page/capture'
 import NewNavBar from '@/components/ui/NewNavBar'
 
 export default async function Home() {
@@ -24,6 +24,7 @@ export default async function Home() {
       <Gallery />
       <Rating />
       <Ratings />
+      <Capture />
     </main>
   )
 }
