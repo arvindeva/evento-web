@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function Ratings() {
   return (
-    <section className="bg-gradient-to-t from-purple-100">
+    <section className="bg-gradient-to-t from-purple-100 dark:from-inherit">
       <div className="container flex flex-col-reverse gap-y-8 lg:flex-row gap-x-8 py-12 lg:py-16 px-4">
         <div className="lg:w-1/2">
           <Image

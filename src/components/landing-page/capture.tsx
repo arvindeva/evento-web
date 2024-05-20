@@ -29,7 +29,12 @@ export default function Capture() {
           </div>
           <span>or</span>
           <Link href="/login">
-            <Button variant="outline">Register</Button>
+            <Button
+              variant="outline"
+              className="dark:text-white dark:border-none"
+            >
+              Register
+            </Button>
           </Link>
           <span>on Web.</span>
         </div>
