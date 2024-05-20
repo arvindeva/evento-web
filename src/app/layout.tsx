@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { ReactQueryProvider } from '@/components/react-query-provider'
 import { Toaster } from '@/components/ui/toaster'
 import NextTopLoader from 'nextjs-toploader'
+import Footer from '@/components/ui/footer'
 
 export const metadata: Metadata = {
   title: 'Evento - v.0.0',
@@ -40,6 +41,7 @@ export default function RootLayout({
               height={3}
             />
             {children}
+            <Footer />
           </ThemeProvider>
           <Toaster />
         </body>
