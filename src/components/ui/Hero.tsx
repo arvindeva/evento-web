@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 
 export default function Hero() {
   return (
-    <section className="container flex flex-col gap-y-8 lg:flex-row lg:justify-between py-8 lg:py-16 px-4">
+    <section className="container flex flex-col gap-y-8 lg:flex-row lg:justify-between py-12 lg:py-16 px-4">
       <div className="flex justify-center flex-col space-y-6">
         <div className="text-3xl lg:text-7xl font-bold tracking-tight leading-snug">
           <h1>
